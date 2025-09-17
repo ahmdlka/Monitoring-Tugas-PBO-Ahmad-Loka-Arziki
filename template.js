@@ -1,36 +1,46 @@
-// Fungsi untuk memuat komponen HTML
-async function loadComponent(id, file) {
-    try {
-        const response = await fetch(file);
-        const content = await response.text();
-        document.getElementById(id).innerHTML = content;
-        
-        // Setelah komponen dimuat, update navigasi aktif
-        if (id === 'header-container') {
-            updateActiveNav();
-        }
-    } catch (error) {
-        console.error(`Error loading ${file}:`, error);
-    }
+class SpecialHeader extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+      <!-- Header -->
+        <header>
+            <div class="container">
+                <h1>Dokumentasi Tugas PBO</h1>
+                <p>Ahmad Loka Arziki – 5025241044</p>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="container nav-container">
+                <div class="logo">PBO Journal</div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="profil.html">Profil</a>
+                </div>
+            </div>
+        </nav>
+    `;
+  }
 }
 
-// Fungsi untuk menandai navigasi aktif
-function updateActiveNav() {
-    const currentPage = window.location.pathname.split('/').pop();
-    const navLinks = document.querySelectorAll('.nav-links a');
-    
-    navLinks.forEach(link => {
-        const linkPage = link.getAttribute('href');
-        if (currentPage === linkPage || 
-            (currentPage === '' && linkPage === 'index.html') ||
-            (currentPage === 'index.html' && linkPage === 'index.html')) {
-            link.classList.add('active');
-        }
-    });
+class SpecialFooter extends HTMLElement {
+  connectedCallback() {
+    this.innerHTML = `
+     <!-- Footer -->
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="container">
+                <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+            </div>
+        </footer>
+    `;
+  }
 }
 
-// Memuat header dan footer ketika halaman siap
-document.addEventListener('DOMContentLoaded', function() {
-    loadComponent('header-container', 'components/header.html');
-    loadComponent('footer-container', 'components/footer.html');
-});
+customElements.define('header-container', SpecialHeader);
+customElements.define('footer-container', SpecialFooter);
