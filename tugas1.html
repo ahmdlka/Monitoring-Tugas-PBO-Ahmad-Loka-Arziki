@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="#">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> > <a href="index.html">Tugas</a> > Tugas 1: Pengenalan Class dan Object
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 1: Pengenalan Class dan Object</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 12 September 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 3 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Class</span>
+          <span class="tag">Object</span>
+          <span class="tag">Java</span>
+          <span class="tag">Dasar Pemrograman</span>
+        </div>
+      </div>
+
+      <img src="https://placehold.co/800x400/3b49df/white?text=Screenshot+Program+Utama" alt="Screenshot Program Utama" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada tugas pertama mata kuliah Pemrograman Berbasis Objek, saya mempelajari konsep dasar class dan object. 
+          Tugas ini mengharuskan saya untuk membuat program sederhana dalam bahasa Java yang mendemonstrasikan 
+          pembuatan class, pembuatan object, serta penggunaan atribut dan method.
+        </p>
+
+        <h3>Implementasi Program</h3>
+        <p>
+          Saya membuat program sederhana untuk mendefinisikan class <code>Mahasiswa</code> 
+          dengan atribut nama, NRP, dan jurusan. Class ini juga memiliki method untuk menampilkan data mahasiswa.
+        </p>
+
+        <div class="code-block">
+          <pre>public class Mahasiswa {
+    // Atribut
+    private String nama;
+    private String nrp;
+    private String jurusan;
+    
+    // Constructor
+    public Mahasiswa(String nama, String nrp, String jurusan) {
+        this.nama = nama;
+        this.nrp = nrp;
+        this.jurusan = jurusan;
+    }
+    
+    // Method untuk menampilkan data
+    public void tampilkanData() {
+        System.out.println("Nama: " + this.nama);
+        System.out.println("NRP: " + this.nrp);
+        System.out.println("Jurusan: " + this.jurusan);
+    }
+    
+    // Main method untuk testing
+    public static void main(String[] args) {
+        Mahasiswa mhs1 = new Mahasiswa("Ahmad Loka", "5025211234", "Informatika");
+        mhs1.tampilkanData();
+    }
+}</pre>
+        </div>
+
+        <h3>Gambar Implementasi</h3>
+        <p>Berikut adalah beberapa screenshot dari implementasi program:</p>
+
+        <div class="image-gallery">
+          <div class="gallery-item">
+            <img src="https://placehold.co/400x200/3b49df/white?text=Kode+Program" alt="Kode Program">
+            <div class="gallery-caption">Gambar 1: Kode program class Mahasiswa</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://placehold.co/400x200/3b49df/white?text=Output+Program" alt="Output Program">
+            <div class="gallery-caption">Gambar 2: Output dari program</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://placehold.co/400x200/3b49df/white?text=Diagram+Class" alt="Diagram Class">
+            <div class="gallery-caption">Gambar 3: Diagram class Mahasiswa</div>
+          </div>
+          <div class="gallery-item">
+            <img src="https://placehold.co/400x200/3b49df/white?text=Struktur+Project" alt="Struktur Project">
+            <div class="gallery-caption">Gambar 4: Struktur project Java</div>
+          </div>
+        </div>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+          Dalam pemrograman berorientasi objek, <code>class</code> adalah blueprint atau cetakan untuk membuat object. 
+          Class mendefinisikan atribut (data) dan method (perilaku) yang dimiliki oleh object. 
+          <code>Object</code> adalah instance dari class yang memiliki state (nilai atribut) dan behavior (method) tertentu.
+        </p>
+
+        <p>
+          Pada contoh program di atas, <code>Mahasiswa</code> adalah class yang memiliki tiga atribut (nama, nrp, jurusan) 
+          dan satu method (tampilkanData). Object <code>mhs1</code> adalah instance dari class Mahasiswa dengan nilai 
+          atribut tertentu.
+        </p>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Tugas ini memberikan pemahaman dasar tentang class dan object dalam pemrograman berorientasi objek. 
+            Saya belajar bagaimana mendefinisikan class dengan atribut dan method, membuat object dari class, 
+            serta mengakses atribut dan method dari object. Konsep ini merupakan fondasi penting untuk mempelajari 
+            konsep-konsep OOP yang lebih advanced seperti inheritance, polymorphism, dan encapsulation.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>
