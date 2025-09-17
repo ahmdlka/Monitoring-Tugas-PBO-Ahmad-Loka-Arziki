@@ -25,7 +25,7 @@
       <a href="index.html" class="logo">PBO Journal</a>
       <div class="nav-links">
         <a href="index.html">Home</a>
-        <a href="#">Profil</a>
+        <a href="profil.html">Profil</a>
       </div>
     </div>
   </nav>
@@ -34,16 +34,16 @@
   <main class="container">
     <!-- Breadcrumb -->
     <div class="breadcrumb">
-      <a href="index.html">Home</a> > <a href="index.html">Tugas</a> > Tugas 1: Pengenalan Class dan Object
+      <a href="index.html">Home</a> > Tugas 2: Pengenalan BlueJ dan Implementasi TicketMachine
     </div>
 
     <!-- Article Detail -->
     <article class="article-detail">
       <div class="article-header">
-        <h2>Tugas 1: Pengenalan Class dan Object</h2>
+        <h2>Tugas 2: Pengenalan BlueJ dan Implementasi TicketMachine</h2>
         <div class="meta">
-          <div class="date"><i class="far fa-calendar"></i> 12 September 2025</div>
-          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 3 hari</div>
+          <div class="date"><i class="far fa-calendar"></i> 9 September 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 hari</div>
         </div>
         <div class="tags">
           <span class="tag">Class</span>
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <img src="https://placehold.co/800x400/3b49df/white?text=Screenshot+Program+Utama" alt="Screenshot Program Utama" class="main-image">
+      <img src="images/tugas2.1.png" alt="Screenshot Program Utama" class="main-image">
 
       <div class="article-content">
         <h3>Deskripsi Tugas</h3>
@@ -65,73 +65,250 @@
 
         <h3>Implementasi Program</h3>
         <p>
-          Saya membuat program sederhana untuk mendefinisikan class <code>Mahasiswa</code> 
-          dengan atribut nama, NRP, dan jurusan. Class ini juga memiliki method untuk menampilkan data mahasiswa.
+          Saya membuat program sederhana untuk mendefinisikan class <code>TicketMachine</code> 
+          dengan atribut price, balance, dan total. Class ini juga memiliki method....
         </p>
 
         <div class="code-block">
-          <pre>public class Mahasiswa {
-    // Atribut
-    private String nama;
-    private String nrp;
-    private String jurusan;
-    
-    // Constructor
-    public Mahasiswa(String nama, String nrp, String jurusan) {
-        this.nama = nama;
-        this.nrp = nrp;
-        this.jurusan = jurusan;
+          <pre>/**
+* TicketMachine models a ticket machine that issues
+* flat-fare tickets.
+* The price of a ticket is specified via the constructor.
+* Instances will check to ensure that a user only enters
+* sensible amounts of money, and will only print a ticket
+* if enough money has been input.
+*/
+public class TicketMachine{
+    // The price of a ticket from this machine.
+    private int price;
+    // The amount of money entered by a customer so far.
+    private int balance;
+    // The total amount of money collected by this machine.
+    private int total;
+    /**
+    * Create a machine that issues tickets of the given price.
+    */
+    public TicketMachine(int cost){
+        price = cost;
+        balance = 0;
+        total = 0;
+        }
+    /**
+    * Return the price of a ticket.
+    */
+    public int getPrice(){
+        return price;
+        }
+    /**
+    * Return the amount of money already inserted for the
+    * next ticket.
+    */
+    public int getBalance(){
+        return balance;
+        }
+    /**
+    * Receive an amount of money in cents from a customer.
+    * Check that the amount is sensible.
+    */
+    public void insertMoney(int amount){
+        if(amount > 0) {
+            balance = balance + amount;
+        }
+        else {
+            System.out.println("Use a positive amount rather than: " + 
+            amount);
+        }
     }
-    
-    // Method untuk menampilkan data
-    public void tampilkanData() {
-        System.out.println("Nama: " + this.nama);
-        System.out.println("NRP: " + this.nrp);
-        System.out.println("Jurusan: " + this.jurusan);
+    /**
+    * Print a ticket if enough money has been inserted, and
+    * reduce the current balance by the ticket price. Print
+    * an error message if more money is required.
+    */
+    public void printTicket(){
+        if(balance >= price) {
+            // Simulate the printing of a ticket.
+            System.out.println("##################");
+            System.out.println("# The BlueJ Line");
+            System.out.println("# Ticket");
+            System.out.println("# " + price + " cents.");
+            System.out.println("##################");
+            System.out.println();
+            
+            // Update the total collected with the price.
+            
+            total = total + price;
+            
+            // Reduce the balance by the price.
+            balance = balance - price;
+        }
+        else {
+            System.out.println("You must insert at least: " + 
+            (price - balance) + " cents.");
+        }
     }
-    
-    // Main method untuk testing
-    public static void main(String[] args) {
-        Mahasiswa mhs1 = new Mahasiswa("Ahmad Loka", "5025211234", "Informatika");
-        mhs1.tampilkanData();
-    }
+    /**
+    * Return the money in the balance.
+    * The balance is cleared.
+    */
+    public int refundBalance(){
+        int amountToRefund;
+        amountToRefund = balance;
+        balance = 0;
+        return amountToRefund;
+        }
 }</pre>
         </div>
 
-        <h3>Gambar Implementasi</h3>
+        <h3>Gambar Implementasi di BlueJ</h3>
         <p>Berikut adalah beberapa screenshot dari implementasi program:</p>
 
         <div class="image-gallery">
-          <div class="gallery-item">
-            <img src="https://placehold.co/400x200/3b49df/white?text=Kode+Program" alt="Kode Program">
-            <div class="gallery-caption">Gambar 1: Kode program class Mahasiswa</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://placehold.co/400x200/3b49df/white?text=Output+Program" alt="Output Program">
-            <div class="gallery-caption">Gambar 2: Output dari program</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://placehold.co/400x200/3b49df/white?text=Diagram+Class" alt="Diagram Class">
-            <div class="gallery-caption">Gambar 3: Diagram class Mahasiswa</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://placehold.co/400x200/3b49df/white?text=Struktur+Project" alt="Struktur Project">
-            <div class="gallery-caption">Gambar 4: Struktur project Java</div>
-          </div>
+        <div class="gallery-item">
+            <img src="images/GenerateNewTicket.png" alt="Constructor TicketMachine">
+            <div class="gallery-caption">Gambar 1: Tampilan ketika generate new ticket di BlueJ</div>
+            <p class="gallery-explanation">
+            Pada tahap ini saya membuat objek baru dari class <code>TicketMachine</code> dengan harga tiket 500.
+            Constructor <code>TicketMachine(int cost)</code> dijalankan, sehingga <code>price</code> bernilai 500,
+            sementara <code>balance</code> dan <code>total</code> masih bernilai 0.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/NewTicketCreated.png" alt="New Ticket Created">
+            <div class="gallery-caption">Gambar 2: Tampilan setelah generate new ticket di BlueJ</div>
+            <p class="gallery-explanation">
+            Objek baru berhasil dibuat. Nilai atribut awal sesuai constructor: <code>price = 500</code>,
+            <code>balance = 0</code>, dan <code>total = 0</code>. Ini membuktikan bahwa constructor berjalan dengan benar.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/getPriceFunction.png" alt="getPrice Function">
+            <div class="gallery-caption">Gambar 3: Tampilan function getPrice di BlueJ</div>
+            <p class="gallery-explanation">
+            Fungsi <code>getPrice()</code> mengembalikan harga tiket. Karena saya membuat objek dengan harga 500,
+            maka saat fungsi ini dipanggil, hasilnya adalah 500.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/printTicketFunction.png" alt="printTicket Function">
+            <div class="gallery-caption">Gambar 4: Tampilan function printTicket di BlueJ</div>
+            <p class="gallery-explanation">
+            Fungsi <code>printTicket()</code> mencoba mencetak tiket. Namun, karena <code>balance</code> masih 0,
+            program menampilkan pesan bahwa saya perlu memasukkan uang sebesar 500.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/insertMoneyFunction.png" alt="insertMoney Function">
+            <div class="gallery-caption">Gambar 5: Tampilan function insertMoney di BlueJ</div>
+            <p class="gallery-explanation">
+            Fungsi <code>insertMoney(1000)</code> saya jalankan untuk memasukkan uang sebesar 1000.
+            Balance bertambah dari 0 menjadi 1000 karena input valid (positif).
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/getBalanceFunction.png" alt="getBalance Function">
+            <div class="gallery-caption">Gambar 6: Tampilan function getBalance di BlueJ</div>
+            <p class="gallery-explanation">
+            Fungsi <code>getBalance()</code> menunjukkan jumlah uang yang sudah dimasukkan.
+            Setelah saya memasukkan 1000, fungsi ini mengembalikan nilai 1000.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/printTicketFunction2.png" alt="printTicket Function after insertMoney">
+            <div class="gallery-caption">Gambar 7: Tampilan function printTicket setelah melakukan insertMoney di BlueJ</div>
+            <p class="gallery-explanation">
+            Kali ini saya memanggil <code>printTicket()</code> lagi. Karena balance 1000 ≥ price 500,
+            tiket berhasil dicetak. <code>balance</code> berkurang menjadi 500, sedangkan <code>total</code> bertambah menjadi 500.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/refundBalanceFunction.png" alt="refundBalance Function">
+            <div class="gallery-caption">Gambar 8: Tampilan function refundBalance di BlueJ</div>
+            <p class="gallery-explanation">
+            Fungsi <code>refundBalance()</code> saya jalankan untuk mengembalikan sisa uang.
+            Balance sebesar 500 dikembalikan, lalu balance menjadi 0.
+            </p>
+        </div>
+
+        <div class="gallery-item">
+            <img src="images/getBalanceFunction2.png" alt="getBalance Function after refundBalance">
+            <div class="gallery-caption">Gambar 9: Tampilan function getBalance setelah melakukan refundBalance di BlueJ</div>
+            <p class="gallery-explanation">
+            Setelah refund, saya memanggil <code>getBalance()</code> lagi. Hasilnya adalah 0,
+            sesuai dengan state terbaru dari objek TicketMachine.
+            </p>
+        </div>
         </div>
 
         <h3>Penjelasan Konsep</h3>
         <p>
-          Dalam pemrograman berorientasi objek, <code>class</code> adalah blueprint atau cetakan untuk membuat object. 
-          Class mendefinisikan atribut (data) dan method (perilaku) yang dimiliki oleh object. 
-          <code>Object</code> adalah instance dari class yang memiliki state (nilai atribut) dan behavior (method) tertentu.
+        Program <code>TicketMachine</code> ini dibuat untuk mendemonstrasikan konsep dasar
+        <i>class</i> dan <i>object</i> dalam pemrograman berorientasi objek.
+        <code>class</code> berfungsi sebagai cetakan yang berisi atribut dan method, 
+        sedangkan <code>object</code> merupakan instance dari class tersebut dengan nilai data nyata.
         </p>
 
         <p>
-          Pada contoh program di atas, <code>Mahasiswa</code> adalah class yang memiliki tiga atribut (nama, nrp, jurusan) 
-          dan satu method (tampilkanData). Object <code>mhs1</code> adalah instance dari class Mahasiswa dengan nilai 
-          atribut tertentu.
+        Pada class <code>TicketMachine</code> terdapat tiga atribut utama:
+        <ul>
+            <li><b>price</b> → menyimpan harga tiket yang ditentukan saat object dibuat melalui constructor.</li>
+            <li><b>balance</b> → menyimpan jumlah uang yang sudah dimasukkan oleh pengguna.</li>
+            <li><b>total</b> → mencatat total uang yang sudah terkumpul dari semua transaksi.</li>
+        </ul>
         </p>
+
+        <p>
+        Constructor <code>TicketMachine(int cost)</code> digunakan untuk menginisialisasi harga tiket
+        dan mengatur nilai awal <code>balance</code> serta <code>total</code> menjadi 0.
+        Dalam implementasi di BlueJ, saya membuat ticket baru dengan harga 500.
+        </p>
+
+        <p>
+        Method <code>getPrice()</code> berfungsi mengembalikan harga tiket,
+        sementara <code>getBalance()</code> mengembalikan jumlah uang yang sudah dimasukkan.
+        Saat diuji di BlueJ, <code>getPrice()</code> menampilkan nilai 500 sesuai dengan harga tiket,
+        dan <code>getBalance()</code> menampilkan perubahan nilai balance setiap kali uang dimasukkan.
+        </p>
+
+        <p>
+        Method <code>insertMoney(int amount)</code> memungkinkan pengguna memasukkan uang.
+        Program juga memeriksa apakah nilai yang dimasukkan positif, sehingga tidak bisa 
+        memasukkan jumlah negatif. Pada implementasi, saya memasukkan uang sebesar 1000,
+        sehingga <code>balance</code> menjadi 1000.
+        </p>
+
+        <p>
+        Method <code>printTicket()</code> hanya mencetak tiket jika <code>balance</code>
+        cukup atau lebih besar dari <code>price</code>. Jika syarat terpenuhi, tiket akan tercetak
+        dengan menampilkan harga, kemudian nilai <code>total</code> bertambah sebesar <code>price</code>,
+        dan <code>balance</code> dikurangi dengan <code>price</code>.
+        Pada uji coba, setelah memasukkan 1000, saya mencetak tiket sekali.
+        Hasilnya tiket berhasil dicetak, <code>balance</code> berkurang menjadi 500,
+        dan <code>total</code> bertambah 500.
+        </p>
+
+        <p>
+        Method <code>refundBalance()</code> digunakan untuk mengembalikan sisa uang yang ada
+        pada <code>balance</code> dan kemudian mengosongkan balance tersebut.
+        Pada implementasi, setelah saya mencetak tiket sekali, saya memanggil 
+        <code>refundBalance()</code>. Hasilnya, sisa balance sebesar 500 dikembalikan,
+        dan balance menjadi 0.
+        </p>
+
+        <p>
+        Dari keseluruhan implementasi di BlueJ, terlihat jelas bagaimana sebuah class
+        mendefinisikan atribut dan perilaku, lalu object dari class tersebut dapat digunakan
+        untuk menjalankan fungsi-fungsi nyata. Interaksi antara <code>insertMoney()</code>, 
+        <code>printTicket()</code>, dan <code>refundBalance()</code> menunjukkan bagaimana 
+        perubahan state pada object terjadi sesuai dengan aksi pengguna.
+        </p>
+
 
         <div class="conclusion">
           <h3>Kesimpulan</h3>
@@ -139,7 +316,7 @@
             Tugas ini memberikan pemahaman dasar tentang class dan object dalam pemrograman berorientasi objek. 
             Saya belajar bagaimana mendefinisikan class dengan atribut dan method, membuat object dari class, 
             serta mengakses atribut dan method dari object. Konsep ini merupakan fondasi penting untuk mempelajari 
-            konsep-konsep OOP yang lebih advanced seperti inheritance, polymorphism, dan encapsulation.
+            konsep-konsep PBO yang lebih advanced seperti inheritance, polymorphism, dan encapsulation.
           </p>
         </div>
       </div>

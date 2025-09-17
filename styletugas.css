@@ -235,6 +235,16 @@
       color: var(--text-light);
     }
 
+    .gallery-explanation {
+      margin: 10px 0;        /* jarak atas-bawah */
+      padding: 0 15px;       /* jarak kanan-kiri biar nggak mepet */
+      text-align: left;   /* biar rapi rata kanan-kiri */
+      line-height: 1.6;      /* jarak antar baris lebih enak dibaca */
+      color: #444;           /* teks lebih kalem */
+      font-size: 0.95rem;    /* agak kecil biar beda dari caption */
+    }
+
+
     .code-block {
       background: #f8f8f8;
       padding: 1.5rem;
@@ -318,6 +328,12 @@
     .social-links a:hover {
       color: var(--primary-color);
     }
+
+    .article-content ul {
+      margin-left: 1.5rem;  /* geser posisi list */
+      padding-left: 1rem;   /* kontrol jarak bullet */
+    }
+
 
     /* Responsive design */
     @media (max-width: 768px) {
