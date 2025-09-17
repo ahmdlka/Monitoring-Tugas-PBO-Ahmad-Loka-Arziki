@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dokumentasi Tugas PBO - Ahmad Loka Arziki</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
+<!-- template.html -->
+<template id="header-template">
   <!-- Header -->
   <header>
     <div class="container">
@@ -29,18 +18,19 @@
       </div>
     </div>
   </nav>
+</template>
 
-  <!-- Konten Utama -->
-  <main class="container">
-    <!-- Konten halaman akan ditambahkan di sini -->
-    {{content}}
-  </main>
-
+<template id="footer-template">
   <!-- Footer -->
   <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
     <div class="container">
-      <p>&copy; 2023 Ahmad Loka Arziki - Tugas Pemrograman Berorientasi Objek</p>
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
     </div>
   </footer>
-</body>
-</html>
+</template>
