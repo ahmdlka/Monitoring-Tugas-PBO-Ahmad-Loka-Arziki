@@ -10,7 +10,7 @@ class SpecialHeader extends HTMLElement {
         </header>
 
         <!-- Navigation -->
-        style="position: sticky;>
+        style="position: sticky;">
             <div class="container nav-container">
                 <div class="logo">PBO Journal</div>
                 <div class="nav-links">
