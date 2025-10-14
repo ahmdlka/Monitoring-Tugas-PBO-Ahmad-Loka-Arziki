@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <meta name="description" content="Dokumentasi Tugas 3 Pemrograman Berbasis Objek: Implementasi Clock dengan GUI dan Number Display - Ahmad Loka Arziki">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> > Tugas 3: Implementasi Clock dengan GUI dan Number Display
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 3: Implementasi Clock dengan GUI dan Number Display</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 16 September 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 2 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Class</span>
+          <span class="tag">Object</span>
+          <span class="tag">Java</span>
+          <span class="tag">GUI</span>
+          <span class="tag">Swing</span>
+        </div>
+      </div>
+
+      <img src="images/clock_gui_main.png" alt="Screenshot GUI Program Clock" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada tugas ketiga mata kuliah Pemrograman Berbasis Objek, saya mempelajari konsep composition, encapsulation, dan penggunaan GUI dengan Swing di Java. 
+          Tugas ini mengharuskan saya untuk membuat program simulasi jam digital menggunakan BlueJ, yang terdiri dari tiga class utama: 
+          <code>Clock</code> untuk antarmuka grafis, <code>ClockDisplay</code> untuk logika tampilan waktu, dan <code>NumberDisplay</code> untuk perhitungan angka dengan limit rollover. 
+          Program ini mendemonstrasikan bagaimana class saling bergantung untuk membentuk sistem lengkap, dengan interaksi melalui method dan object instantiation.
+        </p>
+
+        <h3>Implementasi Program</h3>
+        <p>
+          Saya mengimplementasikan program Clock dengan tiga class yang saling terkait. Class <code>Clock</code> membuat GUI menggunakan JFrame dan Swing components, 
+          yang memanggil method dari <code>ClockDisplay</code> untuk update waktu. Class <code>ClockDisplay</code> menggunakan dua instance <code>NumberDisplay</code> 
+          (untuk hours dan minutes) untuk menghitung dan memformat waktu dalam string "HH:MM". Class <code>NumberDisplay</code> menangani operasi dasar seperti increment 
+          dengan rollover. Berikut adalah kode lengkap untuk masing-masing class:
+        </p>
+
+        <h4>Class Clock</h4>
+        <div class="code-block">
+          <pre>import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+public class Clock {
+    private JFrame frame;
+    private JLabel label;
+    private ClockDisplay clock;
+    private boolean clockRunning = false;
+    private TimerThread timerThread;
+
+    public Clock() {
+        makeFrame();
+        clock = new ClockDisplay();
+    }
+
+    private void start() {
+        if (!clockRunning) {
+            clockRunning = true;
+            timerThread = new TimerThread();
+            timerThread.start();
+        }
+    }
+
+    private void stop() {
+        clockRunning = false;
+    }
+
+    private void step() {
+        clock.timeTick();
+        label.setText(clock.getTime());
+    }
+
+    private void showAbout() {
+        JOptionPane.showMessageDialog(frame,
+            "Clock Version 1.0\nA simple interface for the clock display project",
+            "About Clock", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void quit() {
+        System.exit(0);
+    }
+
+    private void makeFrame() {
+        frame = new JFrame("Clock");
+        JPanel contentPane = (JPanel) frame.getContentPane();
+        contentPane.setBorder(new EmptyBorder(1, 60, 1, 60));
+        contentPane.setLayout(new BorderLayout(12, 12));
+        
+        label = new JLabel("00:00", SwingConstants.CENTER);
+        Font displayFont = label.getFont().deriveFont(96.0f);
+        label.setFont(displayFont);
+        contentPane.add(label, BorderLayout.CENTER);
+        
+        JPanel toolbar = new JPanel();
+        toolbar.setLayout(new GridLayout(1, 0));
+        JButton startButton = new JButton("Start");
+        startButton.addActionListener(e -> start());
+        toolbar.add(startButton);
+        
+        JButton stopButton = new JButton("Stop");
+        stopButton.addActionListener(e -> stop());
+        toolbar.add(stopButton);
+        
+        JButton stepButton = new JButton("Step");
+        stepButton.addActionListener(e -> step());
+        toolbar.add(stepButton);
+        JPanel flow = new JPanel();
+
+        flow.add(toolbar);
+        contentPane.add(flow, BorderLayout.SOUTH);
+
+        frame.pack();
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(d.width / 2 - frame.getWidth() / 2, d.height / 2 - frame.getHeight() / 2);
+        frame.setVisible(true);
+
+        makeMenuBar(frame);
+
+    }
+    
+    private void makeMenuBar(JFrame frame) {
+
+        final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+        JMenuBar menubar = new JMenuBar();
+        frame.setJMenuBar(menubar);
+        JMenu menu;
+        JMenuItem item;
+
+
+        menu = new JMenu("File");
+
+        menubar.add(menu);
+
+
+        item = new JMenuItem("About Clock...");
+
+        item.addActionListener(e -> showAbout());
+
+        menu.add(item);
+
+
+        menu.addSeparator();
+
+
+        item = new JMenuItem("Quit");
+
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
+
+        item.addActionListener(e -> quit());
+
+        menu.add(item);
+
+    }
+    
+    class TimerThread extends Thread {
+        public void run() {
+            while (clockRunning) {
+
+                step();
+
+                pause();
+
+            }
+        }
+        private void pause() {
+            try {
+
+                Thread.sleep(1000);
+
+            } catch (InterruptedException exc) {}
+        }
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Hello World");
+        SwingUtilities.invokeLater(() -> new Clock());
+
+    }
+}</pre>
+        </div>
+
+        <h4>Class ClockDisplay</h4>
+        <div class="code-block">
+          <pre>public class ClockDisplay{
+    private NumberDisplay hours;
+    private NumberDisplay minutes;
+    private String displayString; // simulates the actual display
+    /**
+    * Constructor for ClockDisplay objects. This constructor
+    * creates a new clock set at 00:00.
+    */
+    public ClockDisplay()
+    {
+        hours = new NumberDisplay(24);
+        minutes = new NumberDisplay(60);
+        updateDisplay();
+    }
+    /**
+    * Constructor for ClockDisplay objects. This constructor
+    * creates a new clock set at the time specified by the
+    * parameters.
+    */
+    public ClockDisplay(int hour, int minute)
+    {
+        hours = new NumberDisplay(24);
+        minutes = new NumberDisplay(60);
+        setTime(hour, minute);
+    }
+    /**
+    * This method should get called once every minute - it
+    * makes the clock display go one minute forward.
+    */
+    public void timeTick()
+    {
+        minutes.increment();
+            if(minutes.getValue() == 0) { // it just rolled over!
+            hours.increment();
+        }
+        updateDisplay();
+    }
+    /**
+    * Set the time of the display to the specified hour and
+    * minute.
+    */
+    public void setTime(int hour, int minute)
+    {
+        hours.setValue(hour);
+        minutes.setValue(minute);
+        updateDisplay();
+    }
+    /**
+    * Return the current time of this display in the format
+    * HH:MM.
+    */
+    public String getTime()
+    {
+        return displayString;
+    }
+    /**
+    * Update the internal string that represents the
+    * display.
+    */
+    private void updateDisplay()
+    {
+        displayString = hours.getDisplayValue() + ":" 
+        + minutes.getDisplayValue();
+    }
+}</pre>
+        </div>
+
+        <h4>Class NumberDisplay</h4>
+        <div class="code-block">
+          <pre>public class NumberDisplay
+{
+    private int limit;
+    private int value;
+    /**
+    * Constructor for objects of class NumberDisplay
+    */
+    public NumberDisplay(int rollOverLimit)
+    {
+        limit = rollOverLimit;
+        value = 0;
+    }
+    /**
+    * Return the current value.
+    */
+    public int getValue()
+    {
+        return value;
+    }
+    /**
+    * Set the value of the display to the new specified
+    * value. If the new value is less than zero or over the
+    * limit, do nothing.
+    */
+    public void setValue(int replacementValue)
+    {
+        if((replacementValue >= 0) &&
+        (replacementValue < limit)) {
+            value = replacementValue;
+        }
+    }
+    /**
+    * Return the display value (that is, the current value
+    * as a two-digit String. If the value is less than ten,
+    * it will be padded with a leading zero).
+    */
+    public String getDisplayValue()
+    {
+        if(value < 10) {
+            return "0" + value;
+        }
+        else {
+            return "" + value;
+        }
+    }
+    /**
+    * Increment the display value by one, rolling over to zero if
+    * the limit is reached.
+    */
+    public void increment()
+    {
+        value = (value + 1) % limit;
+    }
+}</pre>
+        </div>
+
+        <h3>Gambar Implementasi di BlueJ</h3>
+        <p>Berikut adalah beberapa screenshot dari implementasi program di BlueJ, termasuk pembuatan objek dan pemanggilan method:</p>
+
+        <div class="image-gallery">
+          <div class="gallery-item">
+            <img src="images/clock_create.png" alt="Pembuatan Objek Clock">
+            <div class="gallery-caption">Gambar 1: Pembuatan objek Clock di BlueJ</div>
+            <p class="gallery-explanation">
+              Pada tahap ini, saya membuat objek baru dari class <code>Clock</code> menggunakan constructor default. GUI JFrame muncul dengan tampilan awal "00:00" dan tombol Start, Stop, Step.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/clockdisplay_default.png" alt="Constructor ClockDisplay Default">
+            <div class="gallery-caption">Gambar 2: Constructor ClockDisplay default di BlueJ</div>
+            <p class="gallery-explanation">
+              Objek <code>ClockDisplay</code> dibuat dengan constructor kosong, menginisialisasi hours (limit 24) dan minutes (limit 60) ke 0. <code>getTime()</code> mengembalikan "00:00".
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/clockdisplay_settime.png" alt="setTime pada ClockDisplay">
+            <div class="gallery-caption">Gambar 3: Pemanggilan setTime(12, 30) di BlueJ</div>
+            <p class="gallery-explanation">
+              Method <code>setTime(12, 30)</code> dipanggil, mengatur hours ke 12 dan minutes ke 30. <code>getTime()</code> sekarang mengembalikan "12:30".
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/timetick.png" alt="timeTick pada ClockDisplay">
+            <div class="gallery-caption">Gambar 4: Pemanggilan timeTick() di BlueJ</div>
+            <p class="gallery-explanation">
+              Method <code>timeTick()</code> dipanggil, menambah minutes menjadi 31. Jika minutes rollover ke 0, hours juga bertambah. Tampilan update ke "12:31".
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/numberdisplay_hours.png" alt="NumberDisplay untuk Hours">
+            <div class="gallery-caption">Gambar 5: Objek NumberDisplay untuk hours (limit 24) di BlueJ</div>
+            <p class="gallery-explanation">
+              Instance <code>NumberDisplay(24)</code> untuk hours. <code>getValue()</code> menunjukkan nilai saat ini, dan <code>increment()</code> menambah dengan rollover ke 0 setelah 23.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/numberdisplay_minutes.png" alt="NumberDisplay untuk Minutes">
+            <div class="gallery-caption">Gambar 6: Objek NumberDisplay untuk minutes (limit 60) di BlueJ</div>
+            <p class="gallery-explanation">
+              Instance <code>NumberDisplay(60)</code> untuk minutes. <code>getDisplayValue()</code> mengembalikan string dua digit, seperti "05" untuk nilai 5.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/step_button.png" alt="Step Button di GUI">
+            <div class="gallery-caption">Gambar 7: Pemanggilan step() melalui tombol di GUI BlueJ</div>
+            <p class="gallery-explanation">
+              Di GUI, tombol "Step" dipanggil, yang memanggil <code>timeTick()</code> dan update label. Waktu berubah satu menit secara manual.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/start_thread.png" alt="Start Thread untuk Auto Tick">
+            <div class="gallery-caption">Gambar 8: Menjalankan Start untuk timer thread di BlueJ</div>
+            <p class="gallery-explanation">
+              Tombol "Start" dijalankan, memulai <code>TimerThread</code> yang memanggil <code>step()</code> setiap detik. Jam berjalan otomatis hingga di-stop.
+            </p>
+          </div>
+
+        </div>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+          Program Clock ini mendemonstrasikan konsep dasar Pemrograman Berbasis Objek seperti composition (class ClockDisplay menggabungkan dua NumberDisplay), encapsulation (atribut privat diakses via method), dan modularitas (NumberDisplay reusable untuk jam/menit). Berikut penjelasan garis besar setiap method pada ketiga class:
+        </p>
+
+        <h4>Class Clock</h4>
+        <p>
+          Class <code>Clock</code> merupakan class utama yang bertanggung jawab untuk membuat antarmuka grafis (GUI) menggunakan Swing di Java. Class ini mengintegrasikan class <code>ClockDisplay</code> untuk menampilkan waktu dan mengelola interaksi pengguna melalui tombol dan menu. Ia menggunakan konsep encapsulation untuk menyembunyikan detail GUI di balik method privat, serta composition dengan membuat instance dari <code>ClockDisplay</code> dan thread untuk simulasi waktu berjalan.
+        </p>
+        <ul>
+          <li><b>Constructor <code>Clock()</code></b> → Menginisialisasi GUI dengan memanggil <code>makeFrame()</code> untuk membuat jendela utama (JFrame) berjudul "Clock". Ia juga membuat instance baru dari <code>ClockDisplay</code> untuk mengelola logika waktu. Frame ditempatkan di tengah layar dan dibuat visible. Ini adalah entry point utama untuk program, yang dipanggil dari <code>main()</code>.</li>
+          <li><b>Method <code>start()</code> (privat)</b> → Memulai jam berjalan secara otomatis. Jika jam belum berjalan (<code>clockRunning</code> false), ia mengatur flag menjadi true dan membuat serta menjalankan thread baru (<code>TimerThread</code>) yang akan memanggil <code>step()</code> setiap detik. Ini mensimulasikan jam real-time.</li>
+          <li><b>Method <code>stop()</code> (privat)</b> → Menghentikan jam dengan mengatur flag <code>clockRunning</code> menjadi false. Thread akan berhenti setelah loop selesai, sehingga waktu tidak lagi bertambah otomatis.</li>
+          <li><b>Method <code>step()</code> (privat)</b> → Melangkahkan waktu satu kali secara manual. Ia memanggil <code>timeTick()</code> pada instance <code>ClockDisplay</code> untuk menambah satu menit, kemudian memperbarui label tampilan dengan string waktu.</li>
+          <li><b>Method <code>getTime()</code></b> → Digunakan untuk mode step-by-step atau oleh thread.</li>
+          <li><b>Method <code>showAbout()</code> (privat)</b> → Menampilkan dialog informasi (JOptionPane) tentang program, termasuk versi dan deskripsi singkat. Dipanggil dari menu "About Clock...".</li>
+          <li><b>Method <code>quit()</code> (privat)</b> → Menutup program dengan memanggil <code>System.exit(0)</code>. Dipanggil dari menu "Quit" dengan shortcut keyboard (Ctrl+Q atau Cmd+Q).</li>
+          <li><b>Method <code>makeFrame()</code> (privat)</b> → Membangun elemen GUI utama. Membuat JFrame, panel konten dengan border kosong, label tengah untuk menampilkan waktu (dengan font besar 96pt), dan toolbar bawah dengan tombol Start, Stop, dan Step. Tombol-tombol ini terhubung ke event listener (ActionListener) yang memanggil method terkait. Frame di-pack dan diposisikan di tengah layar, serta menu bar dibuat dengan <code>makeMenuBar()</code>.</li>
+          <li><b>Method <code>makeMenuBar(JFrame frame)</code> (privat)</b> → Membuat menu bar atas dengan submenu "File" yang berisi item "About Clock..." (memanggil <code>showAbout()</code>) dan "Quit" (dengan accelerator key). Menggunakan shortcut mask sistem untuk kompatibilitas cross-platform.</li>
+          <li><b>Inner Class <code>TimerThread extends Thread</code></b> → Thread khusus untuk menjalankan jam secara periodik. Method <code>run()</code> berloop selama <code>clockRunning</code> true, memanggil <code>step()</code> untuk update waktu, dan <code>pause()</code> untuk tidur 1 detik (menggunakan <code>Thread.sleep(1000)</code>). Ini menangani concurrency agar GUI tidak freeze saat jam berjalan.</li>
+          <li><b>Method <code>main(String[] args)</code> (static)</b> → Entry point program. Mencetak "Hello World" ke console (untuk testing), kemudian menjalankan <code>Clock()</code> di event dispatch thread Swing (<code>SwingUtilities.invokeLater()</code>) untuk memastikan GUI thread-safe.</li>
+        </ul>
+
+        <h4>Class ClockDisplay</h4>
+        <p>
+          Class <code>ClockDisplay</code> mengelola logika tampilan waktu dalam format HH:MM, menggunakan dua instance dari <code>NumberDisplay</code> (satu untuk jam dengan limit 24, satu untuk menit dengan limit 60). Ini adalah class inti untuk simulasi jam digital, yang menerapkan konsep composition (menggabungkan <code>NumberDisplay</code>) dan encapsulation (menyembunyikan detail perhitungan di balik method publik). Class ini dipanggil oleh <code>Clock</code> untuk mendapatkan string waktu dan men-update state.
+        </p>
+        <ul>
+          <li><b>Constructor <code>ClockDisplay()</code></b> → Constructor default yang membuat jam baru dimulai dari 00:00. Membuat instance <code>NumberDisplay</code> untuk hours (limit 24) dan minutes (limit 60), kemudian memanggil <code>updateDisplay()</code> untuk menginisialisasi string tampilan awal.</li>
+          <li><b>Constructor <code>ClockDisplay(int hour, int minute)</code></b> → Constructor overload yang membuat jam dengan waktu spesifik. Seperti constructor default, ia membuat instance <code>NumberDisplay</code>, tapi langsung memanggil <code>setTime(hour, minute)</code> untuk mengatur nilai awal hours dan minutes, diikuti <code>updateDisplay()</code>.</li>
+          <li><b>Method <code>timeTick()</code> (publik)</b> → Menambah satu menit ke jam, mensimulasikan tick setiap menit. Memanggil <code>increment()</code> pada minutes; jika minutes mencapai 0 (rollover), maka <code>increment()</code> juga dipanggil pada hours. Akhirnya, <code>updateDisplay()</code> dipanggil untuk refresh string tampilan. Ini adalah method kunci yang dipanggil oleh <code>Clock</code> untuk update waktu.</li>
+          <li><b>Method <code>setTime(int hour, int minute)</code> (publik)</b> → Mengatur waktu jam ke nilai spesifik. Memanggil <code>setValue()</code> pada hours dan minutes dengan parameter yang diberikan (hanya jika valid, i.e., dalam limit). Kemudian, <code>updateDisplay()</code> untuk memperbarui string. Berguna untuk reset atau inisialisasi waktu manual.</li>
+          <li><b>Method <code>getTime()</code> (publik)</b> → Mengembalikan string waktu saat ini dalam format "HH:MM" (dari <code>displayString</code>). Ini dipanggil oleh <code>Clock</code> untuk update label GUI, memastikan tampilan selalu sinkron dengan state internal.</li>
+          <li><b>Method <code>updateDisplay()</code> (privat)</b> → Memperbarui string internal <code>displayString</code> dengan menggabungkan <code>getDisplayValue()</code> dari hours dan minutes, dipisahkan oleh tanda ":" (misalnya, "12:05"). Dipanggil setiap kali state berubah untuk menjaga konsistensi tampilan.</li>
+        </ul>
+
+        <h4>Class NumberDisplay</h4>
+        <p>
+          Class <code>NumberDisplay</code> adalah class dasar (foundation) untuk menangani tampilan dan perhitungan angka tunggal dengan limit rollover (misalnya, 0-23 untuk jam atau 0-59 untuk menit). Ia menerapkan encapsulation dengan menyembunyikan variabel <code>limit</code> dan <code>value</code> di balik method, serta konsep modularitas agar bisa digunakan ulang di <code>ClockDisplay</code>. Class ini fokus pada operasi sederhana seperti increment dan format string dua digit.
+        </p>
+        <ul>
+          <li><b>Constructor <code>NumberDisplay(int rollOverLimit)</code></b> → Menginisialisasi display dengan batas maksimum (limit) yang diberikan, seperti 24 untuk jam atau 60 untuk menit. Mengatur <code>value</code> awal menjadi 0. Ini memungkinkan fleksibilitas saat dibuat instance di <code>ClockDisplay</code>.</li>
+          <li><b>Method <code>getValue()</code> (publik)</b> → Mengembalikan nilai integer saat ini (<code>value</code>). Berguna untuk membaca state internal tanpa memodifikasinya, misalnya untuk debugging atau validasi di class lain.</li>
+          <li><b>Method <code>setValue(int replacementValue)</code> (publik)</b> → Mengatur nilai baru ke <code>value</code>, tapi hanya jika nilai tersebut valid (antara 0 dan limit-1). Jika tidak valid (negatif atau melebihi limit), tidak ada perubahan. Ini mencegah state tidak konsisten, dipanggil oleh <code>ClockDisplay</code> saat set waktu.</li>
+          <li><b>Method <code>getDisplayValue()</code> (publik)</b> → Mengembalikan nilai sebagai string dua digit (HH atau MM). Jika <code>value</code> < 10, tambahkan "0" di depan (padding, misalnya "05"); jika >=10, konversi langsung ke string (misalnya "12"). Ini memastikan format tampilan konsisten untuk GUI, dipanggil oleh <code>ClockDisplay</code> untuk build string waktu.</li>
+          <li><b>Method <code>increment()</code> (publik)</b> → Menambah <code>value</code> sebanyak 1, dengan rollover ke 0 jika mencapai limit (menggunakan modulo <code>% limit</code>). Misalnya, untuk menit: 59 +1 menjadi 0. Ini adalah operasi dasar untuk simulasi waktu berjalan, dipanggil oleh <code>ClockDisplay</code> di <code>timeTick()</code>.</li>
+        </ul>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Tugas ini memperkuat pemahaman tentang composition dan encapsulation dalam PBO. Class <code>Clock</code> mengintegrasikan GUI dengan logika inti dari <code>ClockDisplay</code>, yang bergantung pada <code>NumberDisplay</code> untuk perhitungan modular. Implementasi ini menunjukkan bagaimana object saling berinteraksi untuk membentuk aplikasi lengkap, termasuk penggunaan thread untuk simulasi real-time. Konsep ini menjadi dasar untuk proyek PBO lebih kompleks seperti inheritance atau polymorphism di tugas selanjutnya.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="tugas2.html" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="tugas4.html" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>
+  

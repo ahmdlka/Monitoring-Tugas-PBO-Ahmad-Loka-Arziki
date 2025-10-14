@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <meta name="description" content="Dokumentasi Tugas 4 Pemrograman Berbasis Objek: Implementasi Aplikasi Formulir Rencana Studi (FRS) dengan Java - Ahmad Loka Arziki">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> > Tugas 4: Implementasi Aplikasi Formulir Rencana Studi (FRS) dengan Java
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 4: Implementasi Aplikasi Formulir Rencana Studi (FRS) dengan Java</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 13 Oktober 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 3 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Class</span>
+          <span class="tag">Object</span>
+          <span class="tag">Java</span>
+          <span class="tag">Encapsulation</span>
+          <span class="tag">Composition</span>
+          <span class="tag">ArrayList</span>
+          <span class="tag">Console Application</span>
+        </div>
+      </div>
+
+      <img src="images/frs_main.png" alt="Screenshot Antarmuka Aplikasi FRS" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Tugas keempat mata kuliah Pemrograman Berbasis Objek ini berfokus pada pengembangan aplikasi Formulir Rencana Studi (FRS) berbasis konsol menggunakan Java. Aplikasi ini dirancang untuk mensimulasikan sistem pengelolaan rencana studi mahasiswa di lingkungan akademik, dengan fitur utama seperti login mahasiswa, melihat daftar kelas, mengambil kelas, menghapus kelas, dan menampilkan FRS. Program ini terdiri dari lima kelas utama: <code>Mahasiswa</code>, <code>Dosen</code>, <code>Kelas</code>, <code>Matakuliah</code>, dan <code>DisplayFRS</code>, serta kelas <code>Main</code> sebagai antarmuka konsol. Tugas ini menekankan penerapan konsep PBO seperti encapsulation, composition, dan penggunaan struktur data <code>ArrayList</code> untuk mengelola koleksi data.
+        </p>
+        <p>
+          Aplikasi ini memungkinkan mahasiswa untuk mengelola rencana studi mereka dengan batasan seperti kapasitas kelas, maksimum SKS (24 SKS), dan validasi kelas yang sudah diambil. Implementasi ini mencerminkan sistem nyata seperti yang digunakan di universitas, dengan antarmuka berbasis teks yang sederhana namun fungsional.
+        </p>
+
+        <h3>Arsitektur Program</h3>
+        <p>
+          Program ini dirancang dengan pendekatan modular, di mana setiap kelas memiliki tanggung jawab spesifik. <code>Mahasiswa</code> mengelola data pribadi dan operasi FRS, <code>Dosen</code> menyimpan informasi pengajar, <code>Matakuliah</code> mendefinisikan mata kuliah, <code>Kelas</code> mengelola detail kelas dan daftar mahasiswa, serta <code>DisplayFRS</code> berfungsi sebagai pengelola data dan autentikasi. Kelas <code>Main</code> menyediakan antarmuka pengguna berbasis konsol dengan menu interaktif.
+        </p>
+
+        <h3>Implementasi Program</h3>
+        <p>
+          Aplikasi ini diimplementasikan menggunakan Java dengan BlueJ sebagai lingkungan pengembangan. Setiap kelas dirancang untuk memisahkan logika bisnis dari antarmuka pengguna, memastikan modularitas dan kemudahan pemeliharaan. Berikut adalah kode lengkap untuk masing-masing kelas beserta penjelasan:
+        </p>
+
+        <h4>Class Mahasiswa</h4>
+        <div class="code-block">
+          <pre>
+import java.util.*;
+class Mahasiswa {
+    private String nama;
+    private String nrp;
+    private String password;
+    private int sks = 0;
+    private int maxSKS = 24;
+    private List<Kelas> daftarKelas = new ArrayList<>();
+
+    public Mahasiswa(String nama, String nrp, String password) {
+        this.nama = nama;
+        this.nrp = nrp;
+        this.password = password;
+    }
+
+    public String getNrp() { return nrp; }
+    public String getPassword() { return password; }
+    public String getNama() { return nama; }
+
+    public boolean ambilKelas(Kelas k) {
+        if (hitungTotalSKS() + k.getMatakuliah().getSks() <= maxSKS && !k.sudahDiambil(this) && k.cekKapasitas()) {
+            daftarKelas.add(k);
+            k.tambahMahasiswa(this);
+            sks = sks + k.getMatakuliah().getSks();
+            return true;
+        }
+        return false;
+    }
+
+    public boolean dropKelas(Kelas k) {
+        if (daftarKelas.remove(k)) {
+            k.hapusMahasiswa(this);
+            sks = sks - k.getMatakuliah().getSks();
+            return true;
+        }
+        return false;
+    }
+
+    private int hitungTotalSKS() {
+        return sks;
+    }
+
+    public void tampilkanFRS() {
+        System.out.println("FRS " + nama + " (" + nrp + "):");
+        for (Kelas k : daftarKelas) {
+            System.out.println(" " + k.getKodeKelas() 
+                               + "  " + k.getKodeRuangan() 
+                               + " " + k.getMatakuliah().getNama()
+                               + " " + k.getKelas()
+                               + " (" + k.getMatakuliah().getSks() + " SKS)"
+                               + " [" + k.getJadwal() + "]");
+        }
+        System.out.println("Total SKS: " + hitungTotalSKS());
+    }
+}
+          </pre>
+        </div>
+
+        <h4>Class Dosen</h4>
+        <div class="code-block">
+          <pre>
+import java.util.*;
+class Dosen {
+    private String nama;
+    private String nip;
+
+    public Dosen(String nama, String nip) {
+        this.nama = nama;
+        this.nip = nip;
+    }
+
+    public String getNama() { return nama; }
+}
+          </pre>
+        </div>
+
+        <h4>Class Kelas</h4>
+        <div class="code-block">
+          <pre>
+import java.util.*;
+class Kelas {
+    private String kodeKelas;
+    private String kodeRuangan;
+    private String kelas;
+    private Dosen dosenPengampu;
+    private String jadwal;
+    private int kapasitas;
+    private Matakuliah matakuliah;
+    private List<Mahasiswa> daftarMahasiswa = new ArrayList<>();
+
+    public Kelas(String kodeKelas, String kodeRuangan, String kelas, Matakuliah matkul, Dosen dosen, String jadwal, int kapasitas) {
+        this.kodeKelas = kodeKelas;
+        this.kodeRuangan = kodeRuangan;
+        this.kelas = kelas;
+        this.matakuliah = matkul;
+        this.dosenPengampu = dosen;
+        this.jadwal = jadwal;
+        this.kapasitas = kapasitas;
+    }
+
+    public boolean cekKapasitas() {
+        return daftarMahasiswa.size() < kapasitas;
+    }
+
+    public void tambahMahasiswa(Mahasiswa m) {
+        daftarMahasiswa.add(m);
+    }
+    
+    public boolean sudahDiambil(Mahasiswa m) {
+        return daftarMahasiswa.contains(m);
+    }
+
+    public void hapusMahasiswa(Mahasiswa m) {
+        daftarMahasiswa.remove(m);
+    }
+
+    public String getKodeKelas() { return kodeKelas; }
+    public String getKodeRuangan() { return kodeRuangan; }
+    public String getKelas() { return kelas; }
+    public Matakuliah getMatakuliah() { return matakuliah; }
+    public String getJadwal() { return jadwal; }
+    public Dosen getDosen() { return dosenPengampu; }
+}
+          </pre>
+        </div>
+
+        <h4>Class Matakuliah</h4>
+        <div class="code-block">
+          <pre>
+import java.util.*;
+class Matakuliah {
+    private String nama;
+    private int sks;
+
+    public Matakuliah(String nama, int sks) {
+        this.nama = nama;
+        this.sks = sks;
+    }
+
+    public String getNama() { return nama; }
+    public int getSks() { return sks; }
+}
+          </pre>
+        </div>
+
+        <h4>Class DisplayFRS</h4>
+        <div class="code-block">
+          <pre>
+import java.util.*;
+class DisplayFRS {
+    private List<Mahasiswa> daftarMahasiswa = new ArrayList<>();
+    private List<Dosen> daftarDosen = new ArrayList<>();
+    private List<Matakuliah> daftarMatakuliah = new ArrayList<>();
+    private List<Kelas> daftarKelas = new ArrayList<>();
+    public DisplayFRS() {
+        // Data awal dosen
+        Dosen d1 = new Dosen("Dr. Budi", "12345");
+        Dosen d2 = new Dosen("Dr. Siti", "67890");
+        Dosen d3 = new Dosen("Ir. Andi", "11223");
+        Dosen d4 = new Dosen("Prof. Lina", "33445");
+        Dosen d5 = new Dosen("Dr. Rudi", "55667");
+        
+        daftarDosen.add(d1);
+        daftarDosen.add(d2);
+        daftarDosen.add(d3);
+        daftarDosen.add(d4);
+        daftarDosen.add(d5);
+        
+        // Data awal matakuliah
+        Matakuliah mk1  = new Matakuliah("Dasar Pemrograman", 4);
+        Matakuliah mk2  = new Matakuliah("Struktur Data", 4);
+        Matakuliah mk3  = new Matakuliah("Sistem Basis Data", 3);
+        Matakuliah mk4  = new Matakuliah("Jaringan Komputer", 3);
+        Matakuliah mk5  = new Matakuliah("Kalkulus", 3);
+        Matakuliah mk6  = new Matakuliah("Sistem Operasi", 4);
+        Matakuliah mk7  = new Matakuliah("Pemrograman Web", 3);
+        Matakuliah mk8  = new Matakuliah("Konsep Kecerdasan Artifisial", 2);
+        Matakuliah mk9  = new Matakuliah("Komputasi Numerik", 3);
+        Matakuliah mk10 = new Matakuliah("Pemrograman Lanjut", 3);
+        
+        daftarMatakuliah.addAll(Arrays.asList(mk1,mk2,mk3,mk4,mk5,mk6,mk7,mk8,mk9,mk10));
+        
+        // Data awal kelas
+        daftarKelas.add(new Kelas("EF3081", "IF101", "A", mk1, d1, "Senin 08.00", 40));
+        daftarKelas.add(new Kelas("EF3082", "IF101", "A", mk1, d2, "Rabu 10.00", 40));
+        
+        daftarKelas.add(new Kelas("EF3083", "IF102", "A", mk2, d3, "Selasa 13.00", 35));
+        daftarKelas.add(new Kelas("EF3084", "IF102", "B", mk2, d4, "Kamis 09.00", 35));
+        
+        daftarKelas.add(new Kelas("EF3085", "IF103", "A", mk3, d5, "Senin 11.00", 45));
+        daftarKelas.add(new Kelas("EF3086", "IF103", "B", mk3, d2, "Jumat 08.00", 45));
+        
+        daftarKelas.add(new Kelas("EF3087", "IF104", "A", mk4, d1, "Rabu 15.00", 40));
+        
+        daftarKelas.add(new Kelas("EF3088", "IF105", "A", mk5, d3, "Selasa 08.00", 50));
+        
+        daftarKelas.add(new Kelas("EF3089", "IF106", "A", mk6, d4, "Kamis 14.00", 40));
+        
+        daftarKelas.add(new Kelas("EF3090", "IF107", "A", mk7, d5, "Jumat 10.00", 35));
+        
+        daftarKelas.add(new Kelas("EF3091", "IF108", "A", mk8, d1, "Senin 14.00", 40));
+        
+        daftarKelas.add(new Kelas("EF3092", "IF109", "A", mk9, d2, "Selasa 16.00", 40));
+        
+        daftarKelas.add(new Kelas("EF3093", "IF110", "A", mk10, d3, "Rabu 08.00", 35));
+        daftarKelas.add(new Kelas("EF3094", "IF110", "B", mk10, d4, "Jumat 13.00", 35));
+        
+        daftarKelas.add(new Kelas("EF3095", "IF111", "A", mk7, d5, "Kamis 11.00", 40));
+
+        // Data awal mahasiswa
+        daftarMahasiswa.add(new Mahasiswa("Ahmad", "5025231234", "123"));
+        daftarMahasiswa.add(new Mahasiswa("Budi", "5025235678", "456"));
+        daftarMahasiswa.add(new Mahasiswa("Citra", "5025231111", "111"));
+        daftarMahasiswa.add(new Mahasiswa("Dewi", "5025232222", "222"));
+        daftarMahasiswa.add(new Mahasiswa("Eko", "5025233333", "333"));
+        daftarMahasiswa.add(new Mahasiswa("Farah", "5025234444", "444"));
+        daftarMahasiswa.add(new Mahasiswa("Gilang", "5025235555", "555"));
+        daftarMahasiswa.add(new Mahasiswa("Hana", "5025236666", "666"));
+        daftarMahasiswa.add(new Mahasiswa("Indra", "5025237777", "777"));
+        daftarMahasiswa.add(new Mahasiswa("Joko", "5025238888", "888"));
+        daftarMahasiswa.add(new Mahasiswa("Kirana", "5025239999", "999"));
+        daftarMahasiswa.add(new Mahasiswa("Lutfi", "5025230001", "0001"));
+        daftarMahasiswa.add(new Mahasiswa("Maya", "5025230002", "0002"));
+        daftarMahasiswa.add(new Mahasiswa("Nanda", "5025230003", "0003"));
+        daftarMahasiswa.add(new Mahasiswa("Oscar", "5025230004", "0004"));
+        daftarMahasiswa.add(new Mahasiswa("Putri", "5025230005", "0005"));
+        daftarMahasiswa.add(new Mahasiswa("Qori", "5025230006", "0006"));
+        daftarMahasiswa.add(new Mahasiswa("Rafi", "5025230007", "0007"));
+        daftarMahasiswa.add(new Mahasiswa("Sinta", "5025230008", "0008"));
+        daftarMahasiswa.add(new Mahasiswa("Tono", "5025230009", "0009"));
+    }
+
+    // Login
+    public Mahasiswa loginMahasiswa(String nrp, String password) {
+        for (Mahasiswa m : daftarMahasiswa) {
+            if (m.getNrp().equals(nrp) && m.getPassword().equals(password)) {
+                return m;
+            }
+        }
+        return null;
+    }
+
+    // Tampilkan semua kelas
+    public void tampilkanDaftarKelas() {
+        System.out.println("=== Daftar Kelas Tersedia ===");
+        for (Kelas k : daftarKelas) {
+            System.out.println(k.getKodeKelas() + " - " 
+                               + k.getMatakuliah().getNama() 
+                               + " " + k.getKelas()
+                               + " (" + k.getMatakuliah().getSks() + " SKS)"
+                               + " | Dosen: " + k.getDosen().getNama()
+                               + " | Ruang: " + k.getKodeRuangan()
+                               + " | Jadwal: " + k.getJadwal());
+        }
+    }
+
+    public List<Kelas> getDaftarKelas() {
+        return daftarKelas;
+    }
+}
+          </pre>
+        </div>
+
+        <h4>Class Main</h4>
+        <div class="code-block">
+          <pre>
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        DisplayFRS app = new DisplayFRS();
+
+        boolean jalanApp = true;
+        while (jalanApp) {
+            // ==== LOGIN PAGE ====
+            Mahasiswa mhs = null;
+            while (mhs == null) {
+                System.out.print("\nMasukkan NRP (atau 'q' untuk keluar): ");
+                String nrp = sc.nextLine();
+                if (nrp.equalsIgnoreCase("q")) {
+                    System.out.println("Keluar dari aplikasi...");
+                    sc.close();
+                    return; // keluar program
+                }
+
+                System.out.print("Masukkan Password: ");
+                String pw = sc.nextLine();
+
+                mhs = app.loginMahasiswa(nrp, pw);
+                if (mhs == null) {
+                    System.out.println("Login gagal! Silakan coba lagi.\n");
+                }
+            }
+
+            // ==== MENU PAGE ====
+            System.out.println("Selamat datang, " + mhs.getNama());
+            boolean jalanMenu = true;
+
+            while (jalanMenu) {
+                System.out.println("\nMenu:");
+                System.out.println("1. Lihat Daftar Kelas");
+                System.out.println("2. Ambil Kelas");
+                System.out.println("3. Drop Kelas");
+                System.out.println("4. Lihat FRS");
+                System.out.println("5. Logout");
+                System.out.println("6. Keluar Aplikasi");
+                System.out.print("Pilihan: ");
+                int pilih = sc.nextInt();
+                sc.nextLine();
+
+                switch (pilih) {
+                    case 1:
+                        app.tampilkanDaftarKelas();
+                        break;
+                    case 2:
+                        app.tampilkanDaftarKelas();
+                        System.out.print("Masukkan kode Kelas yang ingin diambil: ");
+                        String kodeAdd = sc.nextLine();
+                        boolean foundAdd = false;
+                        for (Kelas k : app.getDaftarKelas()) {
+                            if (k.getKodeKelas().equalsIgnoreCase(kodeAdd)) {
+                                foundAdd = true;
+                                if (mhs.ambilKelas(k)) {
+                                    System.out.println("Kelas berhasil diambil!");
+                                } else {
+                                    System.out.println("Gagal ambil kelas (kapasitas penuh / SKS tidak cukup / Kelas sudah diambil).");
+                                }
+                            }
+                        }
+                        if (!foundAdd) {
+                            System.out.println("Kode kelas tidak ditemukan.");
+                        }
+                        break;
+                    case 3:
+                        System.out.print("Masukkan kode kelas yang ingin di-drop: ");
+                        String kodeDrop = sc.nextLine();
+                        boolean foundDrop = false;
+                        for (Kelas k : app.getDaftarKelas()) {
+                            if (k.getKodeKelas().equalsIgnoreCase(kodeDrop)) {
+                                foundDrop = true;
+                                if (mhs.dropKelas(k)) {
+                                    System.out.println("Kelas berhasil di-drop!");
+                                } else {
+                                    System.out.println("Kelas tidak ada di FRS Anda.");
+                                }
+                            }
+                        }
+                        if (!foundDrop) {
+                            System.out.println("Kode kelas tidak ditemukan.");
+                        }
+                        break;
+                    case 4:
+                        mhs.tampilkanFRS();
+                        break;
+                    case 5:
+                        System.out.println("Logout berhasil.\n");
+                        jalanMenu = false; // kembali ke login page
+                        break;
+                    case 6:
+                        System.out.println("Keluar dari aplikasi...");
+                        jalanApp = false; // keluar dari aplikasi utama
+                        jalanMenu = false;
+                        break;
+                    default:
+                        System.out.println("Pilihan tidak valid.");
+                }
+            }
+        }
+
+        sc.close();
+    }
+}
+          </pre>
+        </div>
+
+        <h3>Gambar Implementasi di BlueJ</h3>
+        <p>
+          Berikut adalah screenshot dari implementasi aplikasi di BlueJ, yang menunjukkan berbagai tahap interaksi pengguna dengan sistem FRS, mulai dari login hingga pengelolaan kelas:
+        </p>
+
+        <div class="image-gallery">
+          <div class="gallery-item">
+            <img src="images/frs_login.png" alt="Login Mahasiswa">
+            <div class="gallery-caption">Gambar 1: Proses login mahasiswa di BlueJ</div>
+            <p class="gallery-explanation">
+              Pengguna memasukkan NRP (misalnya, "5025231234") dan password ("123"). Jika valid, sistem menampilkan pesan selamat datang dengan nama mahasiswa dan menampilkan menu utama.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_daftar_kelas.png" alt="Tampilkan Daftar Kelas">
+            <div class="gallery-caption">Gambar 2: Menampilkan daftar kelas tersedia</div>
+            <p class="gallery-explanation">
+              Pemanggilan method <code>tampilkanDaftarKelas()</code> menampilkan daftar kelas dengan kode, nama mata kuliah, kelas, SKS, dosen, ruangan, dan jadwal. Contoh output: "EF3081 - Dasar Pemrograman A (4 SKS) | Dosen: Dr. Budi | Ruang: IF101 | Jadwal: Senin 08.00".
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_ambil_kelas.png" alt="Ambil Kelas">
+            <div class="gallery-caption">Gambar 3: Proses pengambilan kelas</div>
+            <p class="gallery-explanation">
+              Mahasiswa memasukkan kode kelas (misalnya, "EF3081") untuk mengambil kelas. Sistem memeriksa tiga kondisi: total SKS tidak melebihi 24, kelas belum diambil sebelumnya, dan kapasitas kelas masih tersedia. Jika berhasil, kelas ditambahkan ke FRS.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_drop_kelas.png" alt="Drop Kelas">
+            <div class="gallery-caption">Gambar 4: Proses menghapus kelas dari FRS</div>
+            <p class="gallery-explanation">
+              Mahasiswa memasukkan kode kelas untuk dihapus dari FRS. Jika kelas ditemukan di <code>daftarKelas</code>, sistem menghapusnya, mengurangi SKS, dan memperbarui daftar mahasiswa di kelas tersebut.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_tampilkan_frs.png" alt="Tampilkan FRS">
+            <div class="gallery-caption">Gambar 5: Menampilkan FRS mahasiswa</div>
+            <p class="gallery-explanation">
+              Method <code>tampilkanFRS()</code> menampilkan daftar kelas yang diambil, termasuk kode kelas, ruangan, nama mata kuliah, kelas, SKS, dan jadwal, diikuti dengan total SKS (misalnya, "Total SKS: 10").
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_menu.png" alt="Menu Utama FRS">
+            <div class="gallery-caption">Gambar 6: Menu utama aplikasi FRS</div>
+            <p class="gallery-explanation">
+              Setelah login, sistem menampilkan menu dengan opsi: lihat daftar kelas, ambil kelas, drop kelas, lihat FRS, logout, atau keluar aplikasi. Input pengguna diproses menggunakan <code>Scanner</code> dan struktur <code>switch</code>.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_inspeksi.png" alt="Inspeksi Objek Mahasiswa">
+            <div class="gallery-caption">Gambar 7: Inspeksi objek Mahasiswa di BlueJ</div>
+            <p class="gallery-explanation">
+              Inspeksi objek <code>Mahasiswa</code> menunjukkan atribut seperti <code>nama</code>, <code>nrp</code>, <code>sks</code>, dan <code>daftarKelas</code>, mencerminkan encapsulation dan state internal setelah pengambilan kelas.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_drop_kelas.png" alt="Drop Kelas">
+            <div class="gallery-caption">Gambar 8: Proses menghapus kelas dari FRS</div>
+            <p class="gallery-explanation">
+              Mahasiswa memilih opsi 3 dari menu utama dan memasukkan kode kelas (misalnya, "EF3090") untuk dihapus dari FRS. Sistem memanggil method <code>dropKelas()</code> pada objek <code>Mahasiswa</code>, yang memeriksa apakah kelas ada di <code>daftarKelas</code>. Jika ditemukan, kelas dihapus, SKS dikurangi, dan mahasiswa dihapus dari daftar mahasiswa di kelas tersebut. Output menunjukkan "Kelas berhasil di-drop!" atau pesan error jika kelas tidak ditemukan atau tidak ada di FRS.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/frs_logout.png" alt="Logout">
+            <div class="gallery-caption">Gambar 9: Proses logout dari aplikasi</div>
+            <p class="gallery-explanation">
+              Mahasiswa memilih opsi 5 dari menu utama untuk logout. Sistem menampilkan pesan "Logout berhasil." dan mengatur variabel <code>jalanMenu</code> ke <code>false</code>, mengembalikan pengguna ke halaman login untuk memasukkan NRP dan password baru atau keluar dari aplikasi.
+            </p>
+          </div>
+        </div>
+        </div>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+          Aplikasi FRS ini dirancang untuk mendemonstrasikan konsep-konsep inti Pemrograman Berbasis Objek, termasuk:
+          <ul>
+            <li><b>Encapsulation</b>: Atribut seperti <code>nama</code>, <code>nrp</code>, dan <code>sks</code> di kelas <code>Mahasiswa</code> bersifat privat, hanya dapat diakses melalui getter atau method spesifik, menjaga integritas data.</li>
+            <li><b>Composition</b>: Kelas <code>Kelas</code> mengandung objek <code>Matakuliah</code> dan <code>Dosen</code>, mencerminkan hubungan "has-a" yang kuat.</li>
+            <li><b>Asosiasi</b>: Hubungan dua arah antara <code>Mahasiswa</code> dan <code>Kelas</code> diimplementasikan melalui <code>ArrayList</code>, memungkinkan mahasiswa mengambil banyak kelas dan kelas memiliki banyak mahasiswa.</li>
+            <li><b>Modularitas</b>: Setiap kelas memiliki tanggung jawab spesifik, memudahkan pemeliharaan dan pengembangan lebih lanjut.</li>
+            <li><b>Penggunaan Struktur Data</b>: <code>ArrayList</code> digunakan untuk mengelola daftar mahasiswa, kelas, dosen, dan mata kuliah, menunjukkan fleksibilitas dalam pengelolaan koleksi.</li>
+          </ul>
+        </p>
+
+        <h4>Detail Implementasi Kelas</h4>
+        <h5>Class Mahasiswa</h5>
+        <p>
+          Kelas <code>Mahasiswa</code> adalah inti dari aplikasi, mengelola data pribadi mahasiswa dan operasi FRS. Atribut seperti <code>sks</code> dan <code>daftarKelas</code> diperbarui secara dinamis saat mahasiswa mengambil atau menghapus kelas.
+        </p>
+        <ul>
+          <li><b>Constructor <code>Mahasiswa(String nama, String nrp, String password)</code></b> → Menginisialisasi objek dengan nama, NRP, dan password. <code>sks</code> diatur ke 0, dan <code>daftarKelas</code> sebagai <code>ArrayList</code> kosong.</li>
+          <li><b>Method <code>ambilKelas(Kelas k)</code></b> → Memeriksa tiga kondisi sebelum menambahkan kelas: total SKS tidak melebihi <code>maxSKS</code> (24), kelas belum diambil (<code>sudahDiambil()</code>), dan kapasitas kelas tersedia (<code>cekKapasitas()</code>). Jika valid, kelas ditambahkan ke <code>daftarKelas</code>, SKS diperbarui, dan mahasiswa ditambahkan ke kelas.</li>
+          <li><b>Method <code>dropKelas(Kelas k)</code></b> → Menghapus kelas dari <code>daftarKelas</code>, mengurangi <code>sks</code>, dan menghapus mahasiswa dari daftar kelas. Mengembalikan <code>true</code> jika berhasil.</li>
+          <li><b>Method <code>hitungTotalSKS()</code></b> → Mengembalikan nilai <code>sks</code>, yang selalu diperbarui saat kelas ditambahkan atau dihapus.</li>
+          <li><b>Method <code>tampilkanFRS()</code></b> → Menampilkan daftar kelas dalam format terstruktur, termasuk kode kelas, ruangan, nama mata kuliah, kelas, SKS, dan jadwal, diikuti dengan total SKS.</li>
+          <li><b>Getter methods</b> → <code>getNrp()</code>, <code>getPassword()</code>, dan <code>getNama()</code> menyediakan akses aman ke atribut privat.</li>
+        </ul>
+
+        <h5>Class Dosen</h5>
+        <p>
+          Kelas <code>Dosen</code> adalah kelas sederhana yang menyimpan informasi pengajar, digunakan dalam kelas <code>Kelas</code> untuk menunjukkan dosen pengampu.
+        </p>
+        <ul>
+          <li><b>Constructor <code>Dosen(String nama, String nip)</code></b> → Menginisialisasi dosen dengan nama dan NIP.</li>
+          <li><b>Method <code>getNama()</code></b> → Mengembalikan nama dosen untuk ditampilkan dalam daftar kelas atau FRS.</li>
+        </ul>
+
+        <h5>Class Kelas</h5>
+        <p>
+          Kelas <code>Kelas</code> mengelola informasi kelas seperti kode, ruangan, jadwal, dan daftar mahasiswa. Menggunakan composition untuk menyimpan objek <code>Matakuliah</code> dan <code>Dosen</code>.
+        </p>
+        <ul>
+          <li><b>Constructor <code>Kelas(String kodeKelas, String kodeRuangan, String kelas, Matakuliah matkul, Dosen dosen, String jadwal, int kapasitas)</code></b> → Menginisialisasi kelas dengan semua atribut dan <code>daftarMahasiswa</code> sebagai <code>ArrayList</code> kosong.</li>
+          <li><b>Method <code>cekKapasitas()</code></b> → Mengembalikan <code>true</code> jika jumlah mahasiswa kurang dari kapasitas maksimum.</li>
+          <li><b>Method <code>tambahMahasiswa(Mahasiswa m)</code>, <code>hapusMahasiswa(Mahasiswa m)</code></b> → Mengelola daftar mahasiswa yang mengambil kelas.</li>
+          <li><b>Method <code>sudahDiambil(Mahasiswa m)</code></b> → Memeriksa apakah mahasiswa sudah terdaftar di kelas menggunakan <code>contains()</code>.</li>
+          <li><b>Getter methods</b> → Mengembalikan atribut seperti <code>kodeKelas</code>, <code>matakuliah</code>, <code>dosen</code>, <code>jadwal</code>, dll.</li>
+        </ul>
+
+        <h5>Class Matakuliah</h5>
+        <p>
+          Kelas <code>Matakuliah</code> menyimpan informasi dasar mata kuliah, seperti nama dan jumlah SKS, yang digunakan oleh kelas <code>Kelas</code>.
+        </p>
+        <ul>
+          <li><b>Constructor <code>Matakuliah(String nama, int sks)</code></b> → Menginisialisasi mata kuliah dengan nama dan SKS.</li>
+          <li><b>Method <code>getNama()</code>, <code>getSks()</code></b> → Getter untuk mengakses atribut privat.</li>
+        </ul>
+
+        <h5>Class DisplayFRS</h5>
+        <p>
+          Kelas <code>DisplayFRS</code> bertindak sebagai pengelola data utama, menyimpan daftar mahasiswa, dosen, mata kuliah, dan kelas, serta menyediakan fungsi login dan tampilan daftar kelas.
+        </p>
+        <ul>
+          <li><b>Constructor <code>DisplayFRS()</code></b> → Menginisialisasi data awal untuk 20 mahasiswa, 5 dosen, 10 mata kuliah, dan 15 kelas, yang mencerminkan data realistis untuk simulasi akademik.</li>
+          <li><b>Method <code>loginMahasiswa(String nrp, String password)</code></b> → Memverifikasi NRP dan password dengan mencocokkan terhadap <code>daftarMahasiswa</code>. Mengembalikan objek <code>Mahasiswa</code> jika valid, atau <code>null</code> jika gagal.</li>
+          <li><b>Method <code>tampilkanDaftarKelas()</code></b> → Menampilkan semua kelas dalam format yang informatif, termasuk kode, nama mata kuliah, kelas, SKS, dosen, ruangan, dan jadwal.</li>
+          <li><b>Method <code>getDaftarKelas()</code></b> → Mengembalikan <code>daftarKelas</code> untuk digunakan dalam operasi pengambilan atau penghapusan kelas.</li>
+        </ul>
+
+        <h5>Class Main</h5>
+        <p>
+          Kelas <code>Main</code> menyediakan antarmuka konsol interaktif untuk menjalankan aplikasi FRS, menggunakan <code>Scanner</code> untuk input pengguna dan struktur <code>while</code> serta <code>switch</code> untuk logika menu.
+        </p>
+        <ul>
+          <li><b>Method <code>main(String[] args)</code></b> → Entry point program. Menginisialisasi <code>DisplayFRS</code> dan menjalankan dua loop utama: satu untuk login (<code>jalanApp</code>) dan satu untuk menu (<code>jalanMenu</code>). Menu mendukung enam opsi: lihat daftar kelas, ambil kelas, drop kelas, lihat FRS, logout, atau keluar aplikasi.</li>
+        </ul>
+
+        <h3>Alur Kerja Aplikasi</h3>
+        <p>
+          Berikut adalah alur kerja utama aplikasi FRS:
+          <ol>
+            <li><b>Inisialisasi</b>: Kelas <code>DisplayFRS</code> mengisi data awal untuk mahasiswa, dosen, mata kuliah, dan kelas.</li>
+            <li><b>Login</b>: Pengguna memasukkan NRP dan password. Sistem memanggil <code>loginMahasiswa()</code> untuk memverifikasi dan mengembalikan objek <code>Mahasiswa</code>.</li>
+            <li><b>Menu</b>: Setelah login, pengguna memilih opsi melalui antarmuka konsol. Opsi seperti ambil kelas atau drop kelas memeriksa validasi (SKS, kapasitas, dll.) sebelum memperbarui state.</li>
+            <li><b>Pengelolaan FRS</b>: Method <code>ambilKelas()</code> dan <code>dropKelas()</code> memastikan konsistensi data antara <code>Mahasiswa</code> dan <code>Kelas</code>.</li>
+            <li><b>Tampilan FRS</b>: Method <code>tampilkanFRS()</code> memberikan ringkasan kelas yang diambil dan total SKS.</li>
+            <li><b>Logout/Keluar</b>: Pengguna dapat logout untuk kembali ke login atau keluar dari aplikasi sepenuhnya.</li>
+          </ol>
+        </p>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Tugas ini berhasil mengimplementasikan sistem FRS yang fungsional dengan pendekatan PBO. Konsep encapsulation memastikan data terlindungi, composition memungkinkan hubungan antar kelas yang kuat, dan penggunaan <code>ArrayList</code> mendukung pengelolaan data dinamis. Aplikasi ini mencerminkan sistem akademik nyata dengan batasan seperti SKS maksimum dan kapasitas kelas. Ke depannya, aplikasi ini dapat ditingkatkan dengan menambahkan antarmuka grafis (GUI) menggunakan Swing atau integrasi database untuk penyimpanan data permanen, memperluas fungsionalitas ke arah sistem informasi akademik yang lebih komprehensif.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="tugas3.html" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="tugas5.html" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>

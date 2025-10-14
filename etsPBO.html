@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <meta name="description" content="Dokumentasi Tugas 4 Pemrograman Berbasis Objek: Implementasi Vending Machine Kopi dengan OOP - Ahmad Loka Arziki">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> > ETS: Implementasi Vending Machine Kopi dengan PBO
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>ETS: Implementasi Vending Machine Kopi dengan PBO</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 14 Oktober 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1.5 jam</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Class</span>
+          <span class="tag">Object</span>
+          <span class="tag">Java</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Composition</span>
+          <span class="tag">Encapsulation</span>
+        </div>
+      </div>
+
+      <img src="images/vending_machine_main.png" alt="Screenshot Program Vending Machine Kopi" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada Evaluasi Tengah Semester mata kuliah Pemrograman Berbasis Objek, saya mempelajari konsep composition, encapsulation, dan modularitas dalam desain sistem yang lebih kompleks menggunakan Java. 
+          Tugas ini mengharuskan saya untuk membuat simulasi Vending Machine Kopi yang interaktif melalui console, terdiri dari lima class utama: 
+          <code>Coffee</code> untuk merepresentasikan jenis kopi dan perhitungan bahan/harga berdasarkan ukuran, 
+          <code>IngredientStock</code> untuk mengelola stok bahan, 
+          <code>PaymentSystem</code> untuk proses pembayaran, 
+          <code>VendingMachine</code> sebagai class utama yang mengintegrasikan semuanya, dan 
+          <code>Main</code> sebagai entry point. 
+          Program ini mendemonstrasikan bagaimana class saling bergantung melalui composition (VendingMachine mengandung instance dari class lain), encapsulation (atribut privat diakses via method), dan interaksi pengguna untuk simulasi transaksi kopi dengan opsi ukuran, tambahan gula/susu, serta pengecekan stok dan pembayaran.
+        </p>
+
+        <h3>Implementasi Program</h3>
+        <p>
+          Saya mengimplementasikan program Vending Machine Kopi dengan lima class yang saling terkait. Class <code>Coffee</code> menangani detail menu kopi, termasuk harga dan bahan berdasarkan ukuran (small, medium, large). 
+          Class <code>IngredientStock</code> mengelola stok bahan dan memvalidasi ketersediaan. 
+          Class <code>PaymentSystem</code> menangani logika pembayaran sederhana. 
+          Class <code>VendingMachine</code> mengintegrasikan semuanya dalam loop interaktif, termasuk menu tampilan, input pengguna, dan log transaksi. 
+          Class <code>Main</code> memulai program. Program menggunakan <code>Scanner</code> untuk input console, <code>ArrayList</code> untuk menu dan log, serta <code>Thread.sleep</code> untuk simulasi proses pembuatan kopi. Berikut adalah kode lengkap untuk masing-masing class:
+        </p>
+
+        <h4>Class Coffee</h4>
+        <div class="code-block">
+          <pre>import java.util.*;
+
+public class Coffee {
+    private String name;
+    private double basePrice; // harga untuk size small
+    private int waterNeeded; // untuk size small
+    private int coffeeNeeded; // untuk size small
+    private int milkNeeded;
+    private static final int SIZE_PRICE_DIFFERENCE = 5000;
+
+    public Coffee(String name, double basePrice, int waterNeeded, int coffeeNeeded, int milkNeeded) {
+        this.name = name;
+        this.basePrice = basePrice;
+        this.waterNeeded = waterNeeded;
+        this.coffeeNeeded = coffeeNeeded;
+        this.milkNeeded = milkNeeded;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice(String size) {
+        switch (size.toLowerCase()) {
+            case "small":
+                return basePrice;
+            case "medium":
+                return basePrice + SIZE_PRICE_DIFFERENCE;
+            case "large":
+                return basePrice + (2 * SIZE_PRICE_DIFFERENCE);
+            default:
+                return basePrice;
+        }
+    }
+
+    public int getWaterNeeded(String size) {
+        switch (size.toLowerCase()) {
+            case "small":
+                return waterNeeded;
+            case "medium":
+                return (int)(waterNeeded * 1.5);
+            case "large":
+                return waterNeeded * 2;
+            default:
+                return waterNeeded;
+        }
+    }
+
+    public int getCoffeeNeeded(String size) {
+        switch (size.toLowerCase()) {
+            case "small":
+                return coffeeNeeded;
+            case "medium":
+                return (int)(coffeeNeeded * 1.5);
+            case "large":
+                return coffeeNeeded * 2;
+            default:
+                return coffeeNeeded;
+        }
+    }
+    
+    public int getMilkNeeded(String size) {
+        switch (size.toLowerCase()) {
+            case "small":
+                return milkNeeded;
+            case "medium":
+                return (int)(milkNeeded * 1.5);
+            case "large":
+                return milkNeeded * 2;
+            default:
+                return milkNeeded;
+        }
+    }    
+    
+    public double getBasePrice() {
+        return basePrice;
+    }
+
+    public static int getSizePriceDifference() {
+        return SIZE_PRICE_DIFFERENCE;
+    }
+}</pre>
+        </div>
+
+        <h4>Class IngredientStock</h4>
+        <div class="code-block">
+          <pre>public class IngredientStock {
+    private int water;
+    private int coffee;
+    private int sugar;
+    private int milk;
+
+    public IngredientStock(int water, int coffee, int sugar, int milk) {
+        this.water = water;
+        this.coffee = coffee;
+        this.sugar = sugar;
+        this.milk = milk;
+    }
+
+    public boolean hasEnough(Coffee coffee, String size, boolean addSugar, boolean addMilk) {
+        return water >= coffee.getWaterNeeded(size) &&
+               this.coffee >= coffee.getCoffeeNeeded(size) &&
+               (!addSugar || sugar >= 5) &&
+               (!addMilk || milk >= 30);
+    }
+
+    public void useIngredients(Coffee coffee, String size, boolean addSugar, boolean addMilk) {
+        water -= coffee.getWaterNeeded(size);
+        this.coffee -= coffee.getCoffeeNeeded(size);
+        milk -= coffee.getMilkNeeded(size);
+        if (addSugar) sugar -= 5;
+        if (addMilk) milk -= 30;
+    }
+
+    public void showStatus() {
+        System.out.println("\nStok Bahan Saat Ini:");
+        System.out.println("Air   : " + water + "ml");
+        System.out.println("Kopi  : " + coffee + "gr");
+        System.out.println("Gula  : " + sugar + "gr");
+        System.out.println("Susu  : " + milk + "ml");
+    }
+
+    public boolean isLowStock() {
+        return water < 200 || coffee < 36 || sugar < 20 || milk < 200;
+    }
+}</pre>
+        </div>
+
+        <h4>Class PaymentSystem</h4>
+        <div class="code-block">
+          <pre>public class PaymentSystem {
+    public boolean processPayment(double price, double paid) {
+        if (paid < price) {
+            System.out.println("Pembayaran kurang. Transaksi dibatalkan.");
+            return false;
+        } else {
+            System.out.printf("Pembayaran diterima. Kembalian: Rp%.2f\n", (paid - price));
+            return true;
+        }
+    }
+}</pre>
+        </div>
+
+        <h4>Class VendingMachine</h4>
+        <div class="code-block">
+          <pre>import java.util.*;
+
+public class VendingMachine {
+    private List&lt;Coffee&gt; menu;
+    private IngredientStock stock;
+    private PaymentSystem paymentSystem;
+    private List&lt;String&gt; transactionLog;
+
+    public VendingMachine() {
+        menu = new ArrayList&lt;&gt;();
+        stock = new IngredientStock(1000, 450, 200, 1000);
+        paymentSystem = new PaymentSystem();
+        transactionLog = new ArrayList&lt;&gt;();
+
+        // Tambahkan menu kopi
+        menu.add(new Coffee("Espresso", 10000, 50, 12, 0));
+        menu.add(new Coffee("Americano", 12000, 100, 12, 0));
+        menu.add(new Coffee("Cappuccino", 15000, 50, 12, 50));
+        menu.add(new Coffee("Latte", 18000, 50, 12, 70));
+    }
+
+    public void start() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("=== VENDING COFFEE MACHINE ===");
+
+        boolean running = true;
+        while (running) {
+            System.out.println("\nMenu Kopi:");
+            System.out.println("==========================================");
+            for (int i = 0; i &lt; menu.size(); i++) {
+                Coffee coffee = menu.get(i);
+                System.out.printf("%d. %s\n", i + 1, coffee.getName());
+                System.out.printf("   Small  - Rp%.0f\n", coffee.getPrice("small"));
+                System.out.printf("   Medium - Rp%.0f\n", coffee.getPrice("medium"));
+                System.out.printf("   Large  - Rp%.0f\n", coffee.getPrice("large"));
+                System.out.println();
+            }
+            System.out.println("5. Keluar");
+            System.out.println("==========================================");
+
+            System.out.print("Pilih nomor kopi: ");
+            int choice = sc.nextInt();
+
+            if (choice == 5) {
+                System.out.println("Terima kasih telah menggunakan mesin kopi kami");
+                running = false;
+                continue;
+            }
+
+            if (choice &lt; 1 || choice &gt; menu.size()) {
+                System.out.println("Pilihan tidak valid!");
+                continue;
+            }
+
+            Coffee selected = menu.get(choice - 1);
+
+            // Pilih ukuran
+            System.out.println("\nPilih ukuran:");
+            System.out.println("1. Small  - Rp" + selected.getPrice("small"));
+            System.out.println("2. Medium - Rp" + selected.getPrice("medium"));
+            System.out.println("3. Large  - Rp" + selected.getPrice("large"));
+            System.out.print("Pilih ukuran (1-3): ");
+            int sizeChoice = sc.nextInt();
+            
+            String size;
+            switch (sizeChoice) {
+                case 1:
+                    size = "small";
+                    break;
+                case 2:
+                    size = "medium";
+                    break;
+                case 3:
+                    size = "large";
+                    break;
+                default:
+                    System.out.println("Pilihan ukuran tidak valid, menggunakan small.");
+                    size = "small";
+                    break;
+            }
+
+            System.out.print("Tambahkan gula? (y/n): ");
+            boolean addSugar = sc.next().equalsIgnoreCase("y");
+
+            System.out.print("Tambahkan susu? (y/n): ");
+            boolean addMilk = sc.next().equalsIgnoreCase("y");
+
+            double finalPrice = selected.getPrice(size);
+            if (addSugar) finalPrice += 2000;
+            if (addMilk) finalPrice += 3000;
+
+            System.out.printf("\nDetail Pesanan:");
+            System.out.printf("\n- Kopi  : %s (%s)", selected.getName(), size);
+            System.out.printf("\n- Gula  : %s", addSugar ? "Ya" : "Tidak");
+            System.out.printf("\n- Susu  : %s", addMilk ? "Ya" : "Tidak");
+            System.out.printf("\n- Total : Rp%.0f\n", finalPrice);
+            
+            System.out.print("Masukkan uang: Rp");
+            double paid = sc.nextDouble();
+
+            if (!stock.hasEnough(selected, size, addSugar, addMilk)) {
+                System.out.println("Stok tidak mencukupi. Hubungi admin untuk refill.");
+                continue;
+            }
+
+            if (paymentSystem.processPayment(finalPrice, paid)) {
+                stock.useIngredients(selected, size, addSugar, addMilk);
+                System.out.println("Sedang membuat kopi Anda...");
+                try {
+                    Thread.sleep(2000); // simulasi proses pembuatan kopi
+                } catch (InterruptedException e) {
+                    System.out.println("Terjadi kesalahan pada mesin.");
+                }
+                System.out.println("Kopi siap! Silakan ambil minuman Anda.");
+                transactionLog.add(selected.getName() + " (" + size + ") | Rp" + finalPrice);
+            }
+
+            if (stock.isLowStock()) {
+                System.out.println("Stok hampir habis! Harap admin segera melakukan refill.");
+            }
+
+            stock.showStatus();
+        }
+
+        // Tampilkan log transaksi
+        System.out.println("\nRiwayat Transaksi:");
+        for (String log : transactionLog) {
+            System.out.println("- " + log);
+        }
+    }
+}</pre>
+        </div>
+
+        <h4>Class Main</h4>
+        <div class="code-block">
+          <pre>public class Main {
+    public static void main(String[] args) {
+        VendingMachine vm = new VendingMachine();
+        vm.start();
+    }
+}</pre>
+        </div>
+
+        <h3>Gambar Implementasi di BlueJ</h3>
+        <p>Berikut adalah beberapa screenshot dari implementasi program di IDE, termasuk eksekusi console, pembuatan objek, dan output transaksi:</p>
+
+        <div class="image-gallery">
+          <div class="gallery-item">
+            <img src="images/vending_start.png" alt="Menu Utama Vending Machine">
+            <div class="gallery-caption">Gambar 1: Menu utama program di console</div>
+            <p class="gallery-explanation">
+              Saat program dijalankan dari <code>Main</code>, <code>VendingMachine.start()</code> menampilkan menu kopi dengan opsi ukuran dan harga. Pengguna memilih nomor kopi (1-4) atau keluar (5).
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/select_size.png" alt="Pemilihan Ukuran">
+            <div class="gallery-caption">Gambar 2: Pemilihan ukuran dan tambahan di console</div>
+            <p class="gallery-explanation">
+              Setelah memilih kopi (misalnya Espresso), program meminta ukuran (1-3), tambahan gula/susu (y/n), dan menghitung harga final termasuk biaya tambahan (Rp2000 untuk gula, Rp3000 untuk susu).
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/payment_process.png" alt="Proses Pembayaran">
+            <div class="gallery-caption">Gambar 3: Input pembayaran dan validasi</div>
+            <p class="gallery-explanation">
+              Pengguna memasukkan jumlah uang. <code>PaymentSystem.processPayment()</code> memvalidasi jika cukup; jika ya, hitung kembalian. Jika kurang, batalkan transaksi.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/stock_check.png" alt="Pengecekan Stok">
+            <div class="gallery-caption">Gambar 4: Validasi stok bahan sebelum transaksi</div>
+            <p class="gallery-explanation">
+              <code>IngredientStock.hasEnough()</code> memeriksa apakah stok air, kopi, gula (5gr jika ditambah), dan susu (30ml jika ditambah) cukup berdasarkan ukuran. Jika tidak, tampilkan pesan error.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/use_ingredients.png" alt="Penggunaan Bahan">
+            <div class="gallery-caption">Gambar 5: Pengurangan stok setelah pembayaran sukses</div>
+            <p class="gallery-explanation">
+              Jika pembayaran valid, <code>useIngredients()</code> mengurangi stok sesuai kebutuhan (misalnya, medium: water *1.5, coffee *1.5, milk *1.5). Kemudian simulasi dengan <code>Thread.sleep(2000)</code>.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/low_stock.png" alt="Peringatan Stok Rendah">
+            <div class="gallery-caption">Gambar 6: Peringatan stok rendah dan tampilan status</div>
+            <p class="gallery-explanation">
+              Setelah transaksi, <code>isLowStock()</code> memeriksa jika stok di bawah threshold (air <200ml, kopi <36gr, gula <20gr, susu <200ml) dan menampilkan peringatan. <code>showStatus()</code> mencetak stok saat ini.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/transaction_success.png" alt="Transaksi Sukses">
+            <div class="gallery-caption">Gambar 7: Proses pembuatan kopi dan konfirmasi siap</div>
+            <p class="gallery-explanation">
+              Setelah pembayaran sukses dan stok dikurangi, program menampilkan "Sedang membuat kopi Anda..." dengan delay 2 detik menggunakan <code>Thread.sleep()</code>, kemudian "Kopi siap! Silakan ambil minuman Anda." Transaksi ditambahkan ke <code>transactionLog</code>.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/transaction_history.png" alt="Riwayat Transaksi">
+            <div class="gallery-caption">Gambar 8: Tampilan riwayat transaksi di akhir program</div>
+            <p class="gallery-explanation">
+              Saat program berakhir (pilihan 5), <code>start()</code> menampilkan seluruh <code>transactionLog</code> dengan format "Nama Kopi (ukuran) | Harga", merangkum semua transaksi yang berhasil.
+            </p>
+          </div>
+
+        </div>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+          Program Vending Machine Kopi ini mendemonstrasikan konsep dasar Pemrograman Berbasis Objek seperti composition (class VendingMachine menggabungkan instance dari Coffee, IngredientStock, PaymentSystem, dan List untuk menu/log), encapsulation (semua atribut privat diakses hanya melalui method publik), modularitas (setiap class bertanggung jawab atas fungsi spesifik, seperti stok atau pembayaran), dan interaksi antar-class melalui method calls. Program juga menggunakan konsep static constant untuk perbedaan harga ukuran, ArrayList untuk koleksi dinamis, dan exception handling sederhana untuk thread sleep. Berikut penjelasan garis besar setiap method pada kelima class:
+        </p>
+
+        <h4>Class Coffee</h4>
+        <p>
+          Class <code>Coffee</code> merepresentasikan satu jenis minuman kopi dalam menu vending machine. Ia mengenkapsulasi atribut seperti nama, harga dasar (untuk small), dan kebutuhan bahan dasar (air, kopi, susu untuk small), serta menangani skalabilitas berdasarkan ukuran (small, medium, large) melalui switch-case yang menyesuaikan harga (+Rp5000 per level) dan bahan (medium: *1.5, large: *2). Constant static <code>SIZE_PRICE_DIFFERENCE</code> memastikan konsistensi harga tambahan. Class ini bersifat immutable setelah dibuat (tidak ada setter), mempromosikan encapsulation ketat, dan digunakan oleh VendingMachine untuk perhitungan dinamis.
+        </p>
+        <ul>
+          <li><b>Constructor <code>Coffee(String name, double basePrice, int waterNeeded, int coffeeNeeded, int milkNeeded)</code></b> → Menginisialisasi instance baru dari objek Coffee dengan parameter yang diberikan. Atribut <code>name</code> menyimpan nama kopi (misalnya "Espresso"), <code>basePrice</code> harga dasar untuk small (misalnya 10000), <code>waterNeeded</code> ml air dasar (misalnya 50), <code>coffeeNeeded</code> gram kopi dasar (misalnya 12), dan <code>milkNeeded</code> ml susu dasar (misalnya 0 untuk Espresso). Constant <code>SIZE_PRICE_DIFFERENCE = 5000</code> didefinisikan di level class untuk digunakan di method lain. Constructor ini dipanggil di VendingMachine constructor untuk mengisi menu, memastikan setiap objek Coffee siap digunakan tanpa inisialisasi tambahan.</li>
+          <li><b>Method <code>getName()</code> (publik)</b> → Mengembalikan string nama kopi yang disimpan di atribut <code>name</code>. Method sederhana ini memungkinkan akses read-only ke identitas kopi, digunakan di VendingMachine untuk menampilkan menu dan log transaksi, tanpa memodifikasi state internal, sesuai prinsip encapsulation.</li>
+          <li><b>Method <code>getPrice(String size)</code> (publik)</b> → Menghitung dan mengembalikan harga total berdasarkan ukuran yang diberikan (case-insensitive via <code>toLowerCase()</code>). Untuk "small": kembalikan <code>basePrice</code>; "medium": <code>basePrice + SIZE_PRICE_DIFFERENCE</code> (Rp5000 tambahan); "large": <code>basePrice + 2 * SIZE_PRICE_DIFFERENCE</code> (Rp10000 tambahan); default: <code>basePrice</code>. Method ini fleksibel untuk perhitungan harga dinamis di VendingMachine, termasuk penambahan biaya gula/susu di luar method ini.</li>
+          <li><b>Method <code>getWaterNeeded(String size)</code> (publik)</b> → Mengembalikan jumlah ml air yang dibutuhkan berdasarkan ukuran. Logika switch mirip getPrice: "small": <code>waterNeeded</code>; "medium": <code>(int)(waterNeeded * 1.5)</code> (pembulatan ke bawah); "large": <code>waterNeeded * 2</code>; default: <code>waterNeeded</code>. Casting ke int memastikan tipe integer konsisten. Method ini dipanggil oleh IngredientStock untuk validasi dan pengurangan stok, mensimulasikan proporsi bahan realistis.</li>
+          <li><b>Method <code>getCoffeeNeeded(String size)</code> (publik)</b> → Serupa dengan getWaterNeeded, tapi untuk gram kopi. "small": <code>coffeeNeeded</code>; "medium": <code>(int)(coffeeNeeded * 1.5)</code>; "large": <code>coffeeNeeded * 2</code>; default: <code>coffeeNeeded</code>. Digunakan untuk memastikan stok kopi cukup, dengan perhitungan proporsional yang sama untuk skalabilitas ukuran.</li>
+          <li><b>Method <code>getMilkNeeded(String size)</code> (publik)</b> → Mengembalikan ml susu berdasarkan ukuran, dengan logika identik: "small": <code>milkNeeded</code>; "medium": <code>(int)(milkNeeded * 1.5)</code>; "large": <code>milkNeeded * 2</code>; default: <code>milkNeeded</code>. Khusus untuk kopi berbasis susu seperti Cappuccino/Latte; untuk Espresso/Americano (milkNeeded=0), selalu 0. Method ini terpisah untuk modularitas, memungkinkan penyesuaian independen jika diperlukan.</li>
+          <li><b>Method <code>getBasePrice()</code> (publik)</b> → Mengembalikan harga dasar <code>basePrice</code> tanpa modifikasi ukuran. Berguna untuk debugging atau perhitungan internal, meskipun jarang digunakan di program ini, tapi mendukung extensibility jika ada fitur diskon dasar.</li>
+          <li><b>Method <code>getSizePriceDifference()</code> (static, publik)</b> → Mengembalikan constant <code>SIZE_PRICE_DIFFERENCE</code> (5000) tanpa membuat instance. Static karena bersifat global untuk class, memungkinkan akses dari mana saja tanpa objek Coffee, misalnya untuk konfigurasi harga di class lain jika diperluas.</li>
+        </ul>
+
+        <h4>Class IngredientStock</h4>
+        <p>
+          Class <code>IngredientStock</code> mengelola inventori bahan vending machine (air, kopi, gula, susu) dengan encapsulation ketat: atribut privat yang hanya dimodifikasi melalui method spesifik. Ia bertanggung jawab untuk validasi ketersediaan bahan sebelum transaksi, pengurangan stok setelah sukses, tampilan status, dan deteksi stok rendah. Stok awal diinisialisasi di VendingMachine (1000ml air, 450gr kopi, 200gr gula, 1000ml susu), dan method-methodnya berinteraksi dengan Coffee untuk perhitungan berbasis ukuran, termasuk tambahan gula (5gr) dan susu ekstra (30ml jika dipilih).
+        </p>
+        <ul>
+          <li><b>Constructor <code>IngredientStock(int water, int coffee, int sugar, int milk)</code></b> → Menginisialisasi stok bahan dengan nilai parameter: <code>water</code> ml air, <code>coffee</code> gr kopi, <code>sugar</code> gr gula, <code>milk</code> ml susu. Dipanggil sekali di VendingMachine constructor untuk setup awal, memastikan state valid dari awal tanpa setter publik untuk mencegah modifikasi eksternal tidak terkendali.</li>
+          <li><b>Method <code>hasEnough(Coffee coffee, String size, boolean addSugar, boolean addMilk)</code> (publik)</b> → Memvalidasi apakah stok cukup untuk pesanan spesifik. Mengembalikan true jika: <code>water >= coffee.getWaterNeeded(size)</code>, <code>coffee >= coffee.getCoffeeNeeded(size)</code>, <code>!addSugar || sugar >= 5</code> (gula hanya jika dipilih, minimal 5gr), dan <code>!addMilk || milk >= 30</code> (susu ekstra 30ml jika dipilih, plus milkNeeded dari Coffee). Logika kondisional ini mencegah penggunaan bahan opsional jika tidak diminta, dipanggil di VendingMachine sebelum pembayaran untuk menghindari transaksi gagal parsial.</li>
+          <li><b>Method <code>useIngredients(Coffee coffee, String size, boolean addSugar, boolean addMilk)</code> (publik)</b> → Mengurangi stok setelah validasi sukses. Mengurangi: <code>water -= coffee.getWaterNeeded(size)</code>, <code>coffee -= coffee.getCoffeeNeeded(size)</code>, <code>milk -= coffee.getMilkNeeded(size)</code> (susu dasar dari Coffee), dan jika <code>addSugar</code> true: <code>sugar -= 5</code>; jika <code>addMilk</code> true: <code>milk -= 30</code> (susu ekstra). Pengurangan langsung pada atribut privat memastikan state stok selalu up-to-date, dipanggil hanya setelah pembayaran berhasil di VendingMachine.</li>
+          <li><b>Method <code>showStatus()</code> (publik)</b> → Mencetak status stok saat ini ke console dengan format tetap: "\nStok Bahan Saat Ini:\nAir   : " + water + "ml\nKopi  : " + coffee + "gr\nGula  : " + sugar + "gr\nSusu  : " + milk + "ml". Dipanggil setelah setiap transaksi di VendingMachine untuk memberikan feedback visual kepada pengguna/admin tentang stok tersisa.</li>
+          <li><b>Method <code>isLowStock()</code> (publik)</b> → Mengembalikan true jika stok rendah: <code>water < 200</code> ml, <code>coffee < 36</code> gr (cukup untuk ~3 small), <code>sugar < 20</code> gr (cukup untuk ~4 tambahan), atau <code>milk < 200</code> ml. Threshold ini arbitrary tapi realistis untuk peringatan dini, dipanggil setelah transaksi di VendingMachine untuk menampilkan pesan "Stok hampir habis!" jika kondisi terpenuhi.</li>
+        </ul>
+
+        <h4>Class PaymentSystem</h4>
+        <p>
+          Class <code>PaymentSystem</code> adalah class sederhana yang menangani logika pembayaran tunai dasar, terpisah untuk modularitas (mudah diganti dengan sistem kartu jika diperluas). Tidak ada atribut instance, hanya satu method statis-like (non-static tapi bisa dibuat static). Ia memvalidasi pembayaran dan menghitung kembalian, mengembalikan boolean untuk menentukan kelanjutan transaksi, serta mencetak pesan feedback.
+        </p>
+        <ul>
+          <li><b>Method <code>processPayment(double price, double paid)</code> (publik)</b> → Memproses pembayaran dengan membandingkan <code>paid</code> (uang yang dibayarkan) dengan <code>price</code> (harga final termasuk tambahan). Jika <code>paid < price</code>, cetak "Pembayaran kurang. Transaksi dibatalkan." dan return false (batalkan). Jika cukup, cetak "Pembayaran diterima. Kembalian: Rp%.2f\n" dengan format dua desimal untuk <code>(paid - price)</code>, dan return true (lanjutkan). Method ini dipanggil di VendingMachine setelah input uang, memisahkan logika finansial dari core vending untuk encapsulation.</li>
+        </ul>
+
+        <h4>Class VendingMachine</h4>
+        <p>
+          Class <code>VendingMachine</code> adalah class utama (controller) yang mengintegrasikan semua komponen melalui composition: menyimpan List<Coffee> untuk menu, instance IngredientStock untuk stok, PaymentSystem untuk bayar, dan List<String> untuk log transaksi. Constructor menginisialisasi semuanya, termasuk menu hardcoded. Method <code>start()</code> menjalankan loop interaktif utama menggunakan Scanner untuk input pengguna, menangani pilihan menu, ukuran, tambahan, pembayaran, validasi, simulasi proses, dan logging. Program berakhir saat pilihan 5, menampilkan riwayat. Ini mendemonstrasikan orchestration antar-class dan user interaction di console.
+        </p>
+        <ul>
+          <li><b>Constructor <code>VendingMachine()</code></b> → Menginisialisasi komponen inti: <code>menu = new ArrayList&lt;&gt;()</code> untuk daftar kopi; <code>stock = new IngredientStock(1000, 450, 200, 1000)</code> untuk stok awal; <code>paymentSystem = new PaymentSystem()</code>; <code>transactionLog = new ArrayList&lt;&gt;()</code> untuk riwayat. Kemudian tambahkan 4 objek Coffee ke menu: Espresso (10000, 50ml air, 12gr kopi, 0 susu), Americano (12000, 100ml, 12gr, 0), Cappuccino (15000, 50ml, 12gr, 50ml), Latte (18000, 50ml, 12gr, 70ml). Ini setup lengkap vending machine siap digunakan, dipanggil dari Main.</li>
+          <li><b>Method <code>start()</code> (publik)</b> → Method utama yang menjalankan simulasi vending machine. Membuat <code>Scanner sc = new Scanner(System.in)</code> untuk input. Cetak header "=== VENDING COFFEE MACHINE ===". Loop while <code>running = true</code>: tampilkan menu dengan loop for i=0 to menu.size()-1, cetak nomor, nama, dan harga untuk small/medium/large menggunakan <code>coffee.getPrice()</code> dengan printf untuk format Rp%.0f (tanpa desimal). Opsi 5 untuk keluar. Baca <code>choice = sc.nextInt()</code>. Jika 5: cetak pesan terima kasih, set running=false. Jika invalid (1-4): cetak error, continue. Ambil <code>selected = menu.get(choice-1)</code>. Kemudian pilih ukuran: tampilkan opsi 1-3 dengan harga, baca <code>sizeChoice</code>, set <code>size</code> via switch (default small). Baca tambahan: <code>addSugar = sc.next().equalsIgnoreCase("y")</code>, sama untuk <code>addMilk</code>. Hitung <code>finalPrice = selected.getPrice(size)</code>, tambah 2000 jika addSugar, 3000 jika addMilk. Tampilkan detail pesanan dengan printf. Baca <code>paid = sc.nextDouble()</code>. Cek <code>!stock.hasEnough(selected, size, addSugar, addMilk)</code>: error stok, continue. Jika <code>paymentSystem.processPayment(finalPrice, paid)</code> true: panggil <code>stock.useIngredients()</code>, cetak "Sedang membuat...", <code>Thread.sleep(2000)</code> untuk simulasi (catch InterruptedException dengan pesan error), cetak "Kopi siap!", tambah ke <code>transactionLog.add(selected.getName() + " (" + size + ") | Rp" + finalPrice)</code> (catat tanpa tambahan gula/susu di log). Cek <code>stock.isLowStock()</code>: peringatan jika true. Selalu panggil <code>stock.showStatus()</code>. Setelah loop, tampilkan "Riwayat Transaksi:" dan loop for cetak setiap log dengan "- ". Method ini adalah inti interaksi, menggabungkan semua class untuk alur lengkap: pilih → konfig → bayar → validasi → proses → log.</li>
+        </ul>
+
+        <h4>Class Main</h4>
+        <p>
+          Class <code>Main</code> adalah entry point sederhana program, mengikuti konvensi Java untuk aplikasi console. Ia membuat instance VendingMachine dan memulai simulasi, memastikan eksekusi thread-safe tanpa kompleksitas tambahan.
+        </p>
+        <ul>
+          <li><b>Method <code>main(String[] args)</code> (static, publik)</b> → Method utama Java yang dijalankan saat program dieksekusi. Membuat <code>VendingMachine vm = new VendingMachine()</code> untuk inisialisasi, kemudian panggil <code>vm.start()</code> untuk memulai loop interaktif. Args tidak digunakan, tapi bisa digunakan untuk konfigurasi masa depan seperti stok awal via args. Ini memisahkan inisialisasi dari logika utama, memungkinkan testing VendingMachine secara terpisah jika diperlukan.
+        </li>
+        </ul>
+
+        <h4>Class Main</h4>
+        <p>
+          Class <code>Main</code> adalah entry point sederhana program, mengikuti konvensi Java untuk aplikasi console. Ia membuat instance VendingMachine dan memulai simulasi, memastikan eksekusi thread-safe tanpa kompleksitas tambahan.
+        </p>
+        <ul>
+          <li><b>Method <code>main(String[] args)</code> (static, publik)</b> → Method utama Java yang dijalankan saat program dieksekusi. Membuat <code>VendingMachine vm = new VendingMachine()</code> untuk inisialisasi, kemudian panggil <code>vm.start()</code> untuk memulai loop interaktif. Args tidak digunakan, tapi bisa digunakan untuk konfigurasi masa depan seperti stok awal via args. Ini memisahkan inisialisasi dari logika utama, memungkinkan testing VendingMachine secara terpisah jika diperlukan.</li>
+        </ul>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Evaluasi ini memperkuat pemahaman tentang composition dan encapsulation dalam PBO melalui desain modular Vending Machine Kopi. Class <code>VendingMachine</code> mengintegrasikan komponen seperti <code>Coffee</code> untuk menu dinamis, <code>IngredientStock</code> untuk manajemen inventori, dan <code>PaymentSystem</code> untuk transaksi, sementara interaksi console mensimulasikan alur real-world dengan validasi stok, pembayaran, dan logging. Implementasi ini menunjukkan bagaimana object saling berinteraksi untuk membentuk sistem lengkap, termasuk penggunaan ArrayList untuk koleksi dan Thread untuk simulasi waktu. Konsep ini menjadi dasar untuk proyek PBO lebih kompleks seperti inheritance, polymorphism, atau integrasi database di tugas selanjutnya.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="tugas3.html" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="tugas5.html" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>
