@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas 8: Online Shop dengan Testing Menggunakan Java
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 8: Online Shop dengan Testing Menggunakan Java</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 3 November 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 Hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">JUnit Testing</span>
+          <span class="tag">TDD</span>
+          <span class="tag">Online Shop</span>
+          <span class="tag">PBO</span>
+        </div>
+      </div>
+
+      <img src="images/online_shop_testing.png" alt="Tampilan Program Online Shop" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada praktikum kali ini, saya mengembangkan aplikasi online shop sederhana menggunakan Java dengan menerapkan konsep <strong>Test-Driven Development (TDD)</strong>. Project ini bertujuan untuk memahami pentingnya testing dalam siklus pengembangan software dan bagaimana cara mengimplementasikan unit testing menggunakan framework JUnit.
+        </p>
+
+        <p>
+          <strong>Testing</strong> merupakan fase krusial dalam software development lifecycle yang tidak boleh diabaikan. Aktivitas testing dilakukan untuk mengidentifikasi dan mendeteksi sebanyak mungkin kesalahan, bug, error, maupun defect sebelum aplikasi di-deploy ke production. Proses testing dilakukan dengan mengacu pada test plan dan test cases yang telah dirancang sebelumnya. Dalam praktik profesional, idealnya testing dilakukan oleh quality assurance (QA) tester yang independen dari tim programmer untuk menjaga objektivitas hasil testing dan menghindari bias.
+        </p>
+
+        <p>
+          <strong>Debugging</strong> adalah proses lanjutan yang dilakukan setelah testing mengidentifikasi adanya bug atau error. Aktivitas debugging meliputi pencarian lokasi spesifik dari kesalahan dan melakukan perbaikan terhadap code yang bermasalah. Umumnya, debugging menjadi tanggung jawab programmer yang menulis kode tersebut. Proses debugging dapat sangat time-consuming dan challenging, sehingga diperlukan strategi yang efektif. Terdapat tiga pendekatan utama dalam debugging:
+        </p>
+
+        <ul>
+          <li><strong>Brute Force:</strong> Metode ini menggunakan pendekatan trial-and-error dengan menambahkan statement print atau logging di berbagai bagian kode untuk melacak flow eksekusi dan nilai variable. Meskipun sederhana, metode ini kurang efisien untuk kode yang kompleks.</li>
+          <li><strong>Backtracking:</strong> Pendekatan ini melibatkan analisis source code secara sistematis untuk mengidentifikasi kemungkinan root cause dari error. Developer bergerak mundur dari titik error hingga menemukan lokasi awal munculnya masalah. Metode ini lebih efisien dibanding brute force karena lebih terstruktur.</li>
+          <li><strong>Cause Elimination:</strong> Teknik ini menggunakan pendekatan binary search atau divide-and-conquer dengan membagi program menjadi partisi-partisi dan secara bertahap mempersempit area pencarian hingga lokasi error ditemukan. Ini adalah metode yang paling efisien untuk aplikasi besar.</li>
+        </ul>
+
+        <h3>Implementasi Kode Program</h3>
+        <p>Berikut adalah implementasi lengkap sistem online shop dengan fitur review dan testing menggunakan JUnit:</p>
+
+        <p><strong>Class Comment</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Comment {
+    private String author;
+    private String text;
+    private int rating;
+    private int upvotes;
+    private int downvotes;
+    
+    public Comment(String author, String text, int rating) {
+        this.author = author;
+        this.text = text;
+        this.rating = rating;
+        this.upvotes = 0;
+        this.downvotes = 0;
+    }
+    
+    public String getAuthor() {
+        return author;
+    }
+    
+    public String getText() {
+        return text;
+    }
+    
+    public int getRating() {
+        return rating;
+    }
+    
+    public int getUpvotes() {
+        return upvotes;
+    }
+    
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public int getVoteCount() {
+        return upvotes - downvotes;
+    }
+
+    public void upvote() {
+        upvotes++;
+    }
+
+    public void downvote() {
+        downvotes++;
+    }
+    
+    public String getFullDetails() {
+        return "Author: " + author + "\nRating: " + rating + "\nComment: " + text + "\nUpvotes: " + upvotes + "\nDownvotes: " + downvotes;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Implementasi:</strong><br>
+        Class <code>Comment</code> merepresentasikan sebuah review atau ulasan yang diberikan oleh customer terhadap produk dalam online shop. Struktur class ini dirancang dengan five private attributes untuk maintaining data integrity: <code>author</code> untuk identitas reviewer, <code>text</code> untuk konten ulasan, <code>rating</code> untuk nilai bintang produk, serta <code>upvotes</code> dan <code>downvotes</code> untuk tracking sistem voting helpfulness dari review tersebut.
+        </p>
+
+        <p>
+        Constructor class menerima tiga parameters (author, text, rating) dan secara otomatis menginisialisasi vote counters ke nilai nol. Class ini menyediakan complete set of getter methods untuk accessing semua attributes, yang sejalan dengan prinsip encapsulation. Method <code>getVoteCount()</code> melakukan kalkulasi net votes dengan formula (upvotes - downvotes) untuk determining overall helpfulness rating. Methods <code>upvote()</code> dan <code>downvote()</code> berfungsi sebagai mutators untuk increment respective vote counters. Method <code>getFullDetails()</code> menghasilkan formatted string representation dari entire comment data yang ready untuk display purposes.
+        </p>
+
+        <p><strong>Class SalesItem</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">import java.util.ArrayList;
+import java.util.Iterator;
+
+public class SalesItem {
+    private String name;
+    private int price;
+    private ArrayList<Comment> comments;
+    
+    public SalesItem(String name, int price) {
+        this.name = name;
+        this.price = price;
+        comments = new ArrayList<Comment>();
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public int getPrice() {
+        return price;
+    }
+    
+    public int getNumberOfComments() {
+        return comments.size();
+    }
+    
+    public boolean addComment(String author, String text, int rating) {
+        if (ratingInvalid(rating)) return false;
+        if (findCommentByAuthor(author) != null) return false;
+        comments.add(new Comment(author, text, rating));
+        return true;
+    }
+    
+    public void removeComment(int index) {
+        if (index >= 0 && index < comments.size()) comments.remove(index);
+    }
+    
+    public void upvoteComment(int index) {
+        if (index >= 0 && index < comments.size()) comments.get(index).upvote();
+    }
+    
+    public void downvoteComment(int index) {
+        if (index >= 0 && index < comments.size()) comments.get(index).downvote();
+    }
+    
+    public void showInfo() {
+        System.out.println("*** " + name + " ***");
+        System.out.println("Price: " + priceString(price));
+        System.out.println();
+        System.out.println("Customer comments:");
+        for (Comment comment : comments) {
+            System.out.println("-----------------------------------");
+            System.out.println(comment.getFullDetails());
+        }
+        System.out.println();
+        System.out.println("=====================================");
+    }
+    
+    public Comment findMostHelpfulComment() {
+        Iterator<Comment> it = comments.iterator();
+        Comment best = it.next();
+        while (it.hasNext()) {
+            Comment current = it.next();
+            if (current.getVoteCount() > best.getVoteCount()) {
+                best = current;
+            }
+        }
+        return best;
+    }
+    
+    private boolean ratingInvalid(int rating) {
+        return rating < 1 || rating > 5;
+    }
+    
+    public Comment findCommentByAuthor(String author) {
+        for (Comment comment : comments) {
+            if (comment.getAuthor().equals(author)) {
+                return comment;
+            }
+        }
+        return null;
+    }
+    
+    public Comment findCommentByText (String text) {
+        for (Comment comment : comments) {
+            if (comment.getText().equals(text)) {
+                return comment;
+            }
+        }
+        return null;
+    }
+    
+    private String priceString(int price) {
+        int dollars = price / 100;
+        int cents = price - (dollars * 100);
+        if (cents <= 9) return "$" + dollars + ".0" + cents;
+        else return "$" + dollars + "." + cents;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Implementasi:</strong><br>
+        Class <code>SalesItem</code> adalah core entity yang merepresentasikan produk dalam sistem online shop. Class ini memiliki three key attributes: <code>name</code> untuk product identifier, <code>price</code> yang stored dalam cents format untuk precision, dan <code>comments</code> sebagai ArrayList untuk managing collection dari customer reviews.
+        </p>
+
+        <p>
+        Constructor melakukan initialization dari product name dan price, serta instantiate empty ArrayList untuk comments storage. Method <code>addComment()</code> implements comprehensive validation logic: pertama checking rating validity menggunakan <code>ratingInvalid()</code> helper method yang ensures rating berada dalam range 1-5, kemudian verifying bahwa author belum pernah submit review untuk mencegah duplicate reviews dari same user. Validation ini critical untuk maintaining data integrity dan review quality.
+        </p>
+
+        <p>
+        Methods <code>removeComment()</code>, <code>upvoteComment()</code>, dan <code>downvoteComment()</code> semuanya implement bounds checking untuk preventing index out of bounds exceptions. Method <code>showInfo()</code> generates formatted display dari product information beserta all associated reviews dengan clean visual separators. Method <code>findMostHelpfulComment()</code> utilizes Iterator pattern untuk traverse comments collection dan determine comment dengan highest vote count menggunakan greedy algorithm approach.
+        </p>
+
+        <p>
+        Helper methods <code>findCommentByAuthor()</code> dan <code>findCommentByText()</code> implement linear search algorithm untuk comment retrieval berdasarkan specific criteria. Private method <code>priceString()</code> melakukan price formatting dengan converting cents-based integer ke currency string format dengan proper decimal representation.
+        </p>
+
+        <p><strong>Class SalesItemTest</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class SalesItemTest
+{
+    public SalesItemTest(){}
+
+    @Before
+    public void setUp() {}
+    
+    @After
+    public void tearDown() {}
+    
+    @Test
+    public void testAddComment()
+    {
+        SalesItem salesIte1 = new SalesItem("Item1", 12999);
+        assertEquals(true, salesIte1.addComment("Felix", "Absolutely loved it", 5));
+        assertEquals(1, salesIte1.getNumberOfComments());
+    }
+
+    @Test
+    public void testIllegalRating()
+    {
+        SalesItem salesIte1 = new SalesItem("Item1", 12999);
+        assertEquals(false, salesIte1.addComment("BadUser", "Terrible product", 0));
+    }
+
+    @Test
+    public void testDuplicateAuthor()
+    {
+        SalesItem salesIte1 = new SalesItem("Item1", 12999);
+        assertEquals(true, salesIte1.addComment("Felix", "Absolutely loved it", 5));
+        assertEquals(false, salesIte1.addComment("Felix", "Could be better", 3));
+    }
+
+    @Test
+    public void testInit()
+    {
+        SalesItem salesIte1 = new SalesItem("Sample Item", 1500);
+        assertEquals("Sample Item", salesIte1.getName());
+        assertEquals(1500, salesIte1.getPrice());
+    }
+
+    @Test
+    public void addComment()
+    {
+        SalesItem salesIte1 = new SalesItem("Advanced Gardening Guide", 4999);
+        assertEquals(true, salesIte1.addComment("Sam", "Easy to follow, my plants thrive!", 4));
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Implementasi:</strong><br>
+        Class <code>SalesItemTest</code> adalah unit test suite yang developed menggunakan JUnit framework untuk verifying functionality dan correctness dari <code>SalesItem</code> class. Test class ini follows standard JUnit conventions dengan utilizing annotations untuk test lifecycle management.
+        </p>
+
+        <p>
+        Method <code>setUp()</code> dengan annotation <code>@Before</code> dan <code>tearDown()</code> dengan <code>@After</code> disediakan sebagai hooks untuk test preparation dan cleanup, meskipun dalam implementation ini tidak perform specific actions. Each test method marked dengan <code>@Test</code> annotation represents independent test case yang focuses pada specific functionality aspect.
+        </p>
+
+        <p>
+        Test <code>testAddComment()</code> verifies basic comment addition functionality dengan asserting return value adalah true dan comment count increases correctly. Test <code>testIllegalRating()</code> validates input validation logic dengan attempting to add comment dengan invalid rating (0) dan expecting rejection. Test <code>testDuplicateAuthor()</code> ensures duplicate prevention mechanism bekerja dengan attempting second comment dari same author dan expecting failure. Test <code>testInit()</code> validates constructor behavior dengan checking proper initialization dari name dan price attributes. Additional <code>addComment()</code> test provides another successful addition scenario dengan different test data.
+        </p>
+
+        <p>
+        Test suite ini demonstrates important testing principles: test isolation (each test independent), clear assertions (using assertEquals), dan comprehensive coverage dari different scenarios including normal cases, boundary conditions, dan error cases.
+        </p>
+
+        <h3>Analisis Konsep Testing</h3>
+        <p>
+          Implementation online shop project ini mendemonstrasikan several important software testing concepts dan best practices:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Test-Driven Development (TDD):</strong> Project ini mengikuti TDD approach dimana test cases ditulis untuk define expected behavior sebelum atau bersamaan dengan implementation code. Ini ensures bahwa code developed dengan clear specifications dan automatically testable dari awal development process.
+          </li>
+          <li>
+            <strong>Unit Testing:</strong> Setiap test method focuses pada testing single unit of functionality secara isolated. Misalnya, <code>testAddComment()</code> specifically tests comment addition feature tanpa dependencies pada other system components, making tests more reliable dan easier to debug ketika failures occur.
+          </li>
+          <li>
+            <strong>Input Validation Testing:</strong> Test cases seperti <code>testIllegalRating()</code> dan <code>testDuplicateAuthor()</code> verify bahwa system properly handles invalid inputs dan edge cases. Ini critical untuk preventing bugs dan ensuring robust application behavior dalam real-world usage scenarios.
+          </li>
+          <li>
+            <strong>Assertion-Based Verification:</strong> Penggunaan <code>assertEquals()</code> statements provides clear verification points yang automatically checked oleh JUnit framework. Ini eliminates manual verification dan enables automated regression testing untuk quickly detect breakages ketika code changes.
+          </li>
+          <li>
+            <strong>Test Coverage:</strong> Test suite covers multiple aspects dari SalesItem functionality termasuk initialization, comment addition dengan various scenarios, dan validation logic. Comprehensive test coverage increases confidence dalam code correctness dan reduces likelihood dari undetected bugs.
+          </li>
+        </ul>
+
+        <h3>Hasil Testing</h3>
+        <p>
+          Berikut adalah hasil dari eksekusi test suite yang menunjukkan semua test cases berhasil pass:
+        </p>
+
+        <div class="image-gallery">
+          <div class="gallery-item">
+            <img src="images/test_results.png" alt="Hasil Testing">
+            <div class="gallery-caption">Gambar 1: Hasil Eksekusi JUnit Testing</div>
+            <p class="gallery-explanation">
+              Screenshot hasil testing menunjukkan all test methods executed successfully dengan green bar indicator, confirming bahwa implementation memenuhi all defined test specifications.
+            </p>
+          </div>
+        </div>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Penerapan Test-Driven Development methodology dalam pengembangan aplikasi online shop ini successfully demonstrates nilai dan importance dari systematic testing approach. Dengan menulis test cases yang comprehensive, kita dapat ensure bahwa setiap functionality component telah thoroughly validated sebelum integration ke larger system.
+          </p>
+          <p>
+            TDD approach memberikan multiple benefits: meningkatkan code quality melalui continuous verification, mengurangi bug count dengan early detection, memfasilitasi safe refactoring dengan regression test safety net, dan menghasilkan living documentation dalam bentuk executable test specifications. Implementation testing yang proper adalah fundamental practice dalam professional software development yang directly contributes ke reliability, maintainability, dan overall quality dari software products.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>

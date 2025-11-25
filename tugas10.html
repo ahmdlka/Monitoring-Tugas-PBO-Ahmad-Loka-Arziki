@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700andfamily=Playfair+Display:ital,wght@0,700;1,400anddisplay=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas 10: Abstract Class
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 10: Abstract Class in Java</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 15 November 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">Abstract Class</span>
+          <span class="tag">Simulation</span>
+          <span class="tag">OOP</span>
+        </div>
+      </div>
+
+      <img src="images/abstract_living_creatures.png" alt="Abstract Living Creatures" class="main-image">
+
+      <img src="images/abstract_fox_rabbit.png" alt="Simulasi Rubah dan Kelinci" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada project Object Oriented Programming ini, saya mengembangkan dua exercise terpisah yang keduanya menekankan pada implementasi <strong>abstract class</strong> dalam bahasa pemrograman Java:
+        </p>
+        <ol>
+          <li><strong>Abstract Living Creatures</strong> — merupakan contoh fundamental untuk memahami bagaimana abstract class menyediakan kontrak behavior yang harus diimplementasikan oleh subclass-nya.</li>
+          <li><strong>Rabbits and Foxes Simulation</strong> — simulasi ekosistem berbasis grid yang memanfaatkan konsep abstract class untuk memodelkan interaksi makhluk hidup dalam sebuah environment.</li>
+        </ol>
+        <p>
+          Objective utama dari latihan ini adalah untuk mengilustrasikan bagaimana konsep abstraksi, inheritance, dan polymorphism dapat bekerja secara harmonis untuk menghasilkan codebase yang modular, extensible, dan maintainable dalam jangka panjang.
+        </p>
+
+        <h3>Konsep Abstract Class — Overview</h3>
+        <p>
+          Abstract class merupakan sebuah template atau blueprint yang tidak dapat di-instantiate secara langsung menjadi object. Class jenis ini mendefinisikan abstract methods (method tanpa implementation) yang berfungsi sebagai kontrak yang wajib dipenuhi oleh semua subclass yang meng-extend class tersebut. Selain abstract methods, abstract class juga dapat menyediakan concrete methods (methods dengan implementation lengkap) yang bisa langsung digunakan oleh subclass tanpa perlu override. Dalam context simulasi, abstract class sangat membantu dalam memisahkan common behavior yang dimiliki semua entities dari specific behavior yang unique untuk setiap entity type.
+        </p>
+
+        <h3>Implementasi Program — Abstract Living Creatures</h3>
+        <p>Berikut adalah implementasi dari contoh dasar yang mendemonstrasikan struktur abstract class beserta beberapa concrete subclass:</p>
+
+        <p><strong>Class LivingCreatures</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public abstract class LivingCreatures
+{
+    protected String name;
+    public abstract void eat();
+    public abstract void sleep();
+    public abstract void breathe();
+    public void grow() {
+        System.out.println(name + " is growing.");
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>LivingCreatures</code> berperan sebagai parent abstract class yang establishes tiga core abstract methods: <code>eat()</code>, <code>sleep()</code>, dan <code>breathe()</code>. Ketiga methods ini represents fundamental behaviors yang harus present pada semua living creatures dan must be implemented oleh setiap concrete subclass seperti <code>Animal</code>, <code>Human</code>, atau <code>Plant</code>. Selain abstract methods, class ini juga provides concrete method <code>grow()</code> yang implements shared behavior untuk semua creatures, sehingga eliminates code duplication across subclasses. Protected attribute <code>name</code> memungkinkan direct access dari subclass sambil maintaining encapsulation from external classes.
+        </p>
+
+        <p><strong>Class Animal</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Animal extends LivingCreatures
+{
+    public Animal() {
+        this.name = "Animal";
+    }
+
+    @Override
+    public void eat() {
+        System.out.println(name + " can be a carnivore, herbivore, or omnivore.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println(name + " sleeps variably depending on the species.");
+    }
+
+    @Override
+    public void breathe() {
+        System.out.println(name + " usually breathes using lungs or gills.");
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Animal</code> provides complete implementation untuk semua abstract methods yang di-declare pada parent class, making it a concrete class yang dapat di-instantiate. Implementation di sini bersifat generic dan provides general overview tentang animal behaviors tanpa specifying particular species. Design approach ini beneficial sebagai intermediate step jika kita planning untuk creating more specific subclasses seperti <code>Bird</code>, <code>Mammal</code>, atau <code>Reptile</code> di future development. Constructor initialize name attribute untuk identification purposes.
+        </p>
+
+        <p><strong>Class Human</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Human extends LivingCreatures
+{
+    public Human() {
+        this.name = "Human";
+    }
+
+    @Override
+    public void eat() {
+        System.out.println(name + " eats any type of food, it is an omnivore.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println(name + " sleeps for about 7-9 hours a day.");
+    }
+
+    @Override
+    public void breathe() {
+        System.out.println(name + " breathes using lungs, and needs oxygen.");
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Human</code> demonstrates more specific implementation dengan characteristics yang unique untuk humans: omnivorous diet pattern, typical sleep duration range (7-9 hours), dan respiratory system berbasis paru-paru. Class ini emphasizes bagaimana subclasses dapat provide detailed dan contextually relevant information untuk specific creature type. Dalam larger design context, <code>Human</code> class dapat di-extend dengan additional methods dan attributes seperti <code>work()</code>, <code>study()</code>, atau <code>language</code> attribute untuk representing unique human capabilities.
+        </p>
+
+        <p><strong>Class Plant</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Plant extends LivingCreatures
+{
+    public Plant() {
+        this.name = "Plant";
+    }
+
+    @Override
+    public void eat() {
+        System.out.println(name + " makes its own food through photosynthesis.");
+    }
+
+    @Override
+    public void sleep() {
+        System.out.println(name + " does not sleep but has periods of rest.");
+    }
+
+    @Override
+    public void breathe() {
+        System.out.println(name + " takes in carbon dioxide and releases oxygen.");
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Plant</code> illustrates bahwa abstract method implementations dapat significantly differ berdasarkan biological characteristics dari entity. Method <code>eat()</code> pada plants bukan represents active consumption melainkan photosynthesis process — ini demonstrates bahwa abstract contracts harus di-implement sesuai dengan domain-specific requirements. Implementation ini also showcases polymorphism benefits: code yang calls methods pada abstract type (<code>LivingCreatures</code>) dapat seamlessly work dengan any subclass implementation tanpa modification.
+        </p>
+
+        <p><strong>Class Main</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Main
+{   
+    public static void main(String[] args) {
+        Main main = new Main();
+        main.run();
+    }
+
+    public void checkLivingCreatures(LivingCreatures creatures) {
+        creatures.eat();
+        creatures.sleep();
+        creatures.breathe();
+    }
+
+    public void run() {
+        LivingCreatures animal = new Animal();
+        LivingCreatures plant = new Plant();
+        LivingCreatures human = new Human();
+
+        checkLivingCreatures(animal);
+        System.out.println();
+        checkLivingCreatures(plant);
+        System.out.println();
+        checkLivingCreatures(human);
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Main</code> serves sebagai demonstration platform untuk polymorphic behavior: variables dengan type <code>LivingCreatures</code> capable untuk hold objects dari any subclass. Method <code>checkLivingCreatures</code> invokes abstract methods yang already implemented by subclasses, sehingga actual behavior yang executed depends on runtime object type (dynamic method dispatch). This demonstrates fundamental OOP principles seperti loose coupling dan extensibility — adding new subclass types doesn't require modifications pada existing caller code.
+        </p>
+
+        <hr>
+
+        <h3>Implementasi Program — Rabbits and Foxes (Grid Simulation)</h3>
+        <p>Section ini contains implementation dari simple ecosystem simulation berbasis grid field. Abstract class <code>Animal</code> provides basic mechanisms untuk age, life status, dan location management, sementara concrete classes <code>Rabbit</code> dan <code>Fox</code> implement specific behaviors untuk movement dan food hunting.</p>
+
+        <p><strong>Class Animal (Simulation)</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public abstract class Animal
+{
+    private int age;
+    private boolean alive;
+    private Field field;
+    private Location location;
+
+    public Animal(Field field, Location location) {
+        age = 0;
+        alive = true;
+        this.field = field;
+        setLocation(location);
+    }
+
+    public boolean isAlive() {
+        return alive;
+    }
+
+    public void setDead() {
+        alive = false;
+        if(location != null) {
+            field.clear(location);
+            location = null;
+            field = null;
+        }
+    }
+
+    public Field getField() {
+        return field;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location newLocation) {
+        if(location != null) {
+            field.clear(location);
+        }
+
+        location = newLocation;
+        field.place(this, newLocation);
+    }
+
+    public abstract void act(java.util.List<Animal> newAnimals);
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Abstract class <code>Animal</code> encapsulates essential state information required untuk simulation engine: <code>age</code> attribute untuk tracking creature age (dapat digunakan untuk reproduction policies atau natural death), <code>alive</code> flag untuk lifecycle status, dan <code>field</code>/<code>location</code> references untuk maintaining spatial relationship dengan grid. Method <code>setLocation</code> ensures data consistency antara object state dan <code>Field</code> matrix dengan clearing old position dan placing object pada new position. Abstract method <code>act</code> defines single behavioral step untuk each animal — specific implementation delegated ke subclasses. Design ini facilitates clean lifecycle management (spawn, movement, death) dengan clear separation of concerns.
+        </p>
+
+        <p><strong>Class Rabbit</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Rabbit extends Animal
+{
+    public Rabbit(Field field, Location location) {
+        super(field, location);
+    }
+
+    @Override
+    public void act(java.util.List<Animal> newAnimals) {
+        if (isAlive()) {
+            Location newLocation = getField().freeAdjacentLocation(getLocation());
+            if (newLocation != null) {
+                setLocation(newLocation);
+            } else {
+                setDead();
+            }
+        }
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Rabbit</code> implements straightforward survival behavior: pada each simulation step, rabbit attempts untuk move ke adjacent free location. Jika free space available, rabbit relocates — simulating natural dispersal atau migration behavior. Jika no free space exists, rabbit dies dari overcrowding atau resource competition. Simple implementation ini sufficient untuk demonstrating basic ecosystem interactions. Untuk more realistic simulation, bisa ditambahkan reproduction mechanics berdasarkan age threshold, maximum lifespan constraints, atau probabilistic death rates untuk introducing stochastic elements.
+        </p>
+
+        <p><strong>Class Fox</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Fox extends Animal
+{
+    public Fox(Field field, Location location) {
+        super(field, location);
+    }
+
+    @Override
+    public void act(java.util.List<Animal> newAnimals) {
+        if (isAlive()) {
+            Location newLocation = findFood();
+            if (newLocation == null) {
+                newLocation = getField().freeAdjacentLocation(getLocation());
+            }
+            if (newLocation != null) {
+                setLocation(newLocation);
+            } else {
+                setDead();
+            }
+        }
+    }
+
+    private Location findFood() {
+        java.util.List<Location> adjacent = getField().adjacentLocations(getLocation());
+        for (Location loc : adjacent) {
+            Object animal = getField().getObjectAt(loc);
+            if (animal instanceof Rabbit) {
+                Rabbit rabbit = (Rabbit) animal;
+                rabbit.setDead();
+                return loc;
+            }
+        }
+        return null;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Fox</code> adds predatory hunting logic ke basic animal behavior. Private helper method <code>findFood()</code> scans adjacent locations untuk locate <code>Rabbit</code> instances. When prey found, fox 'consumes' rabbit dengan invoking <code>setDead()</code> dan moves to that location. Jika hunting unsuccessful, fox attempts normal movement ke free space; jika no movement possible, fox dies dari starvation atau overcrowding. Behavior ini creates simple predator-prey dynamics dimana fox dan rabbit populations akan influence each other's survival rates. Current implementation deterministic; untuk introducing variability, bisa added hunting success probability, energy/hunger mechanics, atau reproduction rates yang depends on food availability.
+        </p>
+
+        <p><strong>Class Field</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">import java.util.List;
+import java.util.ArrayList;
+
+public class Field
+{
+    private Object[][] field;
+
+    public Field(int depth, int width) {
+        field = new Object[depth][width];
+    }
+
+    public void clear(Location location) {
+        field[location.getRow()][location.getCol()] = null;
+    }
+
+    public void place(Object obj, Location location) {
+        field[location.getRow()][location.getCol()] = obj;
+    }
+
+    public int getDepth() {
+        return field.length;
+    }
+
+    public int getWidth() {
+        return field[0].length;
+    }
+
+    public Object getObjectAt(Location location) {
+        return field[location.getRow()][location.getCol()];
+    }
+
+    public Location freeAdjacentLocation(Location location) {
+        List<Location> free = new ArrayList<>();
+        List<Location> adjacent = adjacentLocations(location);
+        for (Location loc : adjacent) {
+            if (getObjectAt(loc) == null) {
+                free.add(loc);
+            }
+        }
+        return free.isEmpty() ? null : free.get(0);
+    }
+
+    public List<Location> adjacentLocations(Location location) {
+        List<Location> locations = new ArrayList<>();
+        int row = location.getRow();
+        int col = location.getCol();
+        for (int dr = -1; dr <= 1; dr++) {
+            for (int dc = -1; dc <= 1; dc++) {
+                if (dr == 0 && dc == 0) continue;
+                int newRow = row + dr;
+                int newCol = col + dc;
+                if (newRow >= 0 && newRow < field.length && newCol >= 0 && newCol < field[0].length) {
+                    locations.add(new Location(newRow, newCol));
+                }
+            }
+        }
+        return locations;
+    }
+
+    public void printField() {
+        for (int row = 0; row < getDepth(); row++) {
+            for (int col = 0; col < getWidth(); col++) {
+                Object obj = field[row][col];
+                if (obj == null) {
+                    System.out.print(".");
+                } else if (obj instanceof Rabbit) {
+                    System.out.print("R");
+                } else if (obj instanceof Fox) {
+                    System.out.print("F");
+                } else {
+                    System.out.print("?");
+                }
+            }
+            System.out.println();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Field</code> functions sebagai 2D grid representation dimana entire simulation executes. Primary responsibilities include: storing object references pada each grid cell, providing API untuk placing, clearing, dan reading objects at specific locations, identifying free adjacent spaces untuk movement purposes, dan generating neighbor location lists untuk movement atau food search operations. Implementation menggunakan fixed-size 2D array structure. Untuk larger scale simulations, alternative data structures seperti sparse matrix atau quadtree dapat considered untuk improving memory efficiency dan performance.
+        </p>
+
+        <p><strong>Class Location</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Location
+{
+    private int row;
+    private int col;
+
+    public Location(int row, int col) {
+        this.row = row;
+        this.col = col;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Location</code> adalah simple value object yang encapsulates grid coordinates (row, column position) dalam <code>Field</code>. Dengan separating coordinate representation ke dedicated class, code becomes more explicit dan maintainable. Design ini also facilitates future enhancements seperti adding distance calculations, coordinate validation methods, atau custom equality comparisons without affecting other system components.
+        </p>
+
+        <p><strong>Class Simulator</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">import java.util.List;
+import java.util.ArrayList;
+
+public class Simulator
+{
+    private Field field;
+    private List<Animal> animals;
+
+    public static void main(String[] args) {
+        Simulator simulator = new Simulator(30, 30);
+        simulator.field.printField();
+        simulator.simulate(10);
+        System.out.println("==============================");
+        simulator.field.printField();
+    }
+
+    public Simulator(int width, int height) {
+        field = new Field(height, width);
+        animals = new ArrayList<>();
+        populate();
+    }
+
+    public void simulate(int steps) {
+        for (int step = 0; step < steps; step++) {
+            List<Animal> newAnimals = new ArrayList<>();
+            for (Animal animal : animals) {
+                animal.act(newAnimals);
+            }
+            animals.addAll(newAnimals);
+            animals.removeIf(animal -> !animal.isAlive());
+        }
+    }
+
+    private void populate() {
+        for (int row = 0; row < field.getDepth(); row++) {
+            for (int col = 0; col < field.getWidth(); col++) {
+                if (Math.random() < 0.1) {
+                    Location location = new Location(row, col);
+                    Rabbit rabbit = new Rabbit(field, location);
+                    animals.add(rabbit);
+                } else if (Math.random() < 0.05) {
+                    Location location = new Location(row, col);
+                    Fox fox = new Fox(field, location);
+                    animals.add(fox);
+                }
+            }
+        }
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Class <code>Simulator</code> orchestrates entire simulation process dengan initializing <code>Field</code> dan creating initial population via <code>populate()</code> method yang uses randomization: probability values (0.1 untuk rabbits, 0.05 untuk foxes) control initial population density distribution. Method <code>simulate</code> executes iterative simulation steps: invoking <code>act()</code> pada each living animal, collecting newborn animals yang produced during reproduction, dan removing dead animals dari active population list. Modular design enables easy extension dengan additional features seperti reproduction parameters, energy/hunger systems, seasonal variations, atau more sophisticated behavioral rules tanpa major refactoring.
+        </p>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+          Implementation dari project ini successfully demonstrates several key software engineering concepts related to abstract classes:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Code Reusability:</strong> Abstract class <code>Animal</code> consolidates common functionality (age tracking, location management, life status) yang shared across all creature types, eliminating redundant code across subclasses dan facilitating easier maintenance.
+          </li>
+          <li>
+            <strong>Polymorphism:</strong> Simulator code operates pada abstract <code>Animal</code> type, allowing seamless handling dari different concrete types (Rabbit, Fox) through unified interface. Adding new animal species doesn't require simulator code modifications.
+          </li>
+          <li>
+            <strong>Extensibility:</strong> New behaviors atau creature types dapat easily integrated dengan extending abstract class dan implementing required abstract methods. System architecture supports growth tanpa disrupting existing functionality.
+          </li>
+          <li>
+            <strong>Separation of Concerns:</strong> Each class has well-defined responsibility: <code>Field</code> manages spatial grid, <code>Location</code> handles coordinates, <code>Animal</code> subclasses define specific behaviors, dan <code>Simulator</code> orchestrates overall execution flow.
+          </li>
+        </ul>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Project ini successfully demonstrates bagaimana <strong>abstract class</strong> contributes to creating modular dan extensible software architecture. Dengan centralizing shared behavior pada abstract parent class dan delegating specific implementations ke subclasses, kita achieving significant benefits termasuk reduced code duplication, simplified addition dari new entity types, dan polymorphic invocation yang maintains caller code simplicity dan generality.
+          </p>
+          <p>
+            Untuk future enhancements, simulation system ini dapat enriched dengan advanced features seperti age-based reproduction mechanics, energy/starvation systems untuk predators, diverse habitat types dengan varying resource availability, atau graphical visualization interface untuk better observing population dynamics dan ecosystem interactions over time.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>

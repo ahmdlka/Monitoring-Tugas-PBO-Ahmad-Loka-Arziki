@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas 5: Grouping Object – Project Personal Organizer
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 5: Grouping Object – Project Personal Organizer</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 6 October 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">Object Grouping</span>
+          <span class="tag">ArrayList</span>
+          <span class="tag">PBO</span>
+        </div>
+      </div>
+
+      <img src="images/personal_organizer_main.png" alt="Tampilan Program Personal Organizer" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada latihan kali ini, saya membuat sebuah aplikasi <strong>to do list</strong> sederhana menggunakan bahasa pemrograman Java.
+          Tujuan dari latihan ini adalah untuk berlatih konsep <em>Object Grouping</em> dalam pemrograman berorientasi objek.
+          Aplikasi ini memungkinkan pengguna untuk menambahkan, menghapus, dan menampilkan tugas-tugas yang perlu diselesaikan.
+          Setiap tugas direpresentasikan sebagai objek yang memiliki atribut seperti deskripsi tugas dan status penyelesaian.
+          Dengan menggunakan konsep <em>Object Grouping</em>, saya dapat mengelompokkan tugas-tugas tersebut dalam sebuah daftar,
+          sehingga memudahkan pengelolaan dan manipulasi data. Latihan ini membantu saya memahami bagaimana mengorganisir kode dengan lebih baik
+          dan meningkatkan keterampilan pemrograman berorientasi objek saya.
+        </p>
+
+        <h3>Implementasi Program</h3>
+        <p>Berikut adalah kode program lengkap dari aplikasi to do list yang saya buat:</p>
+        <p><strong>Class Task</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">class Task {
+    private String title;
+    private String description;
+
+    public Task(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public String toString() {
+        return "Judul: " + title + " | Deskripsi: " + description;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>Task</code> merepresentasikan sebuah tugas dalam aplikasi to do list.
+        Setiap tugas memiliki atribut <code>title</code> dan <code>description</code>.
+        Kelas ini juga menyediakan metode untuk mengakses informasi tentang tugas dan menampilkan representasi string dari tugas.
+        Dengan menggunakan kelas ini, kita dapat dengan mudah membuat dan mengelola daftar tugas dalam aplikasi.
+        </p>
+
+        <p><strong>Class PersonalOrganizer</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">import java.util.ArrayList;
+import java.util.Scanner;
+
+public class PersonalOrganizer {
+    public static void main(String[] args) {
+        ArrayList<Task> tasks = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n=== Personal Organizer ===");
+            System.out.println("1. Tambah Tugas");
+            System.out.println("2. Lihat Semua Tugas");
+            System.out.println("3. Hapus Tugas");
+            System.out.println("4. Keluar");
+            System.out.print("Pilih menu: ");
+            choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Masukkan judul tugas: ");
+                    String title = scanner.nextLine();
+                    System.out.print("Masukkan deskripsi tugas: ");
+                    String description = scanner.nextLine();
+                    tasks.add(new Task(title, description));
+                    System.out.println("Tugas berhasil ditambahkan!");
+                    break;
+
+                case 2:
+                    System.out.println("\nDaftar Tugas:");
+                    if (tasks.isEmpty()) {
+                        System.out.println("Tidak ada tugas.");
+                    } else {
+                        for (int i = 0; i < tasks.size(); i++) {
+                            System.out.println((i + 1) + ". " + tasks.get(i));
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("Masukkan nomor tugas yang akan dihapus: ");
+                    int index = scanner.nextInt();
+                    if (index > 0 && index <= tasks.size()) {
+                        tasks.remove(index - 1);
+                        System.out.println("Tugas berhasil dihapus!");
+                    } else {
+                        System.out.println("Nomor tugas tidak valid.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("Terima kasih! Keluar dari aplikasi.");
+                    break;
+
+                default:
+                    System.out.println("Pilihan tidak valid, coba lagi.");
+            }
+        } while (choice != 4);
+        scanner.close();
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>PersonalOrganizer</code> adalah kelas utama yang menjalankan aplikasi to do list.
+        Di dalam metode <code>main()</code>, digunakan <code>ArrayList&lt;Task&gt;</code> untuk menyimpan objek-objek tugas.
+        Aplikasi ini menyediakan menu interaktif yang memungkinkan pengguna untuk menambahkan tugas baru,
+        melihat semua tugas yang ada, menghapus tugas berdasarkan nomor urut, dan keluar dari aplikasi.
+        Dengan menggunakan konsep <em>Object Grouping</em>, kita dapat mengelola daftar tugas dengan mudah dan efisien.
+        Aplikasi ini memberikan pengalaman pengguna yang sederhana namun efektif dalam mengorganisir tugas-tugas sehari-hari.
+        </p>
+
+        <h3>Gambar Implementasi di BlueJ</h3>
+        <p>
+            Berikut merupakan tampilan implementasi project <b>Personal Organizer</b> pada BlueJ,
+            yang berfungsi untuk mengelola daftar tugas menggunakan <code>ArrayList&lt;Task&gt;</code>.
+        </p>
+
+        <div class="image-gallery">
+          <div class="gallery-item">
+            <img src="images/menu_program.png" alt="Tampilan Menu Program">
+            <div class="gallery-caption">Gambar 1: Tampilan Menu Program</div>
+            <p class="gallery-explanation">
+              Tampilan awal aplikasi <b>Personal Organizer</b> yang menampilkan menu utama dengan empat pilihan:
+              menambah tugas, melihat daftar tugas, menghapus tugas, dan keluar dari program.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/input_tugas.png" alt="Menambahkan Tugas">
+            <div class="gallery-caption">Gambar 2: Menambahkan Tugas</div>
+            <p class="gallery-explanation">
+              Tampilan saat pengguna menambahkan tugas baru ke dalam daftar. Program meminta judul dan deskripsi tugas,
+              lalu menyimpannya ke dalam <code>ArrayList&lt;Task&gt;</code>.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/daftar_tugas.png" alt="Menampilkan Daftar Tugas">
+            <div class="gallery-caption">Gambar 3: Menampilkan Daftar Tugas</div>
+            <p class="gallery-explanation">
+              Tampilan daftar semua tugas yang tersimpan. Setiap tugas ditampilkan dengan nomor urut, judul, dan deskripsi.
+              Pengguna dapat melihat seluruh data yang telah dimasukkan sebelumnya.
+            </p>
+          </div>
+
+          <div class="gallery-item">
+            <img src="images/hapus_tugas.png" alt="Menghapus Tugas">
+            <div class="gallery-caption">Gambar 4: Menghapus Tugas</div>
+            <p class="gallery-explanation">
+              Tampilan saat pengguna menghapus salah satu tugas berdasarkan nomor urut.
+              Setelah penghapusan, daftar diperbarui sehingga tugas yang dihapus tidak lagi muncul.
+            </p>
+          </div>
+        </div>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+            Program ini menerapkan konsep <b>Grouping Object</b> dengan menggunakan struktur data
+            <code>ArrayList&lt;Task&gt;</code> untuk menyimpan kumpulan objek dari kelas <code>Task</code>.
+            Hal ini memungkinkan pengelolaan banyak data dalam satu wadah yang fleksibel.
+        </p>
+
+        <ul>
+            <li>
+            <b>Kelas Task</b> berisi atribut <code>title</code> dan <code>description</code> serta konstruktor dan getter.
+            </li>
+            <li>
+            <b>Kelas PersonalOrganizer</b> bertugas menyediakan menu interaktif
+            (menambah, melihat, menghapus tugas) dengan bantuan <code>Scanner</code>.
+            </li>
+            <li>
+            <b>ArrayList&lt;Task&gt;</b> digunakan untuk menyimpan semua objek tugas
+            sehingga dapat diakses atau dimodifikasi dengan mudah.
+            </li>
+        </ul>
+
+        <div class="conclusion">
+            <h3>Kesimpulan</h3>
+            <p>
+            Project ini menunjukkan penerapan konsep <b>Grouping Object</b> melalui penggunaan
+            <code>ArrayList</code> yang menampung objek-objek dari kelas <code>Task</code>.
+            Dengan pendekatan ini, pengelolaan data tugas menjadi lebih terstruktur dan efisien.
+            </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -10,6 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 <body>
   <!-- Header -->
@@ -80,7 +84,7 @@
 
         <h4>Class Mahasiswa</h4>
         <div class="code-block">
-          <pre>
+          <pre><code class="language-java">
 import java.util.*;
 class Mahasiswa {
     private String nama;
@@ -136,12 +140,12 @@ class Mahasiswa {
         System.out.println("Total SKS: " + hitungTotalSKS());
     }
 }
-          </pre>
+</code></pre>
         </div>
 
         <h4>Class Dosen</h4>
         <div class="code-block">
-          <pre>
+          <pre><code class="language-java">
 import java.util.*;
 class Dosen {
     private String nama;
@@ -154,12 +158,12 @@ class Dosen {
 
     public String getNama() { return nama; }
 }
-          </pre>
+</code></pre>
         </div>
 
         <h4>Class Kelas</h4>
         <div class="code-block">
-          <pre>
+          <pre><code class="language-java">
 import java.util.*;
 class Kelas {
     private String kodeKelas;
@@ -204,12 +208,12 @@ class Kelas {
     public String getJadwal() { return jadwal; }
     public Dosen getDosen() { return dosenPengampu; }
 }
-          </pre>
+</code></pre>
         </div>
 
         <h4>Class Matakuliah</h4>
         <div class="code-block">
-          <pre>
+          <pre><code class="language-java">
 import java.util.*;
 class Matakuliah {
     private String nama;
@@ -223,12 +227,12 @@ class Matakuliah {
     public String getNama() { return nama; }
     public int getSks() { return sks; }
 }
-          </pre>
+          </code></pre>
         </div>
 
         <h4>Class DisplayFRS</h4>
         <div class="code-block">
-          <pre>
+          <pre><code class="language-java">
 import java.util.*;
 class DisplayFRS {
     private List<Mahasiswa> daftarMahasiswa = new ArrayList<>();
@@ -341,12 +345,12 @@ class DisplayFRS {
         return daftarKelas;
     }
 }
-          </pre>
+</code></pre>
         </div>
 
         <h4>Class Main</h4>
         <div class="code-block">
-          <pre>
+          <pre><code class="language-java">
 import java.util.*;
 public class Main {
     public static void main(String[] args) {
@@ -453,7 +457,7 @@ public class Main {
         sc.close();
     }
 }
-          </pre>
+          </code></pre>
         </div>
 
         <h3>Gambar Implementasi di BlueJ</h3>
@@ -471,8 +475,16 @@ public class Main {
           </div>
 
           <div class="gallery-item">
+            <img src="images/frs_login.png" alt="Menu Utama FRS">
+            <div class="gallery-caption">Gambar 2: Menu utama aplikasi FRS</div>
+            <p class="gallery-explanation">
+              Setelah login, sistem menampilkan menu dengan opsi: lihat daftar kelas, ambil kelas, drop kelas, lihat FRS, logout, atau keluar aplikasi. Input pengguna diproses menggunakan <code>Scanner</code> dan struktur <code>switch</code>.
+            </p>
+          </div>
+
+          <div class="gallery-item">
             <img src="images/frs_daftar_kelas.png" alt="Tampilkan Daftar Kelas">
-            <div class="gallery-caption">Gambar 2: Menampilkan daftar kelas tersedia</div>
+            <div class="gallery-caption">Gambar 3: Menampilkan daftar kelas tersedia</div>
             <p class="gallery-explanation">
               Pemanggilan method <code>tampilkanDaftarKelas()</code> menampilkan daftar kelas dengan kode, nama mata kuliah, kelas, SKS, dosen, ruangan, dan jadwal. Contoh output: "EF3081 - Dasar Pemrograman A (4 SKS) | Dosen: Dr. Budi | Ruang: IF101 | Jadwal: Senin 08.00".
             </p>
@@ -480,17 +492,9 @@ public class Main {
 
           <div class="gallery-item">
             <img src="images/frs_ambil_kelas.png" alt="Ambil Kelas">
-            <div class="gallery-caption">Gambar 3: Proses pengambilan kelas</div>
+            <div class="gallery-caption">Gambar 4: Proses pengambilan kelas</div>
             <p class="gallery-explanation">
               Mahasiswa memasukkan kode kelas (misalnya, "EF3081") untuk mengambil kelas. Sistem memeriksa tiga kondisi: total SKS tidak melebihi 24, kelas belum diambil sebelumnya, dan kapasitas kelas masih tersedia. Jika berhasil, kelas ditambahkan ke FRS.
-            </p>
-          </div>
-
-          <div class="gallery-item">
-            <img src="images/frs_drop_kelas.png" alt="Drop Kelas">
-            <div class="gallery-caption">Gambar 4: Proses menghapus kelas dari FRS</div>
-            <p class="gallery-explanation">
-              Mahasiswa memasukkan kode kelas untuk dihapus dari FRS. Jika kelas ditemukan di <code>daftarKelas</code>, sistem menghapusnya, mengurangi SKS, dan memperbarui daftar mahasiswa di kelas tersebut.
             </p>
           </div>
 
@@ -503,24 +507,8 @@ public class Main {
           </div>
 
           <div class="gallery-item">
-            <img src="images/frs_menu.png" alt="Menu Utama FRS">
-            <div class="gallery-caption">Gambar 6: Menu utama aplikasi FRS</div>
-            <p class="gallery-explanation">
-              Setelah login, sistem menampilkan menu dengan opsi: lihat daftar kelas, ambil kelas, drop kelas, lihat FRS, logout, atau keluar aplikasi. Input pengguna diproses menggunakan <code>Scanner</code> dan struktur <code>switch</code>.
-            </p>
-          </div>
-
-          <div class="gallery-item">
-            <img src="images/frs_inspeksi.png" alt="Inspeksi Objek Mahasiswa">
-            <div class="gallery-caption">Gambar 7: Inspeksi objek Mahasiswa di BlueJ</div>
-            <p class="gallery-explanation">
-              Inspeksi objek <code>Mahasiswa</code> menunjukkan atribut seperti <code>nama</code>, <code>nrp</code>, <code>sks</code>, dan <code>daftarKelas</code>, mencerminkan encapsulation dan state internal setelah pengambilan kelas.
-            </p>
-          </div>
-
-          <div class="gallery-item">
             <img src="images/frs_drop_kelas.png" alt="Drop Kelas">
-            <div class="gallery-caption">Gambar 8: Proses menghapus kelas dari FRS</div>
+            <div class="gallery-caption">Gambar 6: Proses menghapus kelas dari FRS</div>
             <p class="gallery-explanation">
               Mahasiswa memilih opsi 3 dari menu utama dan memasukkan kode kelas (misalnya, "EF3090") untuk dihapus dari FRS. Sistem memanggil method <code>dropKelas()</code> pada objek <code>Mahasiswa</code>, yang memeriksa apakah kelas ada di <code>daftarKelas</code>. Jika ditemukan, kelas dihapus, SKS dikurangi, dan mahasiswa dihapus dari daftar mahasiswa di kelas tersebut. Output menunjukkan "Kelas berhasil di-drop!" atau pesan error jika kelas tidak ditemukan atau tidak ada di FRS.
             </p>
@@ -528,7 +516,7 @@ public class Main {
 
           <div class="gallery-item">
             <img src="images/frs_logout.png" alt="Logout">
-            <div class="gallery-caption">Gambar 9: Proses logout dari aplikasi</div>
+            <div class="gallery-caption">Gambar 7: Proses logout dari aplikasi</div>
             <p class="gallery-explanation">
               Mahasiswa memilih opsi 5 dari menu utama untuk logout. Sistem menampilkan pesan "Logout berhasil." dan mengatur variabel <code>jalanMenu</code> ke <code>false</code>, mengembalikan pengguna ke halaman login untuk memasukkan NRP dan password baru atau keluar dari aplikasi.
             </p>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas 9: Vehicle Rental System dengan Inheritance
+    </div>
+
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 9: Vehicle Rental System – Inheritance</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 8 November 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">Inheritance</span>
+          <span class="tag">OOP</span>
+          <span class="tag">Vehicle System</span>
+        </div>
+      </div>
+
+      <img src="images/vehicle_rental.png" alt="Vehicle Rental System" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada proyek ini, saya mengembangkan sebuah <strong>sistem manajemen penyewaan kendaraan</strong> yang dibangun menggunakan bahasa Java. Fokus utama dari tugas ini adalah penerapan konsep <em>pewarisan (inheritance)</em> untuk memodelkan berbagai jenis kendaraan dengan karakteristik berbeda. Setiap kelas turunan mewarisi atribut dasar dari kelas induk, namun tetap memiliki ciri khasnya masing-masing, sehingga struktur program menjadi lebih terorganisir dan mudah dikembangkan.
+        </p>
+
+        <h3>Fitur Utama</h3>
+        <p>Sistem ini menyediakan beberapa kemampuan inti, antara lain:</p>
+        <ul>
+          <li>Menambahkan kendaraan baru ke dalam daftar.</li>
+          <li>Menghapus kendaraan yang tidak lagi tersedia.</li>
+          <li>Mencari kendaraan berdasarkan kriteria tertentu.</li>
+          <li>Melakukan proses penyewaan dan pengembalian kendaraan.</li>
+        </ul>
+        <p>
+          Setiap jenis kendaraan—mobil, motor, maupun sepeda—dibuat sebagai kelas turunan dengan atribut unik, namun tetap berbagi struktur dasar dari kelas <code>Vehicle</code>.
+        </p>
+
+        <h3>Struktur Kelas</h3>
+        <p>Berikut gambaran umum relasi antar kelas dalam sistem:</p>
+        <ul>
+          <li><b>Vehicle</b> – kelas induk yang menyimpan atribut umum semua kendaraan.</li>
+          <li><b>Car</b> – kelas turunan yang menambahkan atribut seperti jumlah pintu dan kursi.</li>
+          <li><b>Motorcycle</b> – kelas turunan yang menambahkan kapasitas mesin dan status listrik.</li>
+          <li><b>Bike</b> – kelas turunan yang menambahkan tipe sepeda dan informasi carrier.</li>
+        </ul>
+
+        <h3>Kode Program</h3>
+        <p>Berikut adalah implementasi lengkap dari sistem penyewaan kendaraan menggunakan konsep <i>inheritance</i> dalam Java:</p>
+
+        <h4>Class InputReader</h4>
+        <div class="code-block"><pre><code class="language-java">import java.util.Scanner;
+
+public class InputReader
+{
+    private Scanner scanner;
+
+    public InputReader() {
+        scanner = new Scanner(System.in);
+    }
+
+    public String readString(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine();
+    }
+
+    public void close() {
+        scanner.close();
+    }
+}</code></pre></div>
+
+        <p><strong>Penjelasan:</strong><br>
+          Kelas <code>InputReader</code> bertugas menangani seluruh proses pengambilan input dari pengguna. Dengan memisahkan logika input ke dalam kelas tersendiri, kode utama menjadi lebih bersih serta mudah dipelihara. Pendekatan ini memastikan bahwa interaksi pengguna tidak bercampur dengan logika pengelolaan data kendaraan.
+        </p>
+
+        <h4>Class Vehicle</h4>
+        <div class="code-block"><pre><code class="language-java">public class Vehicle
+{
+    private String make;
+    private String model;
+    private int year;
+
+    public Vehicle(String make, String model, int year) {
+        this.make = make;
+        this.model = model;
+        this.year = year;
+    }
+
+    public String getMake() {
+        return make;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void showDetail() {
+        System.out.println("Make: " + make);
+        System.out.println("Model: " + model);
+        System.out.println("Year: " + year);
+    }
+}</code></pre></div>
+
+        <p><strong>Penjelasan:</strong><br>
+          <code>Vehicle</code> adalah fondasi dari seluruh jenis kendaraan pada sistem ini. Kelas ini menyimpan atribut dasar, seperti <i>make</i>, <i>model</i>, dan <i>year</i>, yang dimiliki seluruh kendaraan. Dengan menetapkan atribut umum di kelas induk, kelas turunan dapat fokus menambahkan karakteristik spesifik tanpa harus menulis ulang kode.
+        </p>
+
+        <h4>Class Car</h4>
+        <div class="code-block"><pre><code class="language-java">public class Car extends Vehicle
+{
+    private int numberOfDoors;
+    private int numberOfSeats;
+    private int numberOfWheels;
+    private boolean isElectric;
+
+    public Car(String make, String model, int year, int numberOfDoors, int numberOfSeats, int numberOfWheels, boolean isElectric) {
+        super(make, model, year);
+        this.numberOfDoors = numberOfDoors;
+        this.numberOfSeats = numberOfSeats;
+        this.numberOfWheels = numberOfWheels;
+        this.isElectric = isElectric;
+    }
+
+    public int getNumberOfDoors() {
+        return numberOfDoors;
+    }
+
+    public int getNumberOfSeats() {
+        return numberOfSeats;
+    }
+
+    public int getNumberOfWheels() {
+        return numberOfWheels;
+    }
+
+    public boolean isElectric() {
+        return isElectric;
+    }
+
+    @Override
+    public void showDetail() {
+        super.showDetail();
+        System.out.println("Number of Doors: " + numberOfDoors);
+        System.out.println("Number of Seats: " + numberOfSeats);
+        System.out.println("Number of Wheels: " + numberOfWheels);
+        System.out.println("Is Electric: " + isElectric);
+    }
+}</code></pre></div>
+
+        <p><strong>Penjelasan:</strong><br>
+          Kelas <code>Car</code> memperluas kelas induk dengan atribut tambahan seperti jumlah pintu, kursi, roda, hingga status kendaraan listrik. Dengan melakukan override pada metode <code>showDetail()</code>, kelas ini mampu menampilkan informasi lengkap mobil sekaligus menggabungkan detail dasar dari kelas <code>Vehicle</code>.
+        </p>
+
+        <h4>Class Motorcycle</h4>
+        <div class="code-block"><pre><code class="language-java">public class Motorcycle extends Vehicle
+{
+    private boolean isElectric;
+    private int engineCapacity;
+
+    public Motorcycle(String make, String model, int year, boolean isElectric, int engineCapacity) {
+        super(make, model, year);
+        this.isElectric = isElectric;
+        this.engineCapacity = engineCapacity;
+    }
+
+    public boolean isElectric() {
+        return isElectric;
+    }
+
+    public int getEngineCapacity() {
+        return engineCapacity;
+    }
+
+    @Override
+    public void showDetail() {
+        super.showDetail();
+        System.out.println("Is Electric: " + isElectric);
+        System.out.println("Engine Capacity: " + engineCapacity + " cc");
+    }
+}</code></pre></div>
+
+        <p><strong>Penjelasan:</strong><br>
+          <code>Motorcycle</code> menambahkan informasi khusus untuk sepeda motor, seperti kapasitas mesin dan status kelistrikan. Pewarisan dari kelas <code>Vehicle</code> memungkinkan kelas ini memanfaatkan struktur dasar sekaligus menyisipkan detail khas sepeda motor.
+        </p>
+
+        <h4>Class Bike</h4>
+        <div class="code-block"><pre><code class="language-java">public class Bike extends Vehicle
+{
+    private String type;
+    private boolean hasCarrier;
+
+    public Bike(String make, String model, int year, String type, boolean hasCarrier) {
+        super(make, model, year);
+        this.type = type;
+        this.hasCarrier = hasCarrier;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public boolean hasCarrier() {
+        return hasCarrier;
+    }
+
+    @Override
+    public void showDetail() {
+        super.showDetail();
+        System.out.println("Type: " + type);
+        System.out.println("Has Carrier: " + hasCarrier);
+    }
+}</code></pre></div>
+
+        <p><strong>Penjelasan:</strong><br>
+          Pada kelas <code>Bike</code>, dua atribut tambahan digunakan untuk membedakan tipe sepeda dan keberadaan carrier. Metode <code>showDetail()</code> menampilkan detail sepeda secara lengkap dengan tetap memanfaatkan kemampuan kelas induk.
+        </p>
+
+        <h4>Class Main</h4>
+        <div class="code-block"><pre><code class="language-java">import java.util.ArrayList;
+import java.util.HashMap;
+
+public class Main
+{
+    private ArrayList<Vehicle> vehicleList = new ArrayList<>();
+    private HashMap<Vehicle, String> rentor = new HashMap<>();
+    private InputReader inputReader = new InputReader();
+
+    public static void main(String[] args) {
+        Main app = new Main();
+
+        app.addCar("Toyota", "Camry", 2020, 4, 5, 4, false);
+        app.addCar("Tesla", "Model S", 2021, 4, 5, 4, true);
+        app.addMotorcycle("Harley-Davidson", "Street 750", 2019, false, 750);
+        app.addMotorcycle("Zero Motorcycles", "SR/F", 2022, true, 110);
+        app.addBike("Giant", "Escape 3", 2021, "Road Bike", true);
+        app.addBike("Trek", "Marlin 7", 2020, "Mountain Bike", false);
+
+        app.Run();
+    }
+
+    public void Run(){
+        while(true){
+            showGreetings();
+            String input = inputReader.readString("> ");
+            if(input.equals("1")){
+                showList();
+            }
+            else if(input.equals("2")){
+                showRentor();
+            }
+            else if(input.equals("3")){
+                System.out.print("Enter the index of the vehicle to rent: ");
+                int index = Integer.parseInt(inputReader.readString(""));
+                System.out.print("Enter the name of the renter: ");
+                String renterName = inputReader.readString("");
+                addRentor(index, renterName);
+            }
+            else if(input.equals("4")){
+                inputReader.close();
+                return;
+            }
+        }
+    }
+
+    public void addCar(String make, String model, int year, int numberOfDoors, int numberOfSeats, int numberOfWheels, boolean isElectric) {
+        Car car = new Car(make, model, year, numberOfDoors, numberOfSeats, numberOfWheels, isElectric);
+        vehicleList.add(car);
+    }
+
+    public void addMotorcycle(String make, String model, int year, boolean isElectric, int engineCapacity){
+        Motorcycle motorcycle = new Motorcycle(make, model, year, isElectric, engineCapacity);
+        vehicleList.add(motorcycle);
+    }
+
+    public void addBike(String make, String model, int year, String type, boolean hasCarrier){
+        Bike bike = new Bike(make, model, year, type, hasCarrier);
+        vehicleList.add(bike);
+    }
+
+    public void addRentor(int index, String rentorName) {
+        if (index >= 0 && index < vehicleList.size()) {
+            Vehicle v = vehicleList.get(index);
+            if (!rentor.containsKey(v)) {
+                rentor.put(v, rentorName);
+                System.out.println("Vehicle successfully rented to " + rentorName);
+            } else {
+                System.out.println("Vehicle is already rented");
+            }
+        } else {
+            System.out.println("Vehicle index out of range");
+        }
+    }
+
+    public void showList(){
+        System.out.println("========= Available Vehicles =========");
+        for (Vehicle v : vehicleList) {
+            if (!rentor.containsKey(v)) { 
+                v.showDetail();
+                System.out.println("--------------------");
+            }
+        }
+    }
+    
+    public void showRentor() {
+        System.out.println("========= Rented Vehicles =========");
+        for (Vehicle v : rentor.keySet()) {
+            v.showDetail();
+            System.out.println("Rented by: " + rentor.get(v));
+            System.out.println("--------------------");
+        }
+    }
+
+    public void showGreetings(){
+        System.out.println("Welcome to vehicle rental shop");
+        System.out.println("Choose an option: ");
+        System.out.println("1. Show available vehicles");
+        System.out.println("2. Show list of renters");
+        System.out.println("3. Rent a vehicle");
+        System.out.println("4. Exit");
+    }
+}
+        </code></pre></div>
+
+        <p><strong>Penjelasan:</strong><br>
+          Kelas <code>Main</code> mengelola seluruh alur aplikasi, mulai dari pembuatan daftar kendaraan, penyimpanan data penyewa, hingga pemrosesan penyewaan. Kombinasi <code>ArrayList</code> dan <code>HashMap</code> digunakan untuk mengelola data kendaraan serta hubungan antara kendaraan dan penyewa secara efisien.
+        </p>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Melalui proyek ini, penerapan konsep <strong>inheritance</strong> benar-benar membantu dalam membangun struktur program yang rapi dan modular. Dengan menempatkan atribut umum pada kelas induk dan menambahkan karakteristik unik pada kelas turunan, sistem menjadi lebih mudah dikembangkan dan dipelihara.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="article-navigation">
+      <a href="#" class="nav-button"><i class="fas fa-arrow-left"></i> Tugas Sebelumnya</a>
+      <a href="index.html" class="nav-button"><i class="fas fa-home"></i> Kembali ke Beranda</a>
+      <a href="#" class="nav-button">Tugas Selanjutnya <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>

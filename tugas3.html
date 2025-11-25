@@ -10,6 +10,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
 </head>
 <body>
   <!-- Header -->
@@ -76,7 +80,7 @@
 
         <h4>Class Clock</h4>
         <div class="code-block">
-          <pre>import java.awt.*;
+          <pre><code class="language-java">import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -205,7 +209,7 @@ public class Clock {
         private void pause() {
             try {
 
-                Thread.sleep(1000);
+                Thread.sleep(60000);
 
             } catch (InterruptedException exc) {}
         }
@@ -216,12 +220,12 @@ public class Clock {
         SwingUtilities.invokeLater(() -> new Clock());
 
     }
-}</pre>
+}</code></pre>
         </div>
 
         <h4>Class ClockDisplay</h4>
         <div class="code-block">
-          <pre>public class ClockDisplay{
+          <pre><code class="language-java">public class ClockDisplay{
     private NumberDisplay hours;
     private NumberDisplay minutes;
     private String displayString; // simulates the actual display
@@ -285,12 +289,12 @@ public class Clock {
         displayString = hours.getDisplayValue() + ":" 
         + minutes.getDisplayValue();
     }
-}</pre>
+}</code></pre>
         </div>
 
         <h4>Class NumberDisplay</h4>
         <div class="code-block">
-          <pre>public class NumberDisplay
+          <pre><code class="language-java">public class NumberDisplay
 {
     private int limit;
     private int value;
@@ -343,7 +347,7 @@ public class Clock {
     {
         value = (value + 1) % limit;
     }
-}</pre>
+}</code></pre>
         </div>
 
         <h3>Gambar Implementasi di BlueJ</h3>
@@ -410,7 +414,7 @@ public class Clock {
             <img src="images/start_thread.png" alt="Start Thread untuk Auto Tick">
             <div class="gallery-caption">Gambar 8: Menjalankan Start untuk timer thread di BlueJ</div>
             <p class="gallery-explanation">
-              Tombol "Start" dijalankan, memulai <code>TimerThread</code> yang memanggil <code>step()</code> setiap detik. Jam berjalan otomatis hingga di-stop.
+              Tombol "Start" dijalankan, memulai <code>TimerThread</code> yang memanggil <code>step()</code> setiap menit. Jam berjalan otomatis hingga di-stop.
             </p>
           </div>
 
@@ -427,7 +431,7 @@ public class Clock {
         </p>
         <ul>
           <li><b>Constructor <code>Clock()</code></b> → Menginisialisasi GUI dengan memanggil <code>makeFrame()</code> untuk membuat jendela utama (JFrame) berjudul "Clock". Ia juga membuat instance baru dari <code>ClockDisplay</code> untuk mengelola logika waktu. Frame ditempatkan di tengah layar dan dibuat visible. Ini adalah entry point utama untuk program, yang dipanggil dari <code>main()</code>.</li>
-          <li><b>Method <code>start()</code> (privat)</b> → Memulai jam berjalan secara otomatis. Jika jam belum berjalan (<code>clockRunning</code> false), ia mengatur flag menjadi true dan membuat serta menjalankan thread baru (<code>TimerThread</code>) yang akan memanggil <code>step()</code> setiap detik. Ini mensimulasikan jam real-time.</li>
+          <li><b>Method <code>start()</code> (privat)</b> → Memulai jam berjalan secara otomatis. Jika jam belum berjalan (<code>clockRunning</code> false), ia mengatur flag menjadi true dan membuat serta menjalankan thread baru (<code>TimerThread</code>) yang akan memanggil <code>step()</code> setiap menit. Ini mensimulasikan jam real-time.</li>
           <li><b>Method <code>stop()</code> (privat)</b> → Menghentikan jam dengan mengatur flag <code>clockRunning</code> menjadi false. Thread akan berhenti setelah loop selesai, sehingga waktu tidak lagi bertambah otomatis.</li>
           <li><b>Method <code>step()</code> (privat)</b> → Melangkahkan waktu satu kali secara manual. Ia memanggil <code>timeTick()</code> pada instance <code>ClockDisplay</code> untuk menambah satu menit, kemudian memperbarui label tampilan dengan string waktu.</li>
           <li><b>Method <code>getTime()</code></b> → Digunakan untuk mode step-by-step atau oleh thread.</li>
@@ -435,7 +439,7 @@ public class Clock {
           <li><b>Method <code>quit()</code> (privat)</b> → Menutup program dengan memanggil <code>System.exit(0)</code>. Dipanggil dari menu "Quit" dengan shortcut keyboard (Ctrl+Q atau Cmd+Q).</li>
           <li><b>Method <code>makeFrame()</code> (privat)</b> → Membangun elemen GUI utama. Membuat JFrame, panel konten dengan border kosong, label tengah untuk menampilkan waktu (dengan font besar 96pt), dan toolbar bawah dengan tombol Start, Stop, dan Step. Tombol-tombol ini terhubung ke event listener (ActionListener) yang memanggil method terkait. Frame di-pack dan diposisikan di tengah layar, serta menu bar dibuat dengan <code>makeMenuBar()</code>.</li>
           <li><b>Method <code>makeMenuBar(JFrame frame)</code> (privat)</b> → Membuat menu bar atas dengan submenu "File" yang berisi item "About Clock..." (memanggil <code>showAbout()</code>) dan "Quit" (dengan accelerator key). Menggunakan shortcut mask sistem untuk kompatibilitas cross-platform.</li>
-          <li><b>Inner Class <code>TimerThread extends Thread</code></b> → Thread khusus untuk menjalankan jam secara periodik. Method <code>run()</code> berloop selama <code>clockRunning</code> true, memanggil <code>step()</code> untuk update waktu, dan <code>pause()</code> untuk tidur 1 detik (menggunakan <code>Thread.sleep(1000)</code>). Ini menangani concurrency agar GUI tidak freeze saat jam berjalan.</li>
+          <li><b>Inner Class <code>TimerThread extends Thread</code></b> → Thread khusus untuk menjalankan jam secara periodik. Method <code>run()</code> berloop selama <code>clockRunning</code> true, memanggil <code>step()</code> untuk update waktu, dan <code>pause()</code> untuk tidur 1 menit (menggunakan <code>Thread.sleep(60000)</code>). Ini menangani concurrency agar GUI tidak freeze saat jam berjalan.</li>
           <li><b>Method <code>main(String[] args)</code> (static)</b> → Entry point program. Mencetak "Hello World" ke console (untuk testing), kemudian menjalankan <code>Clock()</code> di event dispatch thread Swing (<code>SwingUtilities.invokeLater()</code>) untuk memastikan GUI thread-safe.</li>
         </ul>
 

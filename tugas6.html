@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas 6: Tech Support System – Java Library Implementation
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 6: Tech Support System Menggunakan Library Java</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 13 October 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">HashMap</span>
+          <span class="tag">ArrayList</span>
+          <span class="tag">PBO</span>
+        </div>
+      </div>
+
+      <img src="images/tech_support_banner.png" class="main-image" alt="Tech Support System">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada era digital saat ini, sistem dukungan teknis (<em>tech support system</em>) menjadi komponen penting
+          dalam memberikan layanan pelanggan yang efisien. Banyaknya perangkat lunak dan perangkat keras yang digunakan
+          oleh individu maupun organisasi menuntut adanya sistem bantuan yang responsif dan terstruktur.
+        </p>
+        <p>
+          Pada tugas ini saya membuat sebuah sistem bantuan teknis sederhana menggunakan <strong>Java</strong> dengan
+          memanfaatkan library seperti <code>Scanner</code>, <code>ArrayList</code>, <code>HashMap</code>, dan <code>Random</code>.
+          Sistem ini dapat memberikan respons otomatis berdasarkan kata kunci tertentu yang diberikan pengguna.
+        </p>
+
+        <h3>Implementasi Program</h3>
+        <p>Berikut adalah implementasi lengkap dari Tech Support System:</p>
+
+        <!-- INPUTREADER -->
+        <h3>Class InputReader</h3>
+        <div class="code-block">
+          <pre><code class="language-java">import java.util.Scanner;
+
+public class InputReader {
+    private Scanner reader;
+
+    public InputReader() {
+        reader = new Scanner(System.in);
+    }
+
+    public String getInput() {
+        System.out.print("> ");
+        String inputLine = reader.nextLine().trim().toLowerCase();
+        
+        return inputLine;
+    }
+}</code></pre>
+        </div>
+
+        <p>
+          Kelas <code>InputReader</code> bertugas membaca input dari pengguna. Metode <code>getInput()</code> mengembalikan
+          teks yang sudah dipangkas spasi dan diubah menjadi huruf kecil agar mudah diproses.
+        </p>
+
+        <!-- RESPONDER -->
+        <h3>Class Responder</h3>
+        <div class="code-block">
+<pre><code class="language-java">import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Responder { 
+    private HashMap<String, String> responseMap;
+    private ArrayList<String> defaultResponses;
+    private Random randomGenerator;
+
+    public Responder() {
+        responseMap = new HashMap<>();
+        defaultResponses = new ArrayList<>();
+        fillResponseMap();
+        fillDefaultResponses();
+        randomGenerator = new Random();
+    }
+
+    public String generateResponse(String inputLine) {
+        String response = responseMap.get(inputLine);
+        if(response != null) return response;
+        else return pickDefaultResponse();
+    }
+
+    private void fillResponseMap() {
+        responseMap.put("login error", "Baik, Anda mengalami kesalahan login. Bisa sebutkan pesan error yang muncul?");
+
+        responseMap.put("tidak bisa login", "Baik, Anda tidak dapat login. Apakah muncul pesan tertentu di layar?");
+        
+        responseMap.put("lupa password", "Silakan gunakan fitur reset password. Jika masih gagal, beri tahu saya.");
+        
+        responseMap.put("server down", "Terima kasih atas laporannya. Apakah semua layanan tidak dapat diakses atau hanya sebagian?");
+        
+        responseMap.put("jaringan lambat", "Baik, apakah kelambatan terjadi di seluruh perangkat atau hanya satu?");
+        
+        responseMap.put("internet mati", "Baik, mohon cek sambungan kabel atau WiFi. Apakah lampu indikator router normal?");
+        
+        responseMap.put("aplikasi error", "Baik, aplikasi mengalami error. Bisa informasikan langkah sebelum error terjadi?");
+        
+        responseMap.put("bug", "Untuk laporan bug, mohon sertakan langkah reproduksi dan tangkapan layar jika ada.");
+        
+        responseMap.put("install software", "Tentu, software apa yang ingin Anda pasang? Pastikan Anda memiliki izin instalasi.");
+        
+        responseMap.put("update gagal", "Baik, pembaruan gagal. Apakah ada kode error yang muncul?");
+        
+        responseMap.put("printer tidak terdeteksi", "Baik, apakah printer terhubung dengan benar dan driver sudah terpasang?");
+        
+        responseMap.put("wifi gagal connect", "Apakah perangkat lain dapat tersambung ke WiFi tersebut?");
+    }
+
+    private void fillDefaultResponses() {
+        defaultResponses.add("Maaf, saya belum dapat memahami masalah tersebut. Bisa dijelaskan lebih detail?");
+        defaultResponses.add("Informasi yang Anda berikan belum dapat saya proses. Mohon jelaskan dengan lebih spesifik.");
+        defaultResponses.add("Untuk membantu lebih lanjut, saya membutuhkan penjelasan tambahan.");
+        defaultResponses.add("Permintaan tersebut belum tersedia dalam sistem. Silakan coba dengan kata lain.");
+        defaultResponses.add("Saya belum memiliki jawaban untuk itu. Coba ajukan pertanyaan yang lebih teknis.");
+    }
+
+    private String pickDefaultResponse() {
+        int index = randomGenerator.nextInt(defaultResponses.size());
+        return defaultResponses.get(index);
+    }
+}</code></pre>
+        </div>
+
+        <p>
+          <code>Responder</code> bertugas menghasilkan jawaban. Jika kata kunci cocok dengan data di <code>HashMap</code>,
+          maka sistem mengembalikan jawaban tersebut. Jika tidak, ia mengambil jawaban acak dari <code>defaultResponses</code>.
+        </p>
+
+        <!-- SUPPORT SYSTEM -->
+        <h3>Class SupportSystem</h3>
+        <div class="code-block">
+<pre><code class="language-java">public class SupportSystem {
+    private InputReader reader;
+    private Responder responder;
+    
+    public SupportSystem() {
+        reader = new InputReader();
+        responder = new Responder();
+    }
+
+    public static void main(String[] Args) {
+        SupportSystem app = new SupportSystem();
+        app.run();
+    }
+
+    public void run() {
+        boolean finished = false;
+        printWelcome();
+
+        while(!finished) {
+            String input = reader.getInput();
+
+            if(input.equals("selesai")) finished = true;
+            else {
+                String response = responder.generateResponse(input);
+                System.out.println(response);
+            }
+        }
+        printGoodbye();
+    }
+
+    public static void printWelcome() {
+        System.out.println("==============================================");
+        System.out.println("        Selamat Datang di Support Assistant");
+        System.out.println("==============================================");
+        System.out.println("Saya adalah asisten dukungan teknis Anda.");
+        System.out.println("Silakan ajukan masalah atau pertanyaan yang ingin Anda selesaikan.");
+        System.out.println();
+    }
+
+    private void printGoodbye() {
+        System.out.println("Senang berbicara dengan anda...");
+    }
+}</code></pre>
+        </div>
+
+        <p>
+          Kelas <code>SupportSystem</code> adalah inti dari program. Ia menggabungkan <code>InputReader</code> untuk membaca input
+          dan <code>Responder</code> untuk memberikan jawaban otomatis.
+        </p>
+
+        <h3>Penjelasan Konsep</h3>
+        <ul>
+          <li><b>HashMap</b> → menyimpan pasangan pertanyaan–jawaban.</li>
+          <li><b>ArrayList</b> → menyimpan jawaban default.</li>
+          <li><b>Random</b> → memilih respons acak jika input tidak cocok.</li>
+          <li><b>Scanner</b> → membaca input dari pengguna.</li>
+        </ul>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Program Tech Support System ini menunjukkan bagaimana library Java dapat digunakan untuk membuat sistem
+            respons otomatis yang sederhana namun efektif. Dengan pemanfaatan <code>HashMap</code>,
+            <code>ArrayList</code>, dan <code>Random</code>, aplikasi dapat memberikan jawaban yang konsisten,
+            atau jawaban acak jika tidak mengenali input.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>

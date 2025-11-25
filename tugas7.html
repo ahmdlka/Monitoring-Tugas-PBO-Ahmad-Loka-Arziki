@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas 7: World of Zuul – Game Petualangan Berbasis Teks
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas 7: World of Zuul – Game Petualangan Berbasis Teks</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 27 Oktober 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 1 Hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">Coupling</span>
+          <span class="tag">Cohesion</span>
+          <span class="tag">Game Development</span>
+          <span class="tag">PBO</span>
+        </div>
+      </div>
+
+      <img src="images/world_of_zuul_main.png" alt="Tampilan Program world of Zuul" class="main-image">
+
+      <div class="article-content">
+        <h3>Deskripsi Tugas</h3>
+        <p>
+          Pada tugas kali ini, saya membuat sebuah game petualangan berbasis teks sederhana bernama <strong>"world of Zuul"</strong> menggunakan bahasa pemrograman Java. Tujuan utama dari latihan ini adalah memahami dan menerapkan konsep <strong>Cohesion</strong> dan <strong>Coupling</strong> dalam pemrograman berorientasi objek. Game ini memungkinkan pemain untuk menjelajahi berbagai ruangan di universitas dengan menggunakan perintah-perintah teks seperti "go", "help", dan "quit".
+        </p>
+
+        <p>
+          <strong>Cohesion</strong> dan <strong>Coupling</strong> merupakan dua ukuran penting untuk menilai kualitas rancangan class dalam perangkat lunak. Dalam pengembangan software, developer biasanya membagi sistem menjadi modul-modul kecil yang mengikuti prinsip <em>"Loose Coupling, High Cohesion"</em> agar kode lebih mudah dipelihara dan dikembangkan.
+        </p>
+
+        <p>
+          <strong>Coupling (Ketergantungan)</strong> mengukur seberapa kuat hubungan antara satu modul dengan modul lainnya. Coupling yang rendah (loose coupling) berarti modul-modul memiliki ketergantungan minimal satu sama lain. Ini sangat penting karena ketika kita mengubah satu modul, perubahan tersebut tidak akan berdampak besar pada modul lain. Dengan demikian, sistem menjadi lebih fleksibel dan mudah untuk dimodifikasi.
+        </p>
+
+        <p>
+          <strong>Cohesion (Keterkaitan)</strong> mengukur seberapa erat hubungan antar fungsi-fungsi di dalam satu modul. Cohesion yang tinggi (high cohesion) berarti semua fungsi dalam satu class memiliki tujuan yang sama dan fokus pada satu tanggung jawab. Modul dengan cohesion tinggi lebih mudah dipahami, diuji, dan dipelihara karena setiap class memiliki peran yang jelas dan spesifik.
+        </p>
+
+        <p>
+          Dengan menerapkan prinsip loose coupling dan high cohesion, kode program akan menjadi lebih terstruktur, modular, dan berkualitas tinggi. Project world of Zuul ini menjadi contoh praktis bagaimana prinsip-prinsip tersebut diterapkan dalam pembuatan aplikasi sederhana.
+        </p>
+
+        <h3>Kode Program</h3>
+        <p>Berikut adalah kode lengkap untuk membuat world of zuul sederhana menggunakan library yang tersedia di Java:</p>
+
+        <p><strong>Class Command</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Command
+{
+    private String commandWord;
+    private String secondWord;
+
+    public Command(String firstWord, String secondWord)
+    {
+        commandWord = firstWord;
+        this.secondWord = secondWord;
+    }
+
+    public String getCommandWord()
+    {
+        return commandWord;
+    }
+
+    public String getSecondWord()
+    {
+        return secondWord;
+    }
+
+    public boolean isUnknown()
+    {
+        return (commandWord == null);
+    }
+
+    public boolean hasSecondWord()
+    {
+        return (secondWord != null);
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>Command</code> berfungsi sebagai wadah untuk menyimpan perintah yang dimasukkan oleh pengguna. Kelas ini memiliki struktur sederhana dengan dua atribut private: <code>commandWord</code> untuk menyimpan kata perintah utama (seperti "go", "help", "quit") dan <code>secondWord</code> untuk menyimpan kata pelengkap perintah (seperti arah "north", "south", dll).
+        </p>
+
+        <p>
+        Konstruktor kelas menerima dua parameter yang akan menginisialisasi kedua atribut tersebut. Kelas ini juga dilengkapi dengan empat metode penting: <code>getCommandWord()</code> dan <code>getSecondWord()</code> untuk mengakses nilai perintah, <code>isUnknown()</code> untuk mengecek apakah perintah tidak valid, dan <code>hasSecondWord()</code> untuk memvalidasi apakah perintah memiliki kata pelengkap. Dengan desain ini, kelas <code>Command</code> memiliki cohesion yang tinggi karena semua metodenya fokus pada pengelolaan data perintah.
+        </p>
+
+        <p><strong>Class CommandWords</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class CommandWords
+{
+    private static final String validCommands[] = {
+        "go", "quit", "help", "look"
+    };
+
+    public CommandWords() {}
+
+    public boolean isCommand(String aString) 
+    {
+        for (int i = 0; i < validCommands.length; i++) 
+        {
+            if (validCommands[i].equals(aString))
+                return true;
+        }
+        return false;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>CommandWords</code> berperan sebagai validator untuk perintah-perintah yang diizinkan dalam game. Kelas ini memiliki satu atribut berupa array statis yang menyimpan daftar perintah valid seperti "go", "quit", "help", dan "look". Penggunaan keyword <code>static final</code> menandakan bahwa daftar perintah ini bersifat konstan dan sama untuk semua instance kelas.
+        </p>
+
+        <p>
+        Metode <code>isCommand()</code> melakukan validasi dengan cara melakukan iterasi pada array <code>validCommands</code> dan membandingkan input dengan setiap elemen. Jika ditemukan kecocokan, metode akan mengembalikan <code>true</code>, sebaliknya akan mengembalikan <code>false</code>. Kelas ini menunjukkan high cohesion karena hanya fokus pada satu tanggung jawab: memvalidasi perintah. Selain itu, kelas ini memiliki loose coupling karena tidak bergantung pada kelas lain.
+        </p>
+
+        <p><strong>Class Room</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Room
+{
+    public String description;
+    public Room northExit;
+    public Room southExit;
+    public Room eastExit;
+    public Room westExit;
+
+    public Room(String description) 
+    {
+        this.description = description;
+    }
+
+    public void setExits(Room north, Room east, Room south, Room west)
+    {
+        if(north != null) northExit = north;
+        if(east != null) eastExit = east;
+        if(south != null) southExit = south;
+        if(west != null) westExit = west;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>Room</code> merepresentasikan sebuah ruangan dalam dunia game. Setiap ruangan memiliki atribut <code>description</code> yang menjelaskan lokasi ruangan tersebut, serta empat atribut untuk menyimpan referensi ke ruangan yang terhubung di empat arah mata angin: <code>northExit</code>, <code>eastExit</code>, <code>southExit</code>, dan <code>westExit</code>.
+        </p>
+
+        <p>
+        Konstruktor kelas menerima parameter <code>description</code> untuk menginisialisasi deskripsi ruangan. Metode <code>setExits()</code> digunakan untuk mengatur koneksi antar ruangan dengan menerima empat parameter objek <code>Room</code>. Metode ini melakukan pengecekan null untuk setiap parameter, sehingga hanya pintu keluar yang valid yang akan diatur. Metode <code>getDescription()</code> mengembalikan deskripsi ruangan untuk ditampilkan kepada pemain. Kelas ini mencerminkan high cohesion karena semua fungsinya berkaitan dengan pengelolaan data ruangan.
+        </p>
+
+        <p><strong>Class Parser</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Parser
+{
+    private CommandWords commands;
+
+    public Parser()
+    {
+        commands = new CommandWords();
+    }
+
+    public Command getCommand() 
+    {
+        String inputLine = "";
+        String word1;
+        String word2;
+
+        System.out.println("> ");
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            inputLine = reader.readLine();
+        } catch (java.io.IOException exc) {
+            System.out.println("There was an error during reading: " + exc.getMessage());
+        }
+
+        StringTokenizer tokenizer = new StringTokenizer(inputLine);
+
+        if (tokenizer.hasMoreTokens()) word1 = tokenizer.nextToken();
+        else word1 = null;
+        if (tokenizer.hasMoreTokens()) word2 = tokenizer.nextToken();
+        else word2 = null;
+
+        if (commands.isCommand(word1)) return new Command(word1, word2);
+        else return new Command(null, word2);
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>Parser</code> bertanggung jawab untuk membaca dan menginterpretasi input dari pengguna. Kelas ini memiliki satu atribut berupa objek <code>CommandWords</code> yang digunakan untuk validasi perintah. Konstruktor kelas menginisialisasi objek <code>CommandWords</code> saat <code>Parser</code> dibuat.
+        </p>
+
+        <p>
+        Metode utama <code>getCommand()</code> menggunakan <code>BufferedReader</code> dan <code>InputStreamReader</code> untuk membaca input dari konsol. Setelah input diterima, metode ini menggunakan <code>StringTokenizer</code> untuk memecah input menjadi kata-kata terpisah. Kata pertama dianggap sebagai perintah utama, sedangkan kata kedua (jika ada) dianggap sebagai parameter perintah.
+        </p>
+
+        <p>
+        Sebelum membuat objek <code>Command</code>, parser memvalidasi kata pertama menggunakan metode <code>isCommand()</code> dari objek <code>CommandWords</code>. Jika valid, parser membuat objek <code>Command</code> dengan perintah yang sesuai; jika tidak valid, parser membuat objek <code>Command</code> dengan perintah null yang menandakan perintah tidak dikenali. Kelas ini menerapkan loose coupling dengan hanya bergantung pada interface yang jelas dari <code>CommandWords</code> dan <code>Command</code>.
+        </p>
+
+        <p><strong>Class Game</strong><br>
+        <div class="code-block">
+          <pre><code class="language-java">public class Game
+{
+    private Parser parser;
+    private Room currentRoom;
+
+    public Game()
+    {
+        createRooms();
+        parser = new Parser();
+    }
+
+    private void createRooms()
+    {
+        Room outside, theatre, pub, lab, office;
+        outside = new Room("outside the main entrance of the university");
+        theatre = new Room("in a lecture theatre");
+        pub = new Room("in the campus pub");
+        lab = new Room("in a computing lab");
+        office = new Room("in the computing admin office");
+
+        outside.setExits(null, theatre, lab, pub);
+        theatre.setExits(null, null, null, outside);
+        pub.setExits(null, outside, null, null);
+        lab.setExits(outside, office, null, null);
+        office.setExits(null, null, null, lab);
+
+        currentRoom = outside;
+    }
+
+    public void play()
+    {
+        printWelcome();
+
+        boolean finished = false;
+        while(!finished) {
+            Command command = parser.getCommand();
+            finished = processCommand(command);
+        }
+
+        System.out.println("Thank you for playing. Good bye.");
+    }
+
+    private void printWelcome()
+    {
+        System.out.println();
+        System.out.println("Welcome to Adventure!");
+        System.out.println("Adventure is a new, incredibly boring adventure game.");
+        System.out.println("Type 'help' if you need help.");
+        System.out.println();
+        System.out.println("You are " + currentRoom.getDescription());
+        System.out.println("Exits: ");
+        if (currentRoom.northExit != null) System.out.println("north ");
+        if (currentRoom.eastExit != null) System.out.println("east ");
+        if (currentRoom.southExit != null) System.out.println("south ");
+        if (currentRoom.westExit != null) System.out.println("west ");
+        System.out.println();
+    }
+
+    private boolean processCommand(Command command)
+    {
+        boolean wantToQuit = false;
+        
+        if(command.isUnknown()) {
+            System.out.println("I don't know what you mean...");
+            return false;
+        }
+
+        String commandWord = command.getCommandWord();
+        if(commandWord.equals("help")) printHelp();
+        else if(commandWord.equals("go")) goRoom(command);
+        else if(commandWord.equals("quit")) wantToQuit = quit(command);
+        return wantToQuit;
+    }
+
+    private void printHelp()
+    {
+        System.out.println("You are lost. You are alone. You wander");
+        System.out.println("around at the university.");
+        System.out.println();
+        System.out.println("Your command words are:");
+        System.out.println("    go quit help");
+    }
+
+    private void goRoom(Command command)
+    {
+        if(!command.hasSecondWord()) {
+            System.out.println("Go where?");
+            return;
+        }
+
+        String direction = command.getSecondWord();
+
+        Room nextRoom = null;
+        if(direction.equals("north")) nextRoom = currentRoom.northExit;
+        if(direction.equals("east")) nextRoom = currentRoom.eastExit;
+        if(direction.equals("south")) nextRoom = currentRoom.southExit;
+        if(direction.equals("west")) nextRoom = currentRoom.westExit;
+
+        if(nextRoom == null) System.out.println("There is no door!");
+        else {
+            currentRoom = nextRoom;
+            System.out.println("You are " + currentRoom.getDescription());
+            System.out.println("Exits: ");
+            if (currentRoom.northExit != null) System.out.println("north ");
+            if (currentRoom.eastExit != null) System.out.println("east ");
+            if (currentRoom.southExit != null) System.out.println("south ");
+            if (currentRoom.westExit != null) System.out.println("west ");
+            System.out.println();
+        }
+    }
+
+    private boolean quit(Command command)
+    {
+        if(command.hasSecondWord()) {
+            System.out.println("Quit what?");
+            return false;
+        } else return true;
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode:</strong><br>
+        Kelas <code>Game</code> adalah kelas utama yang mengatur seluruh logika permainan. Kelas ini memiliki dua atribut penting: <code>parser</code> untuk memproses input pemain dan <code>currentRoom</code> untuk melacak posisi pemain saat ini. Konstruktor memanggil metode <code>createRooms()</code> untuk membuat struktur dunia game dan menginisialisasi parser.
+        </p>
+
+        <p>
+        Metode <code>createRooms()</code> membuat lima objek ruangan (outside, theatre, pub, lab, office) dan mengatur koneksi antar ruangan menggunakan <code>setExits()</code>. Ruangan awal pemain ditetapkan di "outside". Metode <code>play()</code> adalah game loop utama yang menampilkan pesan selamat datang, kemudian terus membaca dan memproses perintah hingga pemain memutuskan keluar.
+        </p>
+
+        <p>
+        Metode <code>processCommand()</code> menerima objek <code>Command</code> dan menentukan aksi berdasarkan perintah. Jika perintah tidak dikenali, ditampilkan pesan error. Perintah yang valid akan memanggil metode spesifik: <code>printHelp()</code> untuk bantuan, <code>goRoom()</code> untuk berpindah ruangan, dan <code>quit()</code> untuk keluar.
+        </p>
+
+        <p>
+        Metode <code>goRoom()</code> mengecek apakah perintah memiliki arah tujuan, kemudian mencari ruangan yang sesuai berdasarkan arah. Jika ruangan tersedia, posisi pemain diperbarui dan informasi ruangan baru ditampilkan. Metode <code>quit()</code> memvalidasi bahwa perintah quit tidak memiliki parameter tambahan. Kelas <code>Game</code> menunjukkan good design dengan cohesion yang tinggi (semua metode fokus pada logika game) dan coupling yang rendah (hanya bergantung pada interface publik dari kelas lain).
+        </p>
+
+        <h3>Penjelasan Konsep</h3>
+        <p>
+          Program World of Zuul ini merupakan implementasi praktis dari prinsip-prinsip desain berorientasi objek yang baik. Berikut adalah penerapan konsep-konsep penting dalam program ini:
+        </p>
+
+        <ul>
+          <li>
+            <strong>Low Coupling (Ketergantungan Rendah):</strong> Setiap kelas dirancang dengan tanggung jawab yang jelas dan independen. Kelas <code>Command</code> hanya menangani penyimpanan data perintah, <code>CommandWords</code> fokus pada validasi perintah, <code>Parser</code> menangani pembacaan input, <code>Room</code> mengelola data ruangan, dan <code>Game</code> mengatur alur permainan. Jika kita perlu mengubah cara validasi perintah, kita hanya perlu memodifikasi <code>CommandWords</code> tanpa menyentuh kelas lain.
+          </li>
+          <li>
+            <strong>High Cohesion (Keterkaitan Tinggi):</strong> Setiap kelas memiliki fokus tunggal dan semua metode dalam kelas tersebut saling berkaitan erat. Contohnya, semua metode dalam kelas <code>Command</code> (getCommandWord, getSecondWord, isUnknown, hasSecondWord) berhubungan dengan manipulasi data perintah. Tidak ada metode yang melakukan tugas di luar tanggung jawab kelas tersebut.
+          </li>
+          <li>
+            <strong>Modularitas:</strong> Struktur program yang modular memudahkan pengembangan dan pemeliharaan. Jika ingin menambah perintah baru seperti "take" atau "drop", kita cukup menambahkan string baru ke array <code>validCommands</code> dan membuat metode handler di kelas <code>Game</code>, tanpa mengubah logika parsing atau validasi yang sudah ada.
+          </li>
+          <li>
+            <strong>Encapsulation (Enkapsulasi):</strong> Data penting disimpan dengan modifier <code>private</code> dan hanya bisa diakses melalui metode public (getter). Ini melindungi integritas data dan mencegah modifikasi yang tidak terkontrol dari luar kelas. Contohnya, atribut <code>commandWord</code> di kelas <code>Command</code> bersifat private dan hanya bisa dibaca melalui <code>getCommandWord()</code>.
+          </li>
+          <li>
+            <strong>Single Responsibility Principle:</strong> Setiap kelas memiliki satu alasan untuk berubah. <code>Parser</code> hanya berubah jika cara pembacaan input berubah, <code>CommandWords</code> hanya berubah jika daftar perintah valid berubah, dan <code>Room</code> hanya berubah jika struktur data ruangan perlu dimodifikasi.
+          </li>
+        </ul>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Project World of Zuul berhasil mendemonstrasikan penerapan konsep <strong>Loose Coupling</strong> dan <strong>High Cohesion</strong> dalam pemrograman berorientasi objek. Dengan memisahkan tanggung jawab ke dalam kelas-kelas yang fokus dan independen, program menjadi lebih mudah dipahami, dimodifikasi, dan dikembangkan lebih lanjut.
+          </p>
+          <p>
+            Struktur kode yang modular memungkinkan setiap komponen untuk diubah atau diperbaiki tanpa mempengaruhi komponen lain secara signifikan. Hal ini sangat penting dalam pengembangan software skala besar. Prinsip-prinsip desain yang diterapkan dalam project ini merupakan fondasi penting yang harus dikuasai oleh setiap programmer untuk menciptakan software berkualitas tinggi yang sustainable dan maintainable.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>
