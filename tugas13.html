@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+  <style>
+  /* Image Card */
+  .image-container {
+    margin: 25px 0;
+    background: #1a1a1a; /* gelap elegan */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Image */
+  .image-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+  }
+
+  /* Caption */
+  .image-caption {
+    margin-top: 15px;
+    padding: 12px;
+    background: #161616;
+    border-left: 4px solid var(--primary-color);
+    font-weight: 600;
+    color: var(--text-color);
+    border-radius: 4px;
+  }
+
+  /* Description */
+  .image-description {
+    margin-top: 10px;
+    color: var(--text-light);
+    line-height: 1.7;
+    padding: 0 5px;
+    font-size: 0.95rem;
+  }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas Aplikasi CRUD Perpustakaan dengan Database MySQL
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas Aplikasi CRUD Perpustakaan dengan Database MySQL</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 9 December 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 2 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">MySQL</span>
+          <span class="tag">JDBC</span>
+          <span class="tag">CRUD</span>
+          <span class="tag">Database</span>
+          <span class="tag">PBO</span>
+        </div>
+      </div>
+
+      <div class="article-content">
+        <h3>Pengantar</h3>
+        <p>
+          Dalam pengembangan aplikasi modern, kemampuan untuk mengelola data secara efektif merupakan aspek fundamental yang harus dikuasai. 
+          <strong>CRUD (Create, Read, Update, Delete)</strong> adalah empat operasi dasar dalam manajemen data yang menjadi fondasi 
+          hampir semua sistem informasi. Project ini mengimplementasikan aplikasi manajemen perpustakaan sederhana yang mendemonstrasikan 
+          integrasi antara aplikasi Java dengan database MySQL menggunakan <strong>JDBC (Java Database Connectivity)</strong>.
+        </p>
+        <p>
+          Aplikasi ini dibangun menggunakan IDE <strong>BlueJ</strong> dan menyediakan antarmuka console-based untuk melakukan operasi CRUD 
+          pada data buku perpustakaan. Melalui project ini, saya mempelajari bagaimana Java berkomunikasi dengan database relasional, 
+          menjalankan query SQL, dan mengelola koneksi database dengan aman dan efisien.
+        </p>
+        <p>
+          Sistem ini memungkinkan pengguna untuk menambahkan buku baru ke database, melihat daftar semua buku yang tersedia, 
+          memperbarui informasi buku yang sudah ada, serta menghapus buku dari koleksi perpustakaan. Setiap operasi diimplementasikan 
+          dengan memanfaatkan API JDBC yang menyediakan abstraksi standar untuk akses database di Java.
+        </p>
+
+        <h3>1. Persiapan Database</h3>
+        <p>
+          Langkah pertama dalam membangun aplikasi adalah menyiapkan infrastruktur database. Kita akan membuat database bernama 
+          <code>perpustakaan</code> dengan tabel <code>buku</code> yang memiliki struktur kolom untuk menyimpan informasi dasar buku.
+        </p>
+        <p><strong>Skrip SQL untuk Setup Database:</strong></p>
+        <div class="code-block">
+          <pre><code class="language-sql">CREATE DATABASE perpustakaan_pbo;
+
+USE perpustakaan_pbo;
+
+CREATE TABLE buku (
+    id_buku INT NOT NULL AUTO_INCREMENT,
+    judul VARCHAR(45) NOT NULL,
+    pengarang VARCHAR(45) NOT NULL,
+    PRIMARY KEY (id_buku)
+);
+
+INSERT INTO buku (judul, pengarang) VALUES 
+('Belajar Pemrograman Java dari Nol', 'Petani Kode'),
+('Pemrograman Java Menggunakan Linux', 'Petani Kode');</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Setup Database:</strong></p>
+        <p>
+          Perintah <code>CREATE DATABASE perpustakaan</code> membuat database baru yang akan menjadi container untuk semua data aplikasi. 
+          Perintah <code>USE perpustakaan</code> mengaktifkan database tersebut untuk operasi selanjutnya.
+        </p>
+        <p>
+          Tabel <code>buku</code> dirancang dengan tiga kolom: <code>id_buku</code> sebagai primary key dengan auto-increment 
+          (database akan otomatis generate ID unik), <code>judul</code> untuk menyimpan nama buku dengan maksimal 45 karakter, 
+          dan <code>pengarang</code> untuk nama penulis. Constraint <code>NOT NULL</code> memastikan kolom-kolom penting harus diisi.
+        </p>
+        <p>
+          Data sampel diinisialisasi dengan perintah <code>INSERT INTO</code> untuk memberikan starting point saat menguji aplikasi. 
+          Ini memudahkan testing fitur read, update, dan delete tanpa harus menambahkan data manual terlebih dahulu.
+        </p>
+
+        <h3>2. Konfigurasi Driver MySQL di BlueJ</h3>
+        <p>
+          BlueJ tidak menyertakan MySQL Connector secara default dalam library-nya, sehingga kita perlu menambahkan driver JDBC secara manual. 
+          Driver ini berfungsi sebagai jembatan komunikasi antara aplikasi Java dengan MySQL server.
+        </p>
+        <p><strong>Langkah-langkah Instalasi Driver:</strong></p>
+        <ul>
+          <li>
+            Download <strong>MySQL Connector/J</strong> (file JAR) dari website resmi MySQL atau Maven Repository. 
+            Pastikan versi yang didownload kompatibel dengan versi MySQL server yang terinstall.
+          </li>
+          <li>
+            Buka BlueJ, kemudian navigasi ke menu <strong>Tools → Preferences → Libraries</strong>.
+          </li>
+          <li>
+            Klik tombol <strong>Add</strong> dan pilih file JAR MySQL Connector yang telah didownload.
+          </li>
+          <li>
+            Restart BlueJ agar library baru ter-load dengan benar ke dalam classpath.
+          </li>
+          <li>
+            Verifikasi instalasi dengan mencoba import <code>com.mysql.jdbc.Driver</code> atau 
+            <code>com.mysql.cj.jdbc.Driver</code> (untuk versi terbaru) dalam kode Java.
+          </li>
+        </ul>
+        <p>
+          Tanpa driver ini, kode Java tidak akan bisa melakukan koneksi ke database MySQL dan akan menghasilkan 
+          <code>ClassNotFoundException</code> saat runtime.
+        </p>
+
+        <h3>3. Implementasi Kode Java</h3>
+        <p>
+          Setelah database dan driver siap, kita akan mengimplementasikan logika aplikasi dalam kelas <code>JavaCRUD</code>. 
+          Kelas ini mengintegrasikan semua komponen: koneksi database, user interface console, dan operasi CRUD.
+        </p>
+
+        <p><strong>Class JavaCRUD.java</strong></p>
+        <div class="code-block">
+          <pre><code class="language-java">import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.sql.DriverManager;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.ResultSet;
+
+public class JavaCRUD {
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost/perpustakaan_pbo";
+    static final String USER = "root";
+    static final String PASS = ""; // Sesuaikan password di databasemu
+    static Connection conn;
+    static Statement stmt;
+    static ResultSet rs;
+    static InputStreamReader inputStreamReader = new InputStreamReader(System.in);
+    static BufferedReader input = new BufferedReader(inputStreamReader);
+
+    public static void main(String[] args) {
+        try {
+            Class.forName(JDBC_DRIVER);
+
+            conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            stmt = conn.createStatement();
+
+            while (!conn.isClosed()) {
+                showMenu();
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void showMenu() {
+        System.out.println("\n========= MENU UTAMA =========");
+        System.out.println("1. Insert Data");
+        System.out.println("2. Show Data");
+        System.out.println("3. Edit Data");
+        System.out.println("4. Delete Data");
+        System.out.println("0. Keluar");
+        System.out.println("");
+        System.out.print("PILIHAN> ");
+
+        try {
+            int pilihan = Integer.parseInt(input.readLine());
+
+            switch (pilihan) {
+                case 0:
+                    System.exit(0);
+                    break;
+                case 1:
+                    insertBuku();
+                    break;
+                case 2:
+                    showData();
+                    break;
+                case 3:
+                    updateBuku();
+                    break;
+                case 4:
+                    deleteBuku();
+                    break;
+                default:
+                    System.out.println("Pilihan salah!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void showData() {
+        String sql = "SELECT * FROM buku";
+        try {
+            rs = stmt.executeQuery(sql);
+            
+            System.out.println("+--------------------------------+");
+            System.out.println("|    DATA BUKU DI PERPUSTAKAAN   |");
+            System.out.println("+--------------------------------+");
+
+            while (rs.next()) {
+                int idBuku = rs.getInt("id_buku");
+                String judul = rs.getString("judul");
+                String pengarang = rs.getString("pengarang");
+
+                System.out.println(String.format("%d. %s -- (%s)", idBuku, judul, pengarang));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void insertBuku() {
+        try {
+            System.out.print("Judul: ");
+            String judul = input.readLine().trim();
+            System.out.print("Pengarang: ");
+            String pengarang = input.readLine().trim();
+
+            String sql = "INSERT INTO buku (judul, pengarang) VALUES('%s', '%s')";
+            sql = String.format(sql, judul, pengarang);
+
+            stmt.execute(sql);
+            System.out.println("Data berhasil disimpan...");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void updateBuku() {
+        try {
+            System.out.print("ID yang mau diedit: ");
+            int idBuku = Integer.parseInt(input.readLine());
+            System.out.print("Judul: ");
+            String judul = input.readLine().trim();
+            System.out.print("Pengarang: ");
+            String pengarang = input.readLine().trim();
+
+            String sql = "UPDATE buku SET judul='%s', pengarang='%s' WHERE id_buku=%d";
+            sql = String.format(sql, judul, pengarang, idBuku);
+
+            stmt.execute(sql);
+            System.out.println("Data berhasil diubah...");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    static void deleteBuku() {
+        try {
+            System.out.print("ID yang mau dihapus: ");
+            int idBuku = Integer.parseInt(input.readLine());
+
+            String sql = String.format("DELETE FROM buku WHERE id_buku=%d", idBuku);
+
+            stmt.execute(sql);
+            System.out.println("Data telah terhapus...");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+        </div>
+
+        <h3>Penjelasan Detail Implementasi</h3>
+
+        <h4>Class JavaCRUD</h4>
+        <p>
+          Kelas <code>JavaCRUD</code> adalah core component yang mengenkapsulasi seluruh business logic aplikasi perpustakaan. 
+          Kelas ini mendefinisikan konstanta-konstanta penting untuk koneksi database:
+        </p>
+        <ul>
+          <li>
+            <code>JDBC_DRIVER</code>: String identifier untuk MySQL JDBC driver class yang akan di-load oleh JVM.
+          </li>
+          <li>
+            <code>DB_URL</code>: Connection string dengan format <code>jdbc:mysql://host:port/database_name</code>. 
+            Localhost menunjukkan database server berjalan di mesin yang sama.
+          </li>
+          <li>
+            <code>USER</code> dan <code>PASS</code>: Kredensial autentikasi untuk akses database. 
+            Pada production, gunakan environment variables atau encrypted configuration.
+          </li>
+        </ul>
+        <p>
+          Objek JDBC (<code>Connection</code>, <code>Statement</code>, <code>ResultSet</code>) dideklarasikan sebagai static member 
+          agar dapat diakses oleh semua method dalam kelas tanpa perlu passing parameter berulang kali. 
+          <code>BufferedReader</code> digunakan untuk membaca input user dari console secara efisien.
+        </p>
+
+        <h4>Method main()</h4>
+        <p>
+          Entry point aplikasi yang bertanggung jawab untuk lifecycle management:
+        </p>
+        <ul>
+          <li>
+            <code>Class.forName(JDBC_DRIVER)</code> secara eksplisit memuat MySQL driver class ke dalam memory. 
+            Ini adalah requirement untuk JDBC driver registration di versi Java yang lebih lama.
+          </li>
+          <li>
+            <code>DriverManager.getConnection()</code> membuat koneksi aktif ke database server menggunakan kredensial yang diberikan. 
+            Koneksi ini akan dipertahankan selama aplikasi berjalan.
+          </li>
+          <li>
+            <code>stmt = conn.createStatement()</code> membuat Statement object yang akan digunakan untuk mengeksekusi SQL commands.
+          </li>
+          <li>
+            Loop <code>while (!conn.isClosed())</code> menjaga aplikasi tetap running dan terus menampilkan menu hingga user memilih exit.
+          </li>
+          <li>
+            Cleanup resources dengan <code>close()</code> dipanggil pada akhir program untuk mencegah resource leaks, 
+            meskipun dalam practice sebenarnya loop infinite akan menghalangi eksekusi baris ini.
+          </li>
+        </ul>
+
+        <h4>Method showMenu()</h4>
+        <p>
+          User interface console yang menyajikan menu navigasi aplikasi. Method ini:
+        </p>
+        <ul>
+          <li>
+            Menampilkan daftar operasi yang tersedia dengan numbering yang clear (1-4 untuk CRUD, 0 untuk exit).
+          </li>
+          <li>
+            Membaca input user menggunakan <code>BufferedReader.readLine()</code> dan mengkonversi ke integer dengan 
+            <code>Integer.parseInt()</code>.
+          </li>
+          <li>
+            Menggunakan <code>switch-case</code> statement untuk routing ke method yang sesuai berdasarkan pilihan user. 
+            Pattern ini memberikan clean separation of concerns.
+          </li>
+          <li>
+            Menangani invalid input dengan default case yang memberikan feedback error kepada user.
+          </li>
+          <li>
+            Exception handling memastikan aplikasi tidak crash saat user memasukkan input non-numeric.
+          </li>
+        </ul>
+
+        <h4>Method showData()</h4>
+        <p>
+          Implementasi operasi <strong>Read</strong> dalam CRUD:
+        </p>
+        <ul>
+          <li>
+            Menggunakan query <code>SELECT * FROM buku</code> untuk retrieve semua records dari tabel tanpa filtering.
+          </li>
+          <li>
+            <code>stmt.executeQuery()</code> menjalankan SELECT statement dan mengembalikan <code>ResultSet</code> yang berisi hasil query.
+          </li>
+          <li>
+            <code>ResultSet</code> di-iterate dengan <code>while (rs.next())</code>. Cursor awalnya berada sebelum row pertama, 
+            <code>next()</code> memindahkan cursor dan return true jika ada data.
+          </li>
+          <li>
+            Getter methods seperti <code>getInt()</code> dan <code>getString()</code> digunakan untuk extract data dari current row 
+            berdasarkan column name.
+          </li>
+          <li>
+            Data diformat dengan <code>String.format()</code> untuk tampilan yang rapi dan terstruktur di console.
+          </li>
+        </ul>
+
+        <h4>Method insertBuku()</h4>
+        <p>
+          Implementasi operasi <strong>Create</strong> dalam CRUD:
+        </p>
+        <ul>
+          <li>
+            Meminta input judul dan pengarang dari user melalui console prompt.
+          </li>
+          <li>
+            <code>trim()</code> digunakan untuk membersihkan whitespace di awal dan akhir string, mencegah data yang tidak rapi.
+          </li>
+          <li>
+            SQL INSERT statement dikonstruksi menggunakan <code>String.format()</code> untuk inject user input ke dalam query template. 
+            <strong>Note:</strong> Ini vulnerable terhadap SQL injection; production code harus menggunakan PreparedStatement.
+          </li>
+          <li>
+            <code>stmt.execute()</code> menjalankan INSERT command. Database akan auto-generate id_buku berkat AUTO_INCREMENT.
+          </li>
+          <li>
+            Feedback message diberikan kepada user untuk konfirmasi bahwa operasi berhasil.
+          </li>
+        </ul>
+
+        <h4>Method updateBuku()</h4>
+        <p>
+          Implementasi operasi <strong>Update</strong> dalam CRUD:
+        </p>
+        <ul>
+          <li>
+            Meminta user untuk specify ID buku yang akan di-update, memastikan operasi dilakukan pada record yang tepat.
+          </li>
+          <li>
+            User diminta memasukkan data baru untuk judul dan pengarang yang akan menggantikan nilai existing.
+          </li>
+          <li>
+            SQL UPDATE statement dengan <code>WHERE</code> clause memastikan hanya record dengan id_buku yang matching akan dimodifikasi.
+          </li>
+          <li>
+            Tanpa WHERE clause, semua records akan ter-update (dangerous operation).
+          </li>
+          <li>
+            Operasi ini tidak memvalidasi apakah ID exist; jika ID tidak ditemukan, query akan execute tapi tidak ada row yang affected.
+          </li>
+        </ul>
+
+        <h4>Method deleteBuku()</h4>
+        <p>
+          Implementasi operasi <strong>Delete</strong> dalam CRUD:
+        </p>
+        <ul>
+          <li>
+            User memasukkan ID buku yang akan dihapus dari database.
+          </li>
+          <li>
+            SQL DELETE statement dengan WHERE clause menghapus record specific berdasarkan primary key.
+          </li>
+          <li>
+            Operasi ini bersifat permanent dan irreversible. Production application sebaiknya implement soft delete 
+            atau confirmation dialog sebelum actual deletion.
+          </li>
+          <li>
+            <code>stmt.execute()</code> menjalankan deletion dan mengembalikan boolean indicating success/failure.
+          </li>
+          <li>
+            Seperti update, tidak ada validasi apakah ID exist before deletion attempt.
+          </li>
+        </ul>
+
+        <h3>Konsep Pemrograman yang Diterapkan</h3>
+        <ul>
+          <li>
+            <strong>JDBC (Java Database Connectivity):</strong> API standar Java untuk interaksi dengan database relasional. 
+            Menyediakan abstraksi yang memungkinkan aplikasi bekerja dengan berbagai database tanpa perubahan kode signifikan.
+          </li>
+          <li>
+            <strong>Database Connection Management:</strong> Membuat, mempertahankan, dan menutup koneksi database dengan proper 
+            resource handling untuk mencegah connection leaks.
+          </li>
+          <li>
+            <strong>SQL Query Execution:</strong> Mengeksekusi berbagai jenis SQL statements (SELECT, INSERT, UPDATE, DELETE) 
+            melalui JDBC Statement interface.
+          </li>
+          <li>
+            <strong>ResultSet Processing:</strong> Iterasi dan ekstraksi data dari query results menggunakan cursor-based navigation.
+          </li>
+          <li>
+            <strong>Exception Handling:</strong> Try-catch blocks untuk menangani SQLException dan IOException yang mungkin terjadi 
+            selama database operations atau user input.
+          </li>
+          <li>
+            <strong>Input/Output Streams:</strong> Menggunakan BufferedReader untuk efficient reading dari System.in untuk user interaction.
+          </li>
+          <li>
+            <strong>String Formatting:</strong> Konstruksi SQL queries dan output formatting menggunakan String.format() untuk readability.
+          </li>
+          <li>
+            <strong>Static Methods:</strong> Semua business logic diimplementasikan sebagai static methods untuk simplicity 
+            dalam console application context.
+          </li>
+          <li>
+            <strong>Control Flow:</strong> Switch-case statement untuk menu navigation dan while loop untuk persistent application state.
+          </li>
+        </ul>
+
+        <!-- Results Section with Responsive Images -->
+        <h3>Hasil Implementasi Program</h3>
+        <p>
+          Berikut adalah dokumentasi visual dari aplikasi CRUD Perpustakaan yang telah diimplementasikan. 
+          Screenshot menampilkan berbagai operasi yang dapat dilakukan dalam aplikasi ini.
+        </p>
+
+        <div class="image-container">
+          <img src="images/menu_utama_crud.png" alt="Menu Utama Aplikasi CRUD">
+          <div class="image-caption">
+            Gambar 1: Menu Utama Aplikasi CRUD Perpustakaan
+          </div>
+          <p class="image-description">
+            Tampilan menu utama aplikasi yang menampilkan 5 pilihan operasi: Insert Data (1), Show Data (2), 
+            Edit Data (3), Delete Data (4), dan Keluar (0). Interface yang sederhana dan intuitif memudahkan 
+            pengguna untuk memilih operasi yang ingin dilakukan.
+          </p>
+        </div>
+
+        <div class="image-container">
+          <img src="images/show_data_crud.png" alt="Menampilkan Data Buku">
+          <div class="image-caption">
+            Gambar 2: Operasi Show Data - Menampilkan Daftar Buku
+          </div>
+          <p class="image-description">
+            Hasil eksekusi operasi Show Data yang menampilkan semua buku yang tersimpan dalam database. 
+            Setiap buku ditampilkan dengan format: ID, Judul, dan Pengarang dalam tanda kurung. 
+            Data awal menampilkan dua buku sampel yang telah diinisialisasi saat setup database.
+          </p>
+        </div>
+
+        <div class="image-container">
+          <img src="images/insert_data_crud.png" alt="Menambahkan Data Buku Baru">
+          <div class="image-caption">
+            Gambar 3: Operasi Insert Data - Menambahkan Buku Baru
+          </div>
+          <p class="image-description">
+            Proses menambahkan buku baru ke database. Pengguna diminta memasukkan judul buku dan nama pengarang. 
+            Setelah data diinputkan, aplikasi mengeksekusi query INSERT dan menampilkan pesan konfirmasi 
+            "Data berhasil disimpan..." sebagai feedback bahwa operasi berhasil dilakukan.
+          </p>
+        </div>
+
+        <div class="image-container">
+          <img src="images/update_data_crud.png" alt="Mengubah Data Buku">
+          <div class="image-caption">
+            Gambar 4: Operasi Edit Data - Memperbarui Informasi Buku
+          </div>
+          <p class="image-description">
+            Proses update data buku existing. Pengguna memasukkan ID buku yang ingin diubah, 
+            kemudian memasukkan judul dan pengarang baru. Aplikasi mengeksekusi query UPDATE 
+            dan menampilkan konfirmasi "Data berhasil diubah..." untuk memberitahu bahwa 
+            perubahan telah tersimpan di database.
+          </p>
+        </div>
+
+        <div class="image-container">
+          <img src="images/delete_data_crud.png" alt="Menghapus Data Buku">
+          <div class="image-caption">
+            Gambar 5: Operasi Delete Data - Menghapus Buku dari Database
+          </div>
+          <p class="image-description">
+            Proses penghapusan buku dari database. Pengguna cukup memasukkan ID buku yang ingin dihapus, 
+            dan aplikasi akan mengeksekusi query DELETE. Pesan "Data telah terhapus..." ditampilkan 
+            sebagai konfirmasi bahwa record telah berhasil dihapus dari tabel buku.
+          </p>
+        </div>
+
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Project aplikasi CRUD Perpustakaan ini berhasil mendemonstrasikan implementasi lengkap dari operasi database fundamental 
+            menggunakan Java dan MySQL. Melalui penggunaan JDBC API, aplikasi dapat melakukan Create, Read, Update, dan Delete operations 
+            dengan efektif terhadap data buku dalam database relasional.
+          </p>
+          <p>
+            Implementasi ini memberikan pemahaman praktis tentang bagaimana aplikasi Java berkomunikasi dengan database server, 
+            menjalankan SQL queries, memproses result sets, dan menang
+          </p> 
+          <p> Secara keseluruhan, aplikasi ini berhasil memenuhi tujuan utama sebagai contoh implementasi CRUD sederhana namun fungsional. 
+            Pengembangan lebih lanjut dapat dilakukan dengan mengganti <code>Statement</code> menjadi <code>PreparedStatement</code> untuk keamanan yang lebih baik, 
+            menambahkan validasi input, atau meningkatkan antarmuka aplikasi menggunakan GUI seperti JavaFX atau Swing. Dengan demikian, 
+            aplikasi ini dapat menjadi dasar yang baik untuk pengembangan sistem manajemen data yang lebih kompleks di masa depan. 
+          </p> 
+        </div>
+      </div>
+    </article>
+
+       <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>
