@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Tugas PBO - Ahmad Loka Arziki</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styletugas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/java.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <h1>Dokumentasi Tugas PBO</h1>
+      <p>Ahmad Loka Arziki – 5025241044</p>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container nav-container">
+      <a href="index.html" class="logo">PBO Journal</a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="profil.html">Profil</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="index.html">Home</a> &gt; Tugas GUI Programming in Java
+    </div>
+
+    <!-- Article Detail -->
+    <article class="article-detail">
+      <div class="article-header">
+        <h2>Tugas GUI Programming in Java</h2>
+        <div class="meta">
+          <div class="date"><i class="far fa-calendar"></i> 23 November 2025</div>
+          <div class="duration"><i class="far fa-clock"></i> Waktu pengerjaan: 2 hari</div>
+        </div>
+        <div class="tags">
+          <span class="tag">Java</span>
+          <span class="tag">GUI</span>
+          <span class="tag">Swing</span>
+          <span class="tag">AWT</span>
+          <span class="tag">PBO</span>
+        </div>
+      </div>
+
+      <div class="article-content">
+        <h3>Pengantar GUI Programming</h3>
+        <p>
+          GUI atau <strong>Graphical User Interface</strong> merupakan antarmuka visual yang memungkinkan pengguna berinteraksi dengan aplikasi secara lebih intuitif. 
+          Dalam pengembangan aplikasi Java, <strong>Java Foundation Class (JFC)</strong> menyediakan seperangkat API yang powerful untuk membangun aplikasi GUI. 
+          JFC mencakup lima komponen utama, di antaranya adalah <em>AWT (Abstract Window Toolkit)</em> dan <em>Swing</em>.
+        </p>
+        <p>
+          Berbeda dengan komponen AWT yang menggunakan kode native, Swing sepenuhnya ditulis dalam bahasa Java murni. 
+          Hal ini memberikan keuntungan berupa implementasi yang platform-independent, artinya aplikasi yang dikembangkan dapat berjalan dengan tampilan konsisten 
+          di berbagai sistem operasi. Swing juga menawarkan fleksibilitas yang lebih besar dalam hal kustomisasi tampilan dan feel dari aplikasi.
+        </p>
+        <p>
+          Dalam tugas kali ini, saya mengimplementasikan dua project GUI menggunakan Java Swing dan AWT: 
+          <strong>Simple Login Panel</strong> untuk sistem autentikasi sederhana, dan <strong>Simple Image Viewer</strong> untuk aplikasi penampil dan manipulasi gambar.
+        </p>
+
+        <h3>Project 1: Simple Login Panel</h3>
+        <p>
+          Project pertama adalah aplikasi login sederhana yang mendemonstrasikan penggunaan komponen-komponen dasar Swing seperti JFrame, JPanel, JTextField, JButton, 
+          dan event handling dengan ActionListener. Aplikasi ini memvalidasi username dan password yang diinputkan oleh user.
+        </p>
+
+        <p><strong>Class Login.java</strong></p>
+        <div class="code-block">
+          <pre><code class="language-java">import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Login {
+    String Username = "james3302";
+    String Password = "pass";
+    String msg = " ";
+    JTextField txtUsername;
+    JTextField txtPassword;
+
+    public static void main(String[] args) {
+        Login gui = new Login();
+        gui.go();
+    }
+
+    public void go() {  
+        JFrame frame = new JFrame();  
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
+        JPanel panel = new JPanel();  
+        JLabel lblUsername = new JLabel("Username:");    
+        JLabel lblPassword = new JLabel("Password:");  
+        txtUsername = new JTextField(20);  
+        txtPassword = new JTextField(20);  
+        JButton btnLogin = new JButton("Login");  
+        btnLogin.addActionListener(new LoginListener());  
+        JButton btnCancel = new JButton("Cancel");  
+        btnCancel.addActionListener(new CancelListener());  
+        panel.add(lblUsername);  
+        panel.add(txtUsername);  
+        panel.add(lblPassword);  
+        panel.add(txtPassword);      
+        panel.add(btnLogin);  
+        panel.add(btnCancel); 
+        frame.getContentPane().add(BorderLayout.CENTER,panel);  
+        frame.setSize(300,150);  
+        frame.setVisible(true);  
+    }  
+
+    public class LoginListener implements ActionListener {  
+        public void actionPerformed(ActionEvent event) {  
+            if (Username.equals(txtUsername.getText())) {  
+                if (Password.equals(txtPassword.getText())) msg = "Login Granted!";  
+                else msg = "Login Denied";  
+            } else { 
+                msg = "Login Denied";  
+            }
+            JOptionPane.showMessageDialog(null,msg);            
+        }  
+    }
+
+    public class CancelListener implements ActionListener{  
+        public void actionPerformed(ActionEvent event){  
+            txtUsername.setText(" ");  
+            txtPassword.setText("");  
+            txtUsername.requestFocus();  
+        }  
+    }  
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode Login Panel:</strong></p>
+        <p>
+          Program dimulai dengan mengimpor library yang diperlukan yaitu <code>javax.swing.*</code>, <code>java.awt.*</code>, dan <code>java.awt.event.*</code>. 
+          Kelas <code>Login</code> memiliki beberapa atribut untuk menyimpan username dan password yang valid, serta komponen GUI berupa text field.
+        </p>
+        <p>
+          Metode <code>go()</code> bertanggung jawab untuk membangun interface pengguna. Di dalamnya dibuat <code>JFrame</code> sebagai window utama, 
+          <code>JPanel</code> sebagai container untuk komponen, serta komponen-komponen seperti <code>JLabel</code> untuk label, 
+          <code>JTextField</code> untuk input, dan <code>JButton</code> untuk tombol aksi.
+        </p>
+        <p>
+          Event handling diimplementasikan melalui inner class <code>LoginListener</code> dan <code>CancelListener</code> yang mengimplementasikan interface 
+          <code>ActionListener</code>. Ketika tombol Login diklik, program akan membandingkan input dengan kredensial yang tersimpan dan menampilkan 
+          dialog sesuai hasil validasi. Tombol Cancel berfungsi untuk mengosongkan field input.
+        </p>
+
+        <h3>Project 2: Simple Image Viewer</h3>
+        <p>
+          Project kedua adalah aplikasi image viewer yang lebih kompleks, melibatkan manipulasi gambar dan pemahaman tentang file handling, 
+          rendering grafis, serta menu bar. Aplikasi ini terdiri dari beberapa kelas yang bekerja sama untuk memberikan fungsionalitas lengkap.
+        </p>
+
+        <p><strong>Class OFImage.java</strong></p>
+        <div class="code-block">
+          <pre><code class="language-java">import java.awt.*;
+import java.awt.image.*;
+
+public class OFImage extends BufferedImage
+{
+    public OFImage(BufferedImage image) {
+        super(image.getColorModel(), image.copyData(null), image.isAlphaPremultiplied(), null);
+    }
+
+    public OFImage(int width, int height) {
+        super(width, height, TYPE_INT_RGB);
+    }
+
+    public void setPixel(int x, int y, Color col) {
+        int pixel = col.getRGB();
+        setRGB(x, y, pixel);
+    }
+
+    public Color getPixel(int x, int y) {
+        int pixel = getRGB(x, y);
+        return new Color(pixel);
+    }
+
+    public void darker() {
+        int height = getHeight();
+        int width = getWidth();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                setPixel(x, y, getPixel(x, y).darker());
+            }
+        }
+    }
+
+    public void lighter() {
+        int height = getHeight();
+        int width = getWidth();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                setPixel(x, y, getPixel(x, y).brighter());
+            }
+        }   
+    }
+
+    public void threshold() {
+        int height = getHeight();
+        int width = getWidth();
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color pixel = getPixel(x, y);
+                int brightness = (pixel.getRed() + pixel.getGreen() + pixel.getBlue()) / 3;
+                
+                if (brightness <= 85) {
+                    setPixel(x, y, Color.BLACK);
+                } else if (brightness <= 170) {
+                    setPixel(x, y, Color.GRAY);
+                } else {
+                    setPixel(x, y, Color.WHITE);
+                }
+            }
+        }
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode OFImage:</strong></p>
+        <p>
+          Kelas <code>OFImage</code> merupakan extends dari <code>BufferedImage</code> yang berfungsi sebagai representasi gambar dalam aplikasi. 
+          Kelas ini menyediakan konstruktor untuk membuat objek gambar baik dari BufferedImage yang sudah ada maupun dengan dimensi tertentu.
+        </p>
+        <p>
+          Metode <code>setPixel()</code> dan <code>getPixel()</code> memberikan akses langsung untuk memanipulasi warna piksel pada koordinat tertentu. 
+          Ketiga metode filter (<code>darker()</code>, <code>lighter()</code>, dan <code>threshold()</code>) mengiterasi setiap piksel gambar 
+          untuk menerapkan efek visual. Metode <code>threshold()</code> mengkonversi gambar menjadi tiga tingkat kecerahan berdasarkan nilai brightness rata-rata dari komponen RGB.
+        </p>
+
+        <p><strong>Class ImageFileManager.java</strong></p>
+        <div class="code-block">
+          <pre><code class="language-java">import java.awt.image.*;
+import javax.imageio.*;
+import java.io.*;
+
+public class ImageFileManager
+{
+    private static final String IMAGE_FORMAT = "jpg";
+
+    public static OFImage loadImage(File imageFile) {
+        try {
+            BufferedImage image = ImageIO.read(imageFile);
+            if(image == null || (image.getWidth(null) <= 0)) {
+                return null;
+            }
+            return new OFImage(image);
+        } catch (IOException exc) {
+            return null;
+        }
+    }
+
+    public static void saveImage(OFImage image, File file) {
+        try {
+            ImageIO.write(image, IMAGE_FORMAT, file);
+        } catch (IOException exc) {
+            return;
+        }
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode ImageFileManager:</strong></p>
+        <p>
+          Kelas utility ini menangani operasi input/output file gambar. Metode statis <code>loadImage()</code> menggunakan <code>ImageIO.read()</code> 
+          untuk membaca file gambar dan mengkonversinya menjadi objek <code>OFImage</code>. Validasi dilakukan untuk memastikan gambar berhasil dimuat dengan benar.
+        </p>
+        <p>
+          Metode <code>saveImage()</code> menggunakan <code>ImageIO.write()</code> untuk menyimpan objek OFImage ke dalam file dengan format JPG. 
+          Exception handling dengan try-catch memastikan aplikasi tidak crash jika terjadi error saat membaca atau menulis file.
+        </p>
+
+        <p><strong>Class ImagePanel.java</strong></p>
+        <div class="code-block">
+          <pre><code class="language-java">import java.awt.*;
+import javax.swing.*;
+
+public class ImagePanel extends JComponent
+{
+    private int width, height;
+    private OFImage panelImage;
+
+    public ImagePanel() {
+        width = 360;
+        height = 240;
+        panelImage = null;
+    }
+
+    public void setImage(OFImage image) {
+        if(image != null) {
+            width = image.getWidth();
+            height = image.getHeight();
+            panelImage = image;
+            repaint();
+        }
+    }
+
+    public void clearImage() {
+        Graphics imageGraphics = panelImage.getGraphics();
+        imageGraphics.setColor(Color.LIGHT_GRAY);
+        imageGraphics.fillRect(0, 0, width, height);
+        repaint();
+    }
+
+    public Dimension getPreferredSize() {
+        return new Dimension(width, height);
+    }
+
+    public void paintComponent(Graphics g) {
+        Dimension size = getSize();
+        g.clearRect(0, 0, size.width, size.height);
+        if(panelImage != null) {
+            g.drawImage(panelImage, 0, 0, null);
+        }
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode ImagePanel:</strong></p>
+        <p>
+          <code>ImagePanel</code> adalah custom component yang extends <code>JComponent</code>, berfungsi sebagai canvas untuk menampilkan gambar. 
+          Konstruktor menginisialisasi dimensi default panel dan mengatur gambar sebagai null.
+        </p>
+        <p>
+          Metode <code>setImage()</code> memperbarui gambar yang ditampilkan dan menyesuaikan ukuran panel sesuai dimensi gambar, kemudian memanggil 
+          <code>repaint()</code> untuk refresh tampilan. Metode <code>clearImage()</code> mengisi panel dengan warna abu-abu terang.
+        </p>
+        <p>
+          Override metode <code>paintComponent()</code> menangani rendering gambar ke layar menggunakan objek <code>Graphics</code>. 
+          Metode <code>getPreferredSize()</code> mengembalikan dimensi yang diinginkan untuk keperluan layout manager.
+        </p>
+
+        <p><strong>Class ImageViewer.java</strong></p>
+        <div class="code-block">
+          <pre><code class="language-java">import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.File;
+
+public class ImageViewer
+{
+    private static final String VERSION = "Version 1.0";
+    private static JFileChooser fileChooser = new JFileChooser(System.getProperty("user.dir"));
+
+    private JFrame frame;
+    private ImagePanel imagePanel;
+    private JLabel filenameLabel;
+    private JLabel statusLabel;
+    private OFImage currentImage;
+
+    public ImageViewer() {
+        currentImage = null;
+        makeFrame();
+    }
+
+    public static void main(String[] args) {
+        new ImageViewer();
+    }
+
+    private void openFile() {
+        int returnVal = fileChooser.showOpenDialog(frame);
+
+        if(returnVal != JFileChooser.APPROVE_OPTION) {
+            return;
+        }
+        File selectedFile = fileChooser.getSelectedFile();
+        currentImage = ImageFileManager.loadImage(selectedFile);
+
+        if(currentImage == null) {
+            JOptionPane.showMessageDialog(frame, "The file was not in a recognized image file format.", "Image Load Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        imagePanel.setImage(currentImage);
+        showFilename(selectedFile.getPath());
+        showStatus("File loaded.");
+        frame.pack();
+    }
+
+    private void close() {
+        currentImage = null;
+        imagePanel.clearImage();
+        showFilename(null);
+    }
+
+    private void quit() {
+        System.exit(0);
+    }
+
+    private void makeDarker() {
+        if(currentImage != null) {
+            currentImage.darker();
+            frame.repaint();
+            showStatus("Applied: darker");
+        } else {
+            showStatus("No image loaded.");
+        }
+    }
+
+    private void makeLighter() {
+        if(currentImage != null) {
+            currentImage.lighter();
+            frame.repaint();
+            showStatus("Applied: lighter");
+        } else {
+            showStatus("No image loaded.");
+        }
+    }
+
+    private void threshold() {
+        if(currentImage != null) {
+            currentImage.threshold();
+            frame.repaint();
+            showStatus("Applied: threshold");
+        } else {
+            showStatus("No image loaded.");
+        }
+    }
+
+    private void showAbout() {
+        JOptionPane.showMessageDialog(frame, "ImageViewer\n" + VERSION, "About ImageViewer", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showFilename(String filename) {
+        if(filename ==null) {
+            filenameLabel.setText("No file displayed.");
+        } else {
+            filenameLabel.setText("File: " + filename);
+        }
+    }
+
+    private void showStatus(String status) {
+        statusLabel.setText(status);
+    }
+
+    private void makeFrame() {
+        frame = new JFrame("ImageViewer");
+        makeMenuBar(frame);
+
+        Container contentPane = frame.getContentPane();
+        contentPane.setLayout(new BorderLayout(6, 6));
+
+        filenameLabel = new JLabel();
+        contentPane.add(filenameLabel, BorderLayout.NORTH);
+
+        imagePanel = new ImagePanel();
+        contentPane.add(imagePanel, BorderLayout.CENTER);
+
+        statusLabel = new JLabel(VERSION);
+        contentPane.add(statusLabel, BorderLayout.SOUTH);
+
+        showFilename(null);
+        frame.pack();
+
+        Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
+        frame.setLocation(d.width/2 - frame.getWidth()/2, d.height/2 - frame.getHeight()/2);
+        frame.setVisible(true);
+    }
+
+    private void makeMenuBar(JFrame frame) {
+        final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMaskEx();
+
+        JMenuBar menubar = new JMenuBar();
+        frame.setJMenuBar(menubar);
+
+        JMenu menu;
+        JMenuItem item;
+
+        menu = new JMenu("File");
+        menubar.add(menu);
+
+        item = new JMenuItem("Open");
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, SHORTCUT_MASK));
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { openFile();}});
+        menu.add(item);
+
+        item = new JMenuItem("Close");
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, SHORTCUT_MASK));
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { close();}});
+
+        menu.add(item);
+        menu.addSeparator();
+
+        item = new JMenuItem("Quit");
+        item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, SHORTCUT_MASK));
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { quit();}});
+        menu.add(item);
+
+        menu = new JMenu("Filter");
+        menubar.add(menu);
+
+        item = new JMenuItem("Darker");
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { makeDarker(); }});
+        menu.add(item);
+
+        item = new JMenuItem("Lighter");
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { makeLighter(); }});
+        menu.add(item);
+
+        item = new JMenuItem("Threshold");
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { threshold(); }});
+        menu.add(item);
+
+        menu = new JMenu("Help");
+        menubar.add(menu);
+
+        item = new JMenuItem("About ImageViewer...");
+        item.addActionListener(new ActionListener() { public void actionPerformed(ActionEvent e) { showAbout(); }});
+        menu.add(item);
+    }
+}</code></pre>
+        </div>
+
+        <p><strong>Penjelasan Kode ImageViewer:</strong></p>
+        <p>
+          <code>ImageViewer</code> adalah kelas utama yang mengintegrasikan semua komponen aplikasi. Konstruktor menginisialisasi aplikasi dan memanggil 
+          <code>makeFrame()</code> untuk membangun GUI. Atribut kelas menyimpan referensi ke frame utama, panel gambar, label informasi, dan gambar yang sedang ditampilkan.
+        </p>
+        <p>
+          Metode <code>openFile()</code> menggunakan <code>JFileChooser</code> untuk membuka dialog pemilihan file. Setelah file dipilih, 
+          gambar dimuat menggunakan <code>ImageFileManager</code> dan ditampilkan di panel. Validasi error dilakukan untuk menangani file yang tidak valid.
+        </p>
+        <p>
+          Metode filter (<code>makeDarker()</code>, <code>makeLighter()</code>, <code>threshold()</code>) memanggil metode yang sesuai pada objek 
+          <code>currentImage</code> dan memperbarui tampilan. Setiap operasi mengupdate status bar untuk memberi feedback kepada pengguna.
+        </p>
+        <p>
+          Metode <code>makeFrame()</code> membangun struktur GUI menggunakan <code>BorderLayout</code> dengan label di bagian atas dan bawah, 
+          serta panel gambar di tengah. Frame diposisikan di tengah layar menggunakan <code>Toolkit</code>.
+        </p>
+        <p>
+          Metode <code>makeMenuBar()</code> membuat menu bar lengkap dengan menu File, Filter, dan Help. Setiap menu item dilengkapi dengan 
+          ActionListener dan keyboard shortcut untuk meningkatkan user experience.
+        </p>
+
+        <h3>Konsep Pemrograman yang Diterapkan</h3>
+        <ul>
+          <li>
+            <strong>Event-Driven Programming:</strong> Menggunakan ActionListener untuk menangani event dari user seperti klik tombol atau pilihan menu.
+          </li>
+          <li>
+            <strong>Object-Oriented Design:</strong> Pemisahan concern dengan membuat kelas-kelas terpisah untuk image manipulation (OFImage), 
+            file handling (ImageFileManager), display (ImagePanel), dan main controller (ImageViewer/Login).
+          </li>
+          <li>
+            <strong>Inheritance dan Polymorphism:</strong> OFImage extends BufferedImage, ImagePanel extends JComponent untuk memanfaatkan 
+            fungsionalitas existing class sambil menambahkan behavior custom.
+          </li>
+          <li>
+            <strong>Encapsulation:</strong> Menggunakan access modifier private untuk atribut dan menyediakan metode public untuk interaksi.
+          </li>
+          <li>
+            <strong>Exception Handling:</strong> Try-catch block untuk menangani IOException dan error lainnya dengan graceful.
+          </li>
+          <li>
+            <strong>GUI Layout Management:</strong> Penggunaan BorderLayout untuk mengatur tata letak komponen secara responsif.
+          </li>
+        </ul>
+
+        <div class="conclusion">
+          <h3>Kesimpulan</h3>
+          <p>
+            Melalui implementasi kedua project ini, saya berhasil memahami konsep fundamental GUI programming dalam Java menggunakan Swing dan AWT. 
+            <strong>Simple Login Panel</strong> mendemonstrasikan dasar-dasar pembuatan form dan validasi input, sedangkan <strong>Simple Image Viewer</strong> 
+            menunjukkan aplikasi yang lebih kompleks dengan file handling, image manipulation, dan menu navigation.
+          </p>
+          <p>
+            Kedua aplikasi ini membuktikan bahwa Java menyediakan framework yang powerful dan fleksibel untuk membangun aplikasi desktop dengan 
+            antarmuka grafis yang user-friendly. Pemahaman tentang event handling, component hierarchy, dan layout management merupakan fondasi 
+            penting dalam pengembangan aplikasi GUI yang lebih kompleks di masa depan.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <!-- Navigation Between Articles -->
+    <div class="article-navigation">
+      <a href="#" class="nav-button">
+        <i class="fas fa-arrow-left"></i> Tugas Sebelumnya
+      </a>
+      <a href="index.html" class="nav-button">
+        <i class="fas fa-home"></i> Kembali ke Beranda
+      </a>
+      <a href="#" class="nav-button">
+        Tugas Selanjutnya <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="social-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-linkedin"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+    </div>
+    <div class="container">
+      <p>© 2025 Ahmad Loka Arziki – Dokumentasi Tugas PBO</p>
+    </div>
+  </footer>
+</body>
+</html>
